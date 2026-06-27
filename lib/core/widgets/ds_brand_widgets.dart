@@ -2,7 +2,6 @@ import 'package:dr_swift_diagnostics/core/constants/asset_paths.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_asset_image.dart';
-import 'package:dr_swift_diagnostics/core/widgets/ds_scaffold.dart';
 import 'package:flutter/material.dart';
 
 /// App header matching mockup screen 2: logo left, notification bell right.
@@ -41,7 +40,7 @@ class DsAppHeader extends StatelessWidget {
                   'Dr Swift',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w700,
-                        letterSpacing: -0.2,
+                        letterSpacing: 0,
                       ),
                 ),
                 Text(

@@ -3,23 +3,22 @@ import 'package:flutter/material.dart';
 
 abstract final class AppTypography {
   static TextTheme textTheme(Brightness brightness) {
-    final color = brightness == Brightness.light
-        ? AppColors.textPrimary
-        : Colors.white;
+    final color =
+        brightness == Brightness.light ? AppColors.textPrimary : Colors.white;
 
     return TextTheme(
       displayLarge: TextStyle(
         fontSize: 32,
         fontWeight: FontWeight.w700,
         height: 1.15,
-        letterSpacing: -0.5,
+        letterSpacing: 0,
         color: color,
       ),
       displayMedium: TextStyle(
         fontSize: 28,
         fontWeight: FontWeight.w700,
         height: 1.2,
-        letterSpacing: -0.3,
+        letterSpacing: 0,
         color: color,
       ),
       headlineLarge: TextStyle(
@@ -58,7 +57,7 @@ abstract final class AppTypography {
         height: 1.5,
         color: color,
       ),
-      bodySmall: TextStyle(
+      bodySmall: const TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.w400,
         height: 1.45,

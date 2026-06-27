@@ -1,4 +1,3 @@
-import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_brand_widgets.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_category_tile.dart';

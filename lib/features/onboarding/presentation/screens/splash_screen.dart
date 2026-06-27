@@ -42,38 +42,38 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: AppColors.onboardingBg,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
+          padding: EdgeInsets.symmetric(horizontal: AppSpacing.xl),
           child: Column(
             children: [
-              const Spacer(),
-              const DsOnboardingHeader(),
-              const SizedBox(height: AppSpacing.xxl),
-              const DsFeatureRow(
+              Spacer(),
+              DsOnboardingHeader(),
+              SizedBox(height: AppSpacing.xxl),
+              DsFeatureRow(
                 iconAsset: AssetPaths.bookTests,
                 label: 'At-home sample collection',
               ),
-              const DsFeatureRow(
+              DsFeatureRow(
                 iconAsset: AssetPaths.downloadAnytime,
                 label: 'Same-day digital reports',
               ),
-              const DsFeatureRow(
+              DsFeatureRow(
                 iconAsset: AssetPaths.flask,
                 label: '200+ diagnostic tests',
               ),
-              const DsFeatureRow(
+              DsFeatureRow(
                 iconAsset: AssetPaths.addFamily,
                 label: 'One account for the whole family',
               ),
-              const DsFeatureRow(
+              DsFeatureRow(
                 iconAsset: AssetPaths.compareHistory,
                 label: 'Historical data & trend graphs',
               ),
-              const Spacer(),
-              const SizedBox(
+              Spacer(),
+              SizedBox(
                 width: 28,
                 height: 28,
                 child: CircularProgressIndicator(
@@ -81,7 +81,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                   strokeWidth: 2.5,
                 ),
               ),
-              const SizedBox(height: AppSpacing.xxl),
+              SizedBox(height: AppSpacing.xxl),
             ],
           ),
         ),
