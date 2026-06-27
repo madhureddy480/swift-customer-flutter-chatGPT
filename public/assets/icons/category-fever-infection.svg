@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2.716 -3.966 142.682 142.682" role="img" aria-labelledby="title desc">
+  <title id="title">Fever and Infection</title>
+  <desc id="desc">Purple virus infection icon with spikes and inner dots.</desc>
+  <defs>
+    <linearGradient id="fStroke" x1="31" y1="23" x2="96" y2="104" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#b16aff"/>
+      <stop offset="1" stop-color="#7a34de"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#8842e6" flood-opacity=".18"/>
+    </filter>
+  </defs>
+  <g filter="url(#soft)" fill="none" stroke="url(#fStroke)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M39 38L47 45M89 83L96 90M33 70L43 66M95 59L105 55M55 26L57 38M73 90L75 102M40 91L48 82M83 36L92 29"/>
+    <circle cx="38" cy="37" r="4" fill="#8d40e6" stroke="none"/>
+    <circle cx="99" cy="92" r="4" fill="#8d40e6" stroke="none"/>
+    <circle cx="29" cy="72" r="4" fill="#8d40e6" stroke="none"/>
+    <circle cx="108" cy="54" r="4" fill="#8d40e6" stroke="none"/>
+    <circle cx="54" cy="24" r="4" fill="#8d40e6" stroke="none"/>
+    <circle cx="76" cy="105" r="4" fill="#8d40e6" stroke="none"/>
+    <circle cx="38" cy="95" r="4" fill="#8d40e6" stroke="none"/>
+    <circle cx="94" cy="27" r="4" fill="#8d40e6" stroke="none"/>
+  </g>
+  <ellipse cx="64" cy="64" rx="27" ry="21" transform="rotate(-28 64 64)" fill="#f3e7ff" fill-opacity=".7" stroke="url(#fStroke)" stroke-width="5"/>
+  <g fill="#8d40e6" opacity=".86">
+    <circle cx="54" cy="60" r="4"/>
+    <circle cx="70" cy="53" r="3.5"/>
+    <circle cx="72" cy="73" r="3.5"/>
+  </g>
+  <path d="M56 78C61 80.5 67 79.5 71 75" fill="none" stroke="#8d40e6" stroke-width="5" stroke-linecap="round" opacity=".72" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="135" height="120" viewBox="0 0 135 120">
+
+  <defs>
+    <linearGradient id="purpleGrad" x1="-20" y1="-26" x2="20" y2="28" gradientUnits="userSpaceOnUse"><stop stop-color="#6f2cff"/><stop offset="1" stop-color="#321082"/></linearGradient>
+    <linearGradient id="purpleFill" x1="0" y1="0" x2="0" y2="25" gradientUnits="userSpaceOnUse"><stop stop-color="#ede7ff"/><stop offset="1" stop-color="#cab8ff"/></linearGradient>
+    <linearGradient id="blueGrad" x1="-18" y1="-25" x2="18" y2="26" gradientUnits="userSpaceOnUse"><stop stop-color="#1192ff"/><stop offset="1" stop-color="#1663db"/></linearGradient>
+    <linearGradient id="blueFill" x1="0" y1="-25" x2="0" y2="25" gradientUnits="userSpaceOnUse"><stop stop-color="#eff8ff"/><stop offset="1" stop-color="#dcedff"/></linearGradient>
+    <linearGradient id="orangeGrad" x1="-30" y1="-25" x2="30" y2="33" gradientUnits="userSpaceOnUse"><stop stop-color="#ff9b00"/><stop offset="1" stop-color="#ff5a15"/></linearGradient>
+    <linearGradient id="greenGrad" x1="-25" y1="-26" x2="25" y2="23" gradientUnits="userSpaceOnUse"><stop stop-color="#49d661"/><stop offset="1" stop-color="#1dac42"/></linearGradient>
+    <linearGradient id="greenFill" x1="0" y1="-20" x2="0" y2="23" gradientUnits="userSpaceOnUse"><stop stop-color="#e9ffeb"/><stop offset="1" stop-color="#c8f8cf"/></linearGradient>
+    <linearGradient id="heartGrad" x1="-20" y1="-23" x2="19" y2="26" gradientUnits="userSpaceOnUse"><stop stop-color="#ff7b6f"/><stop offset=".55" stop-color="#ff343d"/><stop offset="1" stop-color="#d70f18"/></linearGradient>
+    <linearGradient id="dropGrad" x1="-17" y1="-31" x2="20" y2="30" gradientUnits="userSpaceOnUse"><stop stop-color="#ff9a45"/><stop offset=".55" stop-color="#ff7132"/><stop offset="1" stop-color="#e84718"/></linearGradient>
+    <linearGradient id="kidneyGrad" x1="-25" y1="-24" x2="28" y2="32" gradientUnits="userSpaceOnUse"><stop stop-color="#ffa000"/><stop offset="1" stop-color="#ffb300"/></linearGradient>
+    <linearGradient id="kidneyFill" x1="0" y1="-24" x2="0" y2="25" gradientUnits="userSpaceOnUse"><stop stop-color="#fff9dd"/><stop offset="1" stop-color="#fff0bb"/></linearGradient>
+    <linearGradient id="liverGrad" x1="-31" y1="-25" x2="32" y2="18" gradientUnits="userSpaceOnUse"><stop stop-color="#48baff"/><stop offset="1" stop-color="#207ded"/></linearGradient>
+    <linearGradient id="liverGrad2" x1="12" y1="-18" x2="38" y2="16" gradientUnits="userSpaceOnUse"><stop stop-color="#dff3ff"/><stop offset="1" stop-color="#54a6ff"/></linearGradient>
+    <linearGradient id="thyroidFill" x1="-32" y1="-25" x2="30" y2="24" gradientUnits="userSpaceOnUse"><stop stop-color="#e5fffe"/><stop offset="1" stop-color="#bdf4ef"/></linearGradient>
+    <linearGradient id="leafGrad" x1="-32" y1="-27" x2="30" y2="27" gradientUnits="userSpaceOnUse"><stop stop-color="#67db69"/><stop offset="1" stop-color="#1ba83a"/></linearGradient>
+    <linearGradient id="leafFill" x1="0" y1="-27" x2="24" y2="7" gradientUnits="userSpaceOnUse"><stop stop-color="#ecffec"/><stop offset="1" stop-color="#c8facb"/></linearGradient>
+    <linearGradient id="leafFill2" x1="-31" y1="1" x2="-2" y2="23" gradientUnits="userSpaceOnUse"><stop stop-color="#f0fff0"/><stop offset="1" stop-color="#d8fbd7"/></linearGradient>
+    <linearGradient id="virusGrad" x1="-34" y1="-36" x2="33" y2="34" gradientUnits="userSpaceOnUse"><stop stop-color="#a652ff"/><stop offset="1" stop-color="#672ad2"/></linearGradient>
+    <linearGradient id="virusFill" x1="0" y1="-18" x2="0" y2="18" gradientUnits="userSpaceOnUse"><stop stop-color="#faf4ff"/><stop offset="1" stop-color="#eee1ff"/></linearGradient>
+    <filter id="softShadow" x="-20%" y="-25%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#100a3a" flood-opacity=".055"/></filter>
+    <filter id="iconGlow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="2" stdDeviation="1.4" flood-color="#000000" flood-opacity=".12"/></filter>
+  </defs>
+
+  <rect width="135" height="120" fill="none"/>
+  <g transform="translate(67.5 38)">
+    <g fill="none" stroke="url(#orangeGrad)" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0 -13c-6-10-21-4-17 7 2 6 9 11 17 18 8-7 15-12 17-18 4-11-11-17-17-7Z"/>
+      <path d="M-25 5c5 1 10 5 15 11l7 8"/>
+      <path d="M-22 22c-3-7-6-13-12-15-1 8 3 18 13 25"/>
+      <path d="M25 5c-5 1-10 5-15 11l-7 8"/>
+      <path d="M22 22c3-7 6-13 12-15 1 8-3 18-13 25"/>
+    </g>
+    </g>
+</svg>

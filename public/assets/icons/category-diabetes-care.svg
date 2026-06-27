@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-4.204 -8.454 136.659 136.659" role="img" aria-labelledby="title desc">
+  <title id="title">Diabetes Care</title>
+  <desc id="desc">Orange blood drop with white medical plus.</desc>
+  <defs>
+    <linearGradient id="dFill" x1="44" y1="20" x2="82" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff9b51"/>
+      <stop offset=".58" stop-color="#ff7f3f"/>
+      <stop offset="1" stop-color="#f29b20"/>
+    </linearGradient>
+    <linearGradient id="dStroke" x1="43" y1="18" x2="85" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff8a4a"/>
+      <stop offset="1" stop-color="#f5a400"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#ff8a3d" flood-opacity=".22"/>
+    </filter>
+  </defs>
+  <path filter="url(#soft)" d="M64 17C53.2 34.2 42 49.4 42 66.8C42 83.8 51.7 95 64 95C76.3 95 86 83.8 86 66.8C86 49.4 74.8 34.2 64 17Z" fill="url(#dFill)" stroke="url(#dStroke)" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M55 65H73M64 56V74" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M54 39C58 33 61 28 64 23" fill="none" stroke="#fff5e9" stroke-width="5" stroke-linecap="round" opacity=".72" stroke-linejoin="round"/>
+</svg>

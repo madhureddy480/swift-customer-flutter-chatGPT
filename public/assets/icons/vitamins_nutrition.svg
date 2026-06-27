@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Vitamins and Nutrition</title>
+  <desc id="desc">Green nutrition sprout with large leaf and smaller leaves.</desc>
+  <defs>
+    <linearGradient id="vFill" x1="30" y1="31" x2="95" y2="91" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7de27f"/>
+      <stop offset="1" stop-color="#35b84a"/>
+    </linearGradient>
+    <linearGradient id="vStroke" x1="26" y1="31" x2="103" y2="97" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38bd51"/>
+      <stop offset="1" stop-color="#249e43"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#2fae48" flood-opacity=".18"/>
+    </filter>
+  </defs>
+  <g filter="url(#soft)" fill="none" stroke="url(#vStroke)" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M56 93C57.5 70.4 67.7 49.5 93 34"/>
+    <path d="M62.5 67C78.3 66.1 92.8 55.2 97.3 33.5C76.1 32.9 61.2 45.4 62.5 67Z" fill="url(#vFill)" fill-opacity=".65"/>
+    <path d="M51.5 76.4C43.1 73.6 35.6 65.1 35.9 53.2C48.1 54.3 56.7 62.5 57.8 72.3" fill="#e7f9e8" fill-opacity=".45"/>
+    <path d="M52.8 69.2C48.2 64.2 42.7 61.2 36.2 59.6"/>
+    <path d="M82.4 48.5C75.4 52.5 69.3 58.5 64.8 66.4"/>
+  </g>
+</svg>

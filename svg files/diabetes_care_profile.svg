@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Diabetes Care Profile</title>
+  <desc id="desc">Package icon with orange test strip and blood drop inside a pale yellow circular badge.</desc>
+  <defs>
+    <radialGradient id="badge" cx="42" cy="38" r="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff8ea"/>
+      <stop offset="1" stop-color="#ffecc1"/>
+    </radialGradient>
+    <linearGradient id="orange" x1="36" y1="34" x2="91" y2="92" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffc55a"/>
+      <stop offset="1" stop-color="#ffaf2e"/>
+    </linearGradient>
+  </defs>
+  <circle cx="64" cy="64" r="45" fill="url(#badge)"/>
+  <g fill="none" stroke="url(#orange)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M39 36H57L65 44V83C65 88.2 60.8 92 55.8 92H48.2C43.2 92 39 88.2 39 83V36Z" fill="#fff9ee" fill-opacity=".44"/>
+    <path d="M57 36V45H65"/>
+    <path d="M47 51H56M47 64H57M47 77H56"/>
+    <circle cx="52" cy="58" r="2.3" fill="#ffb43b" stroke="none"/>
+    <circle cx="52" cy="71" r="2.3" fill="#ffb43b" stroke="none"/>
+    <path d="M82 43C74.7 54.6 69 63.4 69 74.8C69 85.2 74.4 92 82 92C89.6 92 95 85.2 95 74.8C95 63.4 89.3 54.6 82 43Z" fill="#fff9ee" fill-opacity=".35"/>
+    <path d="M76.5 75H87.5M82 69.5V80.5"/>
+  </g>
+</svg>
