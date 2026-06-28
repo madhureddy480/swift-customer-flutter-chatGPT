@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Heart Health</title>
+  <desc id="desc">Pink and red heart icon matching the Dr Swift health category style.</desc>
+  <defs>
+    <linearGradient id="hFill" x1="35" y1="28" x2="92" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff9c94"/>
+      <stop offset="1" stop-color="#f05f65"/>
+    </linearGradient>
+    <linearGradient id="hStroke" x1="32" y1="30" x2="94" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff595f"/>
+      <stop offset="1" stop-color="#d82c42"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#e9384e" flood-opacity=".22"/>
+    </filter>
+  </defs>
+  <path filter="url(#soft)" d="M64 100C57.5 94.5 46.6 85.8 36.4 75.5C24.7 63.7 23.4 47.7 32.7 38C40.7 29.6 54.6 31.6 64 44.2C73.4 31.6 87.3 29.6 95.3 38C104.6 47.7 103.3 63.7 91.6 75.5C81.4 85.8 70.5 94.5 64 100Z" fill="url(#hFill)" stroke="url(#hStroke)" stroke-width="5.2" stroke-linejoin="round"/>
+  <path d="M73.4 39.5C80.6 33.8 92.8 38 95.4 49.7" fill="none" stroke="#fff7f7" stroke-width="4" stroke-linecap="round" opacity=".78"/>
+</svg>

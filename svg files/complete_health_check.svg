@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Complete Health Check</title>
+  <desc id="desc">Package icon showing a red heart inside a pale pink circular badge.</desc>
+  <defs>
+    <radialGradient id="badge" cx="42" cy="38" r="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff3f4"/>
+      <stop offset="1" stop-color="#ffd8dc"/>
+    </radialGradient>
+    <linearGradient id="hFill" x1="43" y1="37" x2="84" y2="88" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff9c94"/>
+      <stop offset="1" stop-color="#f05f65"/>
+    </linearGradient>
+    <linearGradient id="hStroke" x1="40" y1="38" x2="87" y2="89" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff595f"/>
+      <stop offset="1" stop-color="#d82c42"/>
+    </linearGradient>
+  </defs>
+  <circle cx="64" cy="64" r="45" fill="url(#badge)"/>
+  <path d="M64 91C59.6 87.3 52.1 81.2 45.1 74.1C36.9 65.8 36.1 54.5 42.5 47.7C48.2 41.7 57.7 43.2 64 51.8C70.3 43.2 79.8 41.7 85.5 47.7C91.9 54.5 91.1 65.8 82.9 74.1C75.9 81.2 68.4 87.3 64 91Z" fill="url(#hFill)" stroke="url(#hStroke)" stroke-width="4.6" stroke-linejoin="round"/>
+  <path d="M70.5 48.6C75.3 44.8 83.5 47.7 85.3 55.6" fill="none" stroke="#fff7f7" stroke-width="3.3" stroke-linecap="round" opacity=".78"/>
+</svg>

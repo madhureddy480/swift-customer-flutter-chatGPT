@@ -1,0 +1,244 @@
+You are a senior Flutter architect and staff mobile engineer.
+
+Build a production-grade Flutter application named "Dr Swift Diagnostics" for both Android and iOS.
+
+This is a healthcare diagnostics application similar in quality to Apollo Diagnostics, Orange Health, and Healthians.
+
+The objective is to create a scalable, maintainable, enterprise-ready codebase—not an MVP or tutorial project.
+
+## Technology Stack
+
+Flutter 3.x (latest stable)
+Dart 3
+Riverpod (state management)
+GoRouter (navigation)
+Freezed + Json Serializable (models)
+Dio (REST client)
+Firebase Authentication
+Firebase Core
+Google Sign-In
+Apple Sign-In
+Flutter Secure Storage
+JWT Authentication
+Supabase PostgreSQL (accessed only through backend APIs)
+Firebase Crashlytics
+Firebase Analytics
+CachedNetworkImage
+Flutter SVG
+FL Chart
+Intl
+Permission Handler
+Share Plus
+
+Never use Provider, GetX, BLoC, MVC, or singleton-heavy architecture.
+
+---
+
+## Architecture
+
+Use Feature-First Clean Architecture.
+
+lib/
+  core/
+    config/
+    constants/
+    errors/
+    network/
+    services/
+    storage/
+    theme/
+    utils/
+    widgets/
+  features/
+    authentication/
+    onboarding/
+    home/
+    categories/
+    tests/
+    cart/
+    booking/
+    reports/
+    dashboard/
+    profile/
+    family/
+    notifications/
+    orders/
+    addresses/
+  routing/
+  main.dart
+
+Separate data, domain, and presentation layers for every feature.
+
+Use immutable models with Freezed.
+
+Repository pattern only.
+
+No business logic inside widgets.
+
+---
+
+## Authentication
+
+Implement:
+
+- Splash
+- 3-page onboarding
+- Phone OTP login using Firebase Authentication
+- Google Sign-In
+- Apple Sign-In (iOS)
+- Verify Firebase ID token with backend
+- Backend returns JWT
+- Store JWT securely
+- Automatic token refresh
+- Logout
+
+---
+
+## Backend Integration
+
+Assume an existing CMS already contains:
+
+- 100+ diagnostic tests
+- categories
+- pricing
+- health profiles
+- offers
+- reports
+
+Flutter must consume REST APIs only.
+
+Never query Supabase directly.
+
+Use Dio interceptors for JWT authentication and automatic refresh.
+
+---
+
+## Modules
+
+Authentication
+
+Home Dashboard
+
+Search Tests
+
+Categories
+
+Health Profiles
+
+Test Details
+
+Cart
+
+Booking
+
+Payment placeholder
+
+Orders
+
+Reports
+
+Health Dashboard
+
+Family Members
+
+Addresses
+
+Notifications
+
+Profile
+
+Settings
+
+Support
+
+---
+
+## UI
+
+Use Material 3.
+
+Adaptive layout for Android and iOS.
+
+Pixel-perfect implementation inspired by the provided Dr Swift Diagnostics design.
+
+Use reusable widgets.
+
+Support dark mode.
+
+Responsive typography.
+
+Accessibility labels.
+
+Skeleton loaders.
+
+Pull-to-refresh.
+
+Infinite scrolling where applicable.
+
+Proper empty states.
+
+Offline state.
+
+Error states.
+
+---
+
+## API Layer
+
+Create:
+
+ApiClient
+
+ApiInterceptor
+
+AuthInterceptor
+
+RetryInterceptor
+
+Repositories
+
+DTOs
+
+Mappers
+
+Models
+
+Use typed responses.
+
+Never return dynamic.
+
+---
+
+## Code Quality
+
+Generate production-quality code.
+
+Include:
+
+Lint rules
+
+analysis_options.yaml
+
+Unit test setup
+
+Widget test setup
+
+Dependency injection
+
+Logging
+
+Error handling
+
+Pagination
+
+Network retry
+
+No duplicated code.
+
+No placeholder architecture.
+
+Follow SOLID principles.
+
+Write code as if it will be maintained by a team for the next five years.
+
+Generate the project incrementally, starting with the architecture, dependencies, routing, authentication flow, design system, and reusable components before implementing individual features.
