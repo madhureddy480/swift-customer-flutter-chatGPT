@@ -1,12 +1,14 @@
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
-import 'package:dr_swift_diagnostics/features/catalog/data/mock_health_data.dart';
+import 'package:dr_swift_diagnostics/features/catalog/data/catalog_view_models.dart';
 import 'package:dr_swift_diagnostics/features/catalog/presentation/widgets/catalog_widgets.dart';
 import 'package:dr_swift_diagnostics/routing/route_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class AllCategoriesScreen extends StatelessWidget {
-  const AllCategoriesScreen({super.key});
+  const AllCategoriesScreen({required this.categories, super.key});
+
+  final List<HealthCategory> categories;
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +40,14 @@ class AllCategoriesScreen extends StatelessWidget {
         top: false,
         child: ListView.separated(
           padding: const EdgeInsets.only(bottom: 12),
-          itemCount: MockHealthData.categories.length,
+          itemCount: categories.length,
           separatorBuilder: (_, __) => const Divider(
             height: 1,
             indent: 64,
             color: Color(0xFFE8E8EF),
           ),
           itemBuilder: (context, index) {
-            final category = MockHealthData.categories[index];
+            final category = categories[index];
             return CategoryListTile(
               category: category,
               onTap: () => context.push('/categories/${category.id}'),

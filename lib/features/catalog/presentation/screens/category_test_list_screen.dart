@@ -1,5 +1,5 @@
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
-import 'package:dr_swift_diagnostics/features/catalog/data/mock_health_data.dart';
+import 'package:dr_swift_diagnostics/features/catalog/data/catalog_view_models.dart';
 import 'package:dr_swift_diagnostics/features/catalog/presentation/widgets/catalog_widgets.dart';
 import 'package:dr_swift_diagnostics/routing/route_paths.dart';
 import 'package:flutter/material.dart';

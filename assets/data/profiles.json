@@ -1,0 +1,409 @@
+{
+  "profiles": [
+    {
+      "code": "DRSP001",
+      "slug": "drs-diabetic",
+      "name": "DRS Diabetic",
+      "shortName": "Diabetic",
+      "testCount": 2,
+      "priceCents": 39900,
+      "currency": "INR",
+      "includedTestCodes": [
+        "DRS091",
+        "DRS094"
+      ],
+      "includedTests": [
+        {
+          "code": "DRS091",
+          "slug": "glucose-blood-fasting",
+          "name": "Glucose-Blood-Fasting",
+          "nameTelugu": "గ్లూకోజ్-బ్లడ్-ఫాస్టింగ్"
+        },
+        {
+          "code": "DRS094",
+          "slug": "glycosylated-hemoglobin-ghb-hba1c-wb-edta",
+          "name": "Glycosylated Hemoglobin (GHb/HbA1c)-WB-EDTA",
+          "nameTelugu": "గ్లైకోసిలేటెడ్ హిమోగ్లోబిన్ (GHb/HbA1c)-WB-EDTA"
+        }
+      ]
+    },
+    {
+      "code": "DRSP002",
+      "slug": "drs-check-72",
+      "name": "DRS Check 72",
+      "shortName": "Check 72",
+      "testCount": 13,
+      "priceCents": 249900,
+      "currency": "INR",
+      "includedTestCodes": [
+        "DRS002",
+        "DRS048",
+        "DRS056",
+        "DRS091",
+        "DRS094",
+        "DRS190",
+        "DRS126",
+        "DRS081",
+        "DRS131",
+        "DRS133",
+        "DRS173",
+        "DRS127"
+      ],
+      "includedTests": [
+        {
+          "code": "DRS002",
+          "slug": "25-hydroxy-vitamin-d-serum",
+          "name": "25-Hydroxy Vitamin D-Serum",
+          "nameTelugu": "25-హైడ్రాక్సీ విటమిన్ డి-సీరం"
+        },
+        {
+          "code": "DRS048",
+          "slug": "cbc",
+          "name": "CBC",
+          "nameTelugu": "సంపూర్ణ రక్త పరీక్ష (సీబీసీ)"
+        },
+        {
+          "code": "DRS056",
+          "slug": "complete-urine-analysis",
+          "name": "Complete Urine Analysis",
+          "nameTelugu": "కంప్లీట్ యూరిన్ అనాలిసిస్"
+        },
+        {
+          "code": "DRS091",
+          "slug": "glucose-blood-fasting",
+          "name": "Glucose-Blood-Fasting",
+          "nameTelugu": "గ్లూకోజ్-బ్లడ్-ఫాస్టింగ్"
+        },
+        {
+          "code": "DRS094",
+          "slug": "glycosylated-hemoglobin-ghb-hba1c-wb-edta",
+          "name": "Glycosylated Hemoglobin (GHb/HbA1c)-WB-EDTA",
+          "nameTelugu": "గ్లైకోసిలేటెడ్ హిమోగ్లోబిన్ (GHb/HbA1c)-WB-EDTA"
+        },
+        {
+          "code": "DRS190",
+          "slug": "vitamin-b12-serum",
+          "name": "Vitamin-B12-Serum",
+          "nameTelugu": "విటమిన్-బి12-సీరం"
+        },
+        {
+          "code": "DRS126",
+          "slug": "iron-defficiency-profile-ii",
+          "name": "Iron Defficiency Profile-II",
+          "nameTelugu": "ఎరిత్రోసైట్ సెడిమెంటేషన్ రేట్ (ESR)"
+        },
+        {
+          "code": "DRS081",
+          "slug": "erythrocyte-sedimentation-rate-esr",
+          "name": "Erythrocyte Sedimentation Rate (ESR)",
+          "nameTelugu": "ఐరన్ లోపం ప్రొఫైల్-II"
+        },
+        {
+          "code": "DRS131",
+          "slug": "lipid-profile-serum",
+          "name": "Lipid Profile-Serum",
+          "nameTelugu": "లిపిడ్ ప్రొఫైల్-సీరం"
+        },
+        {
+          "code": "DRS133",
+          "slug": "liver-function-test-lft-serum",
+          "name": "Liver Function Test (LFT)-Serum",
+          "nameTelugu": "లివర్ ఫంక్షన్ టెస్ట్ (LFT)-సీరం"
+        },
+        {
+          "code": "DRS173",
+          "slug": "thyroid-profile-total",
+          "name": "Thyroid Profile-Total",
+          "nameTelugu": "థైరాయిడ్ ప్రొఫైల్-టోటల్"
+        },
+        {
+          "code": "DRS127",
+          "slug": "kidney-function-test-kft-serum",
+          "name": "Kidney Function Test (KFT)-Serum",
+          "nameTelugu": "కిడ్నీ ఫంక్షన్ టెస్ట్ (KFT)-సీరం"
+        },
+        {
+          "code": null,
+          "slug": "calcium-serum",
+          "name": "Calcium - Serum",
+          "nameTelugu": "కాల్షియం-సీరం"
+        }
+      ]
+    },
+    {
+      "code": "DRSP003",
+      "slug": "drs-fever",
+      "name": "DRS Fever",
+      "shortName": "Fever",
+      "testCount": 6,
+      "priceCents": 129900,
+      "currency": "INR",
+      "includedTestCodes": [
+        "DRS077",
+        "DRS048",
+        "DRS056",
+        "DRS081",
+        "DRS192",
+        "DRS135"
+      ],
+      "includedTests": [
+        {
+          "code": "DRS077",
+          "slug": "dengue-ns1-rapid",
+          "name": "Dengue NS1 RAPID",
+          "nameTelugu": "డెంగ్యూ NS1 ర్యాపిడ్"
+        },
+        {
+          "code": "DRS048",
+          "slug": "cbc",
+          "name": "CBC",
+          "nameTelugu": "సంపూర్ణ రక్త పరీక్ష (సీబీసీ)"
+        },
+        {
+          "code": "DRS056",
+          "slug": "complete-urine-analysis",
+          "name": "Complete Urine Analysis",
+          "nameTelugu": "కంప్లీట్ యూరిన్ అనాలిసిస్"
+        },
+        {
+          "code": "DRS081",
+          "slug": "erythrocyte-sedimentation-rate-esr",
+          "name": "Erythrocyte Sedimentation Rate (ESR)",
+          "nameTelugu": "ఎరిత్రోసైట్ సెడిమెంటేషన్ రేట్ (ESR)"
+        },
+        {
+          "code": "DRS192",
+          "slug": "widal-test-slide-test-serum",
+          "name": "Widal Test (Slide Test)- Serum",
+          "nameTelugu": "విడాల్ టెస్ట్ (స్లైడ్ టెస్ట్)-సీరం"
+        },
+        {
+          "code": "DRS135",
+          "slug": "malarial-falciparum-and-vivax-antigen-parasite-v-f",
+          "name": "Malarial Falciparum and Vivax Antigen (Parasite V & F)",
+          "nameTelugu": "మలేరియా ఫాల్సిపారం మరియు వివాక్స్ యాంటిజెన్ (పరాన్నజీవి V & F)"
+        }
+      ]
+    },
+    {
+      "code": "DRSP004",
+      "slug": "drs-check-42",
+      "name": "DRS Check 42",
+      "shortName": "Check 42",
+      "testCount": 8,
+      "priceCents": 149900,
+      "currency": "INR",
+      "includedTestCodes": [
+        "DRS048",
+        "DRS056",
+        "DRS081",
+        "DRS091",
+        "DRS191",
+        "DRS131",
+        "DRS133",
+        "DRS173"
+      ],
+      "includedTests": [
+        {
+          "code": "DRS048",
+          "slug": "cbc",
+          "name": "CBC",
+          "nameTelugu": "సంపూర్ణ రక్త పరీక్ష (సీబీసీ)"
+        },
+        {
+          "code": "DRS056",
+          "slug": "complete-urine-analysis",
+          "name": "Complete Urine Analysis",
+          "nameTelugu": "ఎరిత్రోసైట్ సెడిమెంటేషన్ రేట్ (ESR)"
+        },
+        {
+          "code": "DRS081",
+          "slug": "erythrocyte-sedimentation-rate-esr",
+          "name": "Erythrocyte Sedimentation Rate (ESR)",
+          "nameTelugu": "కంప్లీట్ యూరిన్ అనాలిసిస్"
+        },
+        {
+          "code": "DRS091",
+          "slug": "glucose-blood-fasting",
+          "name": "Glucose-Blood-Fasting",
+          "nameTelugu": "గ్లూకోజ్-బ్లడ్-ఫాస్టింగ్"
+        },
+        {
+          "code": "DRS191",
+          "slug": "glucose-urine",
+          "name": "Glucose -Urine",
+          "nameTelugu": "గ్లూకోజ్-మూత్రం"
+        },
+        {
+          "code": "DRS131",
+          "slug": "lipid-profile-serum",
+          "name": "Lipid Profile-Serum",
+          "nameTelugu": "లిపిడ్ ప్రొఫైల్-సీరం"
+        },
+        {
+          "code": "DRS133",
+          "slug": "liver-function-test-lft-serum",
+          "name": "Liver Function Test (LFT)-Serum",
+          "nameTelugu": "లివర్ ఫంక్షన్ టెస్ట్ (LFT)-సీరం"
+        },
+        {
+          "code": "DRS173",
+          "slug": "thyroid-profile-total",
+          "name": "Thyroid Profile-Total",
+          "nameTelugu": "థైరాయిడ్ ప్రొఫైల్-టోటల్"
+        }
+      ]
+    },
+    {
+      "code": "DRSP005",
+      "slug": "drs-wellness",
+      "name": "DRS Wellness",
+      "shortName": "Wellness",
+      "testCount": 6,
+      "priceCents": 169900,
+      "currency": "INR",
+      "includedTestCodes": [
+        "DRS048",
+        "DRS094",
+        "DRS131",
+        "DRS133",
+        "DRS127",
+        "DRS174"
+      ],
+      "includedTests": [
+        {
+          "code": "DRS048",
+          "slug": "cbc",
+          "name": "CBC",
+          "nameTelugu": "సంపూర్ణ రక్త పరీక్ష (సీబీసీ)"
+        },
+        {
+          "code": "DRS094",
+          "slug": "glycosylated-hemoglobin-ghb-hba1c-wb-edta",
+          "name": "Glycosylated Hemoglobin (GHb/HbA1c)-WB-EDTA",
+          "nameTelugu": "గ్లైకోసిలేటెడ్ హిమోగ్లోబిన్ (GHb/HbA1c)-WB-EDTA"
+        },
+        {
+          "code": "DRS131",
+          "slug": "lipid-profile-serum",
+          "name": "Lipid Profile-Serum",
+          "nameTelugu": "లిపిడ్ ప్రొఫైల్-సీరం"
+        },
+        {
+          "code": "DRS133",
+          "slug": "liver-function-test-lft-serum",
+          "name": "Liver Function Test (LFT)-Serum",
+          "nameTelugu": "లివర్ ఫంక్షన్ టెస్ట్ (LFT)-సీరం"
+        },
+        {
+          "code": "DRS127",
+          "slug": "kidney-function-test-kft-serum",
+          "name": "Kidney Function Test (KFT)-Serum",
+          "nameTelugu": "కిడ్నీ ఫంక్షన్ టెస్ట్ (KFT)-సీరం"
+        },
+        {
+          "code": "DRS174",
+          "slug": "thyroid-stimulating-hormone-tsh-serum",
+          "name": "Thyroid Stimulating Hormone (TSH)-Serum",
+          "nameTelugu": "థైరాయిడ్ స్టిమ్యులేటింగ్ హార్మోన్ (TSH)-సీరం"
+        }
+      ]
+    },
+    {
+      "code": "DRSP006",
+      "slug": "drs-ortho",
+      "name": "DRS Ortho",
+      "shortName": "Ortho",
+      "testCount": 4,
+      "priceCents": 99900,
+      "currency": "INR",
+      "includedTestCodes": [
+        "DRS002",
+        "DRS048",
+        "DRS081",
+        "DRS160"
+      ],
+      "includedTests": [
+        {
+          "code": "DRS002",
+          "slug": "25-hydroxy-vitamin-d-serum",
+          "name": "25-Hydroxy Vitamin D-Serum",
+          "nameTelugu": "25-హైడ్రాక్సీ విటమిన్ డి-సీరం"
+        },
+        {
+          "code": "DRS048",
+          "slug": "cbc",
+          "name": "CBC",
+          "nameTelugu": "సంపూర్ణ రక్త పరీక్ష (సీబీసీ)"
+        },
+        {
+          "code": "DRS081",
+          "slug": "erythrocyte-sedimentation-rate-esr",
+          "name": "Erythrocyte Sedimentation Rate (ESR)",
+          "nameTelugu": "ఎరిత్రోసైట్ సెడిమెంటేషన్ రేట్ (ESR)"
+        },
+        {
+          "code": "DRS160",
+          "slug": "rheumatoid-factor-ra-test-serum",
+          "name": "Rheumatoid Factor (RA Test)-Serum",
+          "nameTelugu": "రుమటాయిడ్ ఫ్యాక్టర్ (RA టెస్ట్)-సీరం"
+        }
+      ]
+    },
+    {
+      "code": "DRSP007",
+      "slug": "drs-vital",
+      "name": "DRS Vital",
+      "shortName": "Vital",
+      "testCount": 6,
+      "priceCents": 129900,
+      "currency": "INR",
+      "includedTestCodes": [
+        "DRS077",
+        "DRS048",
+        "DRS056",
+        "DRS081",
+        "DRS192",
+        "DRS135"
+      ],
+      "includedTests": [
+        {
+          "code": "DRS077",
+          "slug": "dengue-ns1-rapid",
+          "name": "Dengue NS1 RAPID",
+          "nameTelugu": "డెంగ్యూ NS1 ర్యాపిడ్"
+        },
+        {
+          "code": "DRS048",
+          "slug": "cbc",
+          "name": "CBC",
+          "nameTelugu": "సంపూర్ణ రక్త పరీక్ష (సీబీసీ)"
+        },
+        {
+          "code": "DRS056",
+          "slug": "complete-urine-analysis",
+          "name": "Complete Urine Analysis",
+          "nameTelugu": "కంప్లీట్ యూరిన్ అనాలిసిస్"
+        },
+        {
+          "code": "DRS081",
+          "slug": "erythrocyte-sedimentation-rate-esr",
+          "name": "Erythrocyte Sedimentation Rate (ESR)",
+          "nameTelugu": "ఎరిత్రోసైట్ సెడిమెంటేషన్ రేట్ (ESR)"
+        },
+        {
+          "code": "DRS192",
+          "slug": "widal-test-slide-test-serum",
+          "name": "Widal Test (Slide Test)- Serum",
+          "nameTelugu": "విడాల్ టెస్ట్ (స్లైడ్ టెస్ట్)-సీరం"
+        },
+        {
+          "code": "DRS135",
+          "slug": "malarial-falciparum-and-vivax-antigen-parasite-v-f",
+          "name": "Malarial Falciparum and Vivax Antigen (Parasite V & F)",
+          "nameTelugu": "మలేరియా ఫాల్సిపారం మరియు వివాక్స్ యాంటిజెన్ (పరాన్నజీవి V & F)"
+        }
+      ]
+    }
+  ]
+}

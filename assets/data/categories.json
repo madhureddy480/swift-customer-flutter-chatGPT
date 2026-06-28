@@ -1,0 +1,1334 @@
+{
+  "categories": [
+    {
+      "slug": "weakness",
+      "name": "Weakness",
+      "testCodes": [
+        "DRS048",
+        "DRS100",
+        "DRS125",
+        "DRS190",
+        "DRS002",
+        "DRS173",
+        "DRS091",
+        "DRS094",
+        "DRS127",
+        "DRS133",
+        "DRS080",
+        "DRS041",
+        "DRS081",
+        "DRS065",
+        "DRS062",
+        "DRS056"
+      ],
+      "tests": [
+        {
+          "code": "DRS048",
+          "slug": "cbc",
+          "name": "CBC",
+          "nameTelugu": "సంపూర్ణ రక్త పరీక్ష (సీబీసీ)",
+          "symptoms": [
+            "Weakness",
+            "infection",
+            "anemia signs"
+          ]
+        },
+        {
+          "code": "DRS100",
+          "slug": "hemoglobin-wb-edta",
+          "name": "Hemoglobin-WB-EDTA",
+          "nameTelugu": "హీమోగ్లోబిన్-WB-EDTA",
+          "symptoms": [
+            "Pale skin",
+            "fatigue",
+            "dizziness"
+          ]
+        },
+        {
+          "code": "DRS125",
+          "slug": "iron-defficiency-profile-i",
+          "name": "Iron Defficiency Profile-I",
+          "nameTelugu": "ఇనుము లోపం ప్రొఫైల్-I",
+          "symptoms": [
+            "Fatigue",
+            "weakness",
+            "pale skin",
+            "dizziness",
+            "shortness of breath",
+            "hair fall"
+          ]
+        },
+        {
+          "code": "DRS190",
+          "slug": "vitamin-b12-serum",
+          "name": "Vitamin-B12-Serum",
+          "nameTelugu": "విటమిన్-బి12-సీరం",
+          "symptoms": [
+            "Numbness",
+            "fatigue",
+            "memory issues"
+          ]
+        },
+        {
+          "code": "DRS002",
+          "slug": "25-hydroxy-vitamin-d-serum",
+          "name": "25-Hydroxy Vitamin D-Serum",
+          "nameTelugu": "25-హైడ్రాక్సీ విటమిన్ డి-సీరం",
+          "symptoms": [
+            "Bone pain",
+            "fatigue",
+            "muscle weakness",
+            "frequent fractures"
+          ]
+        },
+        {
+          "code": "DRS173",
+          "slug": "thyroid-profile-total",
+          "name": "Thyroid Profile-Total",
+          "nameTelugu": "థైరాయిడ్ ప్రొఫైల్-టోటల్",
+          "symptoms": [
+            "Weight changes",
+            "fatigue",
+            "hair loss"
+          ]
+        },
+        {
+          "code": "DRS091",
+          "slug": "glucose-blood-fasting",
+          "name": "Glucose-Blood-Fasting",
+          "nameTelugu": "గ్లూకోజ్-బ్లడ్-ఫాస్టింగ్",
+          "symptoms": [
+            "Excess thirst",
+            "frequent urination",
+            "fatigue"
+          ]
+        },
+        {
+          "code": "DRS094",
+          "slug": "glycosylated-hemoglobin-ghb-hba1c-wb-edta",
+          "name": "Glycosylated Hemoglobin (GHb/HbA1c)-WB-EDTA",
+          "nameTelugu": "గ్లైకోసిలేటెడ్ హిమోగ్లోబిన్ (GHb/HbA1c)-WB-EDTA",
+          "symptoms": [
+            "Diabetes monitoring",
+            "fatigue",
+            "blurred vision"
+          ]
+        },
+        {
+          "code": "DRS127",
+          "slug": "kidney-function-test-kft-serum",
+          "name": "Kidney Function Test (KFT)-Serum",
+          "nameTelugu": "కిడ్నీ ఫంక్షన్ టెస్ట్ (KFT)-సీరం",
+          "symptoms": [
+            "Swelling",
+            "fatigue",
+            "reduced urine output"
+          ]
+        },
+        {
+          "code": "DRS133",
+          "slug": "liver-function-test-lft-serum",
+          "name": "Liver Function Test (LFT)-Serum",
+          "nameTelugu": "లివర్ ఫంక్షన్ టెస్ట్ (LFT)-సీరం",
+          "symptoms": [
+            "Jaundice",
+            "abdominal pain",
+            "fatigue"
+          ]
+        },
+        {
+          "code": "DRS080",
+          "slug": "electrolyte-profile-serum",
+          "name": "Electrolyte Profile-Serum",
+          "nameTelugu": "ఎలక్ట్రోలైట్ ప్రొఫైల్-సీరం",
+          "symptoms": [
+            "Dehydration",
+            "muscle cramps",
+            "weakness"
+          ]
+        },
+        {
+          "code": "DRS041",
+          "slug": "calcium-serum",
+          "name": "Calcium-Serum",
+          "nameTelugu": "కాల్షియం-సీరం",
+          "symptoms": [
+            "Muscle cramps",
+            "tingling",
+            "bone weakness"
+          ]
+        },
+        {
+          "code": "DRS081",
+          "slug": "erythrocyte-sedimentation-rate-esr",
+          "name": "Erythrocyte Sedimentation Rate (ESR)",
+          "nameTelugu": "ఎరిత్రోసైట్ సెడిమెంటేషన్ రేట్ (ESR)",
+          "symptoms": [
+            "Fever",
+            "infection",
+            "joint pain",
+            "inflammation"
+          ]
+        },
+        {
+          "code": "DRS065",
+          "slug": "creatinine-kinase-cpk-serum",
+          "name": "Creatinine Kinase (CPK)-Serum",
+          "nameTelugu": "క్రియాటినిన్ కైనేజ్ (CPK)-సీరం",
+          "symptoms": [
+            "Muscle pain",
+            "muscle weakness",
+            "chest pain"
+          ]
+        },
+        {
+          "code": "DRS062",
+          "slug": "c-reactive-protein-crp-serum",
+          "name": "C-Reactive Protein (CRP)-Serum",
+          "nameTelugu": "సి-రియాక్టివ్ ప్రోటీన్ (CRP)-సీరం",
+          "symptoms": [
+            "Fever",
+            "inflammation",
+            "body pain"
+          ]
+        },
+        {
+          "code": "DRS056",
+          "slug": "complete-urine-analysis",
+          "name": "Complete Urine Analysis",
+          "nameTelugu": "కంప్లీట్ యూరిన్ అనాలిసిస్",
+          "symptoms": [
+            "Burning urination",
+            "infection",
+            "kidney issues"
+          ]
+        }
+      ],
+      "testCount": 16
+    },
+    {
+      "slug": "fever",
+      "name": "Fever",
+      "testCodes": [
+        "DRS048",
+        "DRS081",
+        "DRS062",
+        "DRS078",
+        "DRS136",
+        "DRS133",
+        "DRS127",
+        "DRS145",
+        "DRS143"
+      ],
+      "tests": [
+        {
+          "code": "DRS048",
+          "slug": "cbc",
+          "name": "CBC",
+          "nameTelugu": "సంపూర్ణ రక్త పరీక్ష (సీబీసీ)",
+          "symptoms": [
+            "Weakness",
+            "infection",
+            "anemia signs"
+          ]
+        },
+        {
+          "code": "DRS081",
+          "slug": "erythrocyte-sedimentation-rate-esr",
+          "name": "Erythrocyte Sedimentation Rate (ESR)",
+          "nameTelugu": "ఎరిత్రోసైట్ సెడిమెంటేషన్ రేట్ (ESR)",
+          "symptoms": [
+            "Fever",
+            "infection",
+            "joint pain",
+            "inflammation"
+          ]
+        },
+        {
+          "code": "DRS062",
+          "slug": "c-reactive-protein-crp-serum",
+          "name": "C-Reactive Protein (CRP)-Serum",
+          "nameTelugu": "సి-రియాక్టివ్ ప్రోటీన్ (CRP)-సీరం",
+          "symptoms": [
+            "Fever",
+            "inflammation",
+            "body pain"
+          ]
+        },
+        {
+          "code": "DRS078",
+          "slug": "dengue-profile-antibody-ns1-antigen-igg-igm-rapid",
+          "name": "Dengue Profile (Antibody & NS1 Antigen) IGG &IGM ) RAPID",
+          "nameTelugu": "డెంగ్యూ ప్రొఫైల్ (యాంటీబాడీ & NS1 యాంటిజెన్) IGG & IGM ర్యాపిడ్",
+          "symptoms": [
+            "High fever",
+            "body pain",
+            "low platelets"
+          ]
+        },
+        {
+          "code": "DRS136",
+          "slug": "malarial-parasite-identification-wb-edta",
+          "name": "Malarial Parasite Identification-WB-EDTA",
+          "nameTelugu": "మలేరియా పరాన్నజీవి గుర్తింపు-WB-EDTA",
+          "symptoms": [
+            "Fever with chills",
+            "sweating",
+            "body pain"
+          ]
+        },
+        {
+          "code": "DRS133",
+          "slug": "liver-function-test-lft-serum",
+          "name": "Liver Function Test (LFT)-Serum",
+          "nameTelugu": "లివర్ ఫంక్షన్ టెస్ట్ (LFT)-సీరం",
+          "symptoms": [
+            "Jaundice",
+            "abdominal pain",
+            "fatigue"
+          ]
+        },
+        {
+          "code": "DRS127",
+          "slug": "kidney-function-test-kft-serum",
+          "name": "Kidney Function Test (KFT)-Serum",
+          "nameTelugu": "కిడ్నీ ఫంక్షన్ టెస్ట్ (KFT)-సీరం",
+          "symptoms": [
+            "Swelling",
+            "fatigue",
+            "reduced urine output"
+          ]
+        },
+        {
+          "code": "DRS145",
+          "slug": "procalcitonin",
+          "name": "Procalcitonin",
+          "nameTelugu": "ప్రోకాల్సిటోనిన్",
+          "symptoms": [
+            "Severe infection",
+            "high fever",
+            "sepsis signs"
+          ]
+        },
+        {
+          "code": "DRS143",
+          "slug": "platelet-count-pc-wb-edta",
+          "name": "Platelet Count (PC)-WB-EDTA",
+          "nameTelugu": "ప్లేట్",
+          "symptoms": [
+            "Bleeding",
+            "dengue fever",
+            "easy bruising"
+          ]
+        }
+      ],
+      "testCount": 9
+    },
+    {
+      "slug": "pain",
+      "name": "Pain",
+      "testCodes": [
+        "DRS048",
+        "DRS081",
+        "DRS062",
+        "DRS160",
+        "DRS024",
+        "DRS188",
+        "DRS041",
+        "DRS002",
+        "DRS065",
+        "DRS133",
+        "DRS127",
+        "DRS056",
+        "DRS011",
+        "DRS130",
+        "DRS080"
+      ],
+      "tests": [
+        {
+          "code": "DRS048",
+          "slug": "cbc",
+          "name": "CBC",
+          "nameTelugu": "సంపూర్ణ రక్త పరీక్ష (సీబీసీ)",
+          "symptoms": [
+            "Weakness",
+            "infection",
+            "anemia signs"
+          ]
+        },
+        {
+          "code": "DRS081",
+          "slug": "erythrocyte-sedimentation-rate-esr",
+          "name": "Erythrocyte Sedimentation Rate (ESR)",
+          "nameTelugu": "ఎరిత్రోసైట్ సెడిమెంటేషన్ రేట్ (ESR)",
+          "symptoms": [
+            "Fever",
+            "infection",
+            "joint pain",
+            "inflammation"
+          ]
+        },
+        {
+          "code": "DRS062",
+          "slug": "c-reactive-protein-crp-serum",
+          "name": "C-Reactive Protein (CRP)-Serum",
+          "nameTelugu": "సి-రియాక్టివ్ ప్రోటీన్ (CRP)-సీరం",
+          "symptoms": [
+            "Fever",
+            "inflammation",
+            "body pain"
+          ]
+        },
+        {
+          "code": "DRS160",
+          "slug": "rheumatoid-factor-ra-test-serum",
+          "name": "Rheumatoid Factor (RA Test)-Serum",
+          "nameTelugu": "రుమటాయిడ్ ఫ్యాక్టర్ (RA టెస్ట్)-సీరం",
+          "symptoms": [
+            "Joint pain",
+            "stiffness",
+            "arthritis"
+          ]
+        },
+        {
+          "code": "DRS024",
+          "slug": "anti-ccp-serum",
+          "name": "Anti-CCP-Serum",
+          "nameTelugu": "యాంటీ-సీసీపీ-సీరం",
+          "symptoms": [
+            "Joint pain",
+            "morning stiffness",
+            "swollen joints"
+          ]
+        },
+        {
+          "code": "DRS188",
+          "slug": "uric-acid-serum",
+          "name": "Uric Acid-Serum",
+          "nameTelugu": "యూరిక్ యాసిడ్-సీరం",
+          "symptoms": [
+            "Joint pain",
+            "gout",
+            "swelling"
+          ]
+        },
+        {
+          "code": "DRS041",
+          "slug": "calcium-serum",
+          "name": "Calcium-Serum",
+          "nameTelugu": "కాల్షియం-సీరం",
+          "symptoms": [
+            "Muscle cramps",
+            "tingling",
+            "bone weakness"
+          ]
+        },
+        {
+          "code": "DRS002",
+          "slug": "25-hydroxy-vitamin-d-serum",
+          "name": "25-Hydroxy Vitamin D-Serum",
+          "nameTelugu": "25-హైడ్రాక్సీ విటమిన్ డి-సీరం",
+          "symptoms": [
+            "Bone pain",
+            "fatigue",
+            "muscle weakness",
+            "frequent fractures"
+          ]
+        },
+        {
+          "code": "DRS065",
+          "slug": "creatinine-kinase-cpk-serum",
+          "name": "Creatinine Kinase (CPK)-Serum",
+          "nameTelugu": "క్రియాటినిన్ కైనేజ్ (CPK)-సీరం",
+          "symptoms": [
+            "Muscle pain",
+            "muscle weakness",
+            "chest pain"
+          ]
+        },
+        {
+          "code": "DRS133",
+          "slug": "liver-function-test-lft-serum",
+          "name": "Liver Function Test (LFT)-Serum",
+          "nameTelugu": "లివర్ ఫంక్షన్ టెస్ట్ (LFT)-సీరం",
+          "symptoms": [
+            "Jaundice",
+            "abdominal pain",
+            "fatigue"
+          ]
+        },
+        {
+          "code": "DRS127",
+          "slug": "kidney-function-test-kft-serum",
+          "name": "Kidney Function Test (KFT)-Serum",
+          "nameTelugu": "కిడ్నీ ఫంక్షన్ టెస్ట్ (KFT)-సీరం",
+          "symptoms": [
+            "Swelling",
+            "fatigue",
+            "reduced urine output"
+          ]
+        },
+        {
+          "code": "DRS056",
+          "slug": "complete-urine-analysis",
+          "name": "Complete Urine Analysis",
+          "nameTelugu": "కంప్లీట్ యూరిన్ అనాలిసిస్",
+          "symptoms": [
+            "Burning urination",
+            "infection",
+            "kidney issues"
+          ]
+        },
+        {
+          "code": "DRS011",
+          "slug": "amylase-serum",
+          "name": "Amylase-Serum",
+          "nameTelugu": "అమైలేస్-సీరం",
+          "symptoms": [
+            "Abdominal pain",
+            "pancreatitis suspicio"
+          ]
+        },
+        {
+          "code": "DRS130",
+          "slug": "lipase-serum",
+          "name": "Lipase-Serum",
+          "nameTelugu": "లైపేస్-సీరం",
+          "symptoms": [
+            "Severe abdominal pain",
+            "pancreatic disease"
+          ]
+        },
+        {
+          "code": "DRS080",
+          "slug": "electrolyte-profile-serum",
+          "name": "Electrolyte Profile-Serum",
+          "nameTelugu": "ఎలక్ట్రోలైట్ ప్రొఫైల్-సీరం",
+          "symptoms": [
+            "Dehydration",
+            "muscle cramps",
+            "weakness"
+          ]
+        }
+      ],
+      "testCount": 15
+    },
+    {
+      "slug": "cold",
+      "name": "Cold",
+      "testCodes": [
+        "DRS048",
+        "DRS081",
+        "DRS062",
+        "DRS115",
+        "DRS078"
+      ],
+      "tests": [
+        {
+          "code": "DRS048",
+          "slug": "cbc",
+          "name": "CBC",
+          "nameTelugu": "సంపూర్ణ రక్త పరీక్ష (సీబీసీ)",
+          "symptoms": [
+            "Weakness",
+            "infection",
+            "anemia signs"
+          ]
+        },
+        {
+          "code": "DRS081",
+          "slug": "erythrocyte-sedimentation-rate-esr",
+          "name": "Erythrocyte Sedimentation Rate (ESR)",
+          "nameTelugu": "ఎరిత్రోసైట్ సెడిమెంటేషన్ రేట్ (ESR)",
+          "symptoms": [
+            "Fever",
+            "infection",
+            "joint pain",
+            "inflammation"
+          ]
+        },
+        {
+          "code": "DRS062",
+          "slug": "c-reactive-protein-crp-serum",
+          "name": "C-Reactive Protein (CRP)-Serum",
+          "nameTelugu": "సి-రియాక్టివ్ ప్రోటీన్ (CRP)-సీరం",
+          "symptoms": [
+            "Fever",
+            "inflammation",
+            "body pain"
+          ]
+        },
+        {
+          "code": "DRS115",
+          "slug": "ige-total-serum",
+          "name": "IgE-Total-Serum",
+          "nameTelugu": "IgE-మొత్తం-సీరం",
+          "symptoms": [
+            "Allergy",
+            "sneezing",
+            "itching"
+          ]
+        },
+        {
+          "code": "DRS078",
+          "slug": "dengue-profile-antibody-ns1-antigen-igg-igm-rapid",
+          "name": "Dengue Profile (Antibody & NS1 Antigen) IGG &IGM ) RAPID",
+          "nameTelugu": "డెంగ్యూ ప్రొఫైల్ (యాంటీబాడీ & NS1 యాంటిజెన్) IGG & IGM ర్యాపిడ్",
+          "symptoms": [
+            "High fever",
+            "body pain",
+            "low platelets"
+          ]
+        }
+      ],
+      "testCount": 5
+    },
+    {
+      "slug": "cough",
+      "name": "Cough",
+      "testCodes": [
+        "DRS048",
+        "DRS062",
+        "DRS081",
+        "DRS115"
+      ],
+      "tests": [
+        {
+          "code": "DRS048",
+          "slug": "cbc",
+          "name": "CBC",
+          "nameTelugu": "సంపూర్ణ రక్త పరీక్ష (సీబీసీ)",
+          "symptoms": [
+            "Weakness",
+            "infection",
+            "anemia signs"
+          ]
+        },
+        {
+          "code": "DRS062",
+          "slug": "c-reactive-protein-crp-serum",
+          "name": "C-Reactive Protein (CRP)-Serum",
+          "nameTelugu": "సి-రియాక్టివ్ ప్రోటీన్ (CRP)-సీరం",
+          "symptoms": [
+            "Fever",
+            "inflammation",
+            "body pain"
+          ]
+        },
+        {
+          "code": "DRS081",
+          "slug": "erythrocyte-sedimentation-rate-esr",
+          "name": "Erythrocyte Sedimentation Rate (ESR)",
+          "nameTelugu": "ఎరిత్రోసైట్ సెడిమెంటేషన్ రేట్ (ESR)",
+          "symptoms": [
+            "Fever",
+            "infection",
+            "joint pain",
+            "inflammation"
+          ]
+        },
+        {
+          "code": "DRS115",
+          "slug": "ige-total-serum",
+          "name": "IgE-Total-Serum",
+          "nameTelugu": "IgE-మొత్తం-సీరం",
+          "symptoms": [
+            "Allergy",
+            "sneezing",
+            "itching"
+          ]
+        }
+      ],
+      "testCount": 4
+    },
+    {
+      "slug": "sugar",
+      "name": "Sugar",
+      "testCodes": [
+        "DRS091",
+        "DRS092",
+        "DRS093",
+        "DRS094",
+        "DRS137",
+        "DRS127",
+        "DRS131",
+        "DRS120",
+        "DRS061"
+      ],
+      "tests": [
+        {
+          "code": "DRS091",
+          "slug": "glucose-blood-fasting",
+          "name": "Glucose-Blood-Fasting",
+          "nameTelugu": "గ్లూకోజ్-బ్లడ్-ఫాస్టింగ్",
+          "symptoms": [
+            "Excess thirst",
+            "frequent urination",
+            "fatigue"
+          ]
+        },
+        {
+          "code": "DRS092",
+          "slug": "glucose-blood-post-prandial-pp",
+          "name": "Glucose-Blood-Post Prandial(PP)",
+          "nameTelugu": "గ్లూకోజ్-రక్తం-భోజనం తర్వాత (PP)",
+          "symptoms": [
+            "Excess thirst",
+            "frequent urination",
+            "tiredness"
+          ]
+        },
+        {
+          "code": "DRS093",
+          "slug": "glucose-blood-random-wb-na-fluoride",
+          "name": "Glucose-Blood-Random-WB-Na Fluoride",
+          "nameTelugu": "గ్లూకోజ్-రక్తం-రాండమ్-WB-Na ఫ్లోరైడ్",
+          "symptoms": [
+            "Sudden weakness",
+            "dizziness",
+            "diabetes symptoms"
+          ]
+        },
+        {
+          "code": "DRS094",
+          "slug": "glycosylated-hemoglobin-ghb-hba1c-wb-edta",
+          "name": "Glycosylated Hemoglobin (GHb/HbA1c)-WB-EDTA",
+          "nameTelugu": "గ్లైకోసిలేటెడ్ హిమోగ్లోబిన్ (GHb/HbA1c)-WB-EDTA",
+          "symptoms": [
+            "Diabetes monitoring",
+            "fatigue",
+            "blurred vision"
+          ]
+        },
+        {
+          "code": "DRS137",
+          "slug": "microalbuminuria-urine",
+          "name": "Microalbuminuria-Urine",
+          "nameTelugu": "మైక్రోఅల్బ్యుమినూరియా-మూత్రం",
+          "symptoms": [
+            "Diabetes",
+            "kidney damage",
+            "swelling"
+          ]
+        },
+        {
+          "code": "DRS127",
+          "slug": "kidney-function-test-kft-serum",
+          "name": "Kidney Function Test (KFT)-Serum",
+          "nameTelugu": "కిడ్నీ ఫంక్షన్ టెస్ట్ (KFT)-సీరం",
+          "symptoms": [
+            "Swelling",
+            "fatigue",
+            "reduced urine output"
+          ]
+        },
+        {
+          "code": "DRS131",
+          "slug": "lipid-profile-serum",
+          "name": "Lipid Profile-Serum",
+          "nameTelugu": "లిపిడ్ ప్రొఫైల్-సీరం",
+          "symptoms": [
+            "Chest pain",
+            "obesity",
+            "cardiovascular risk"
+          ]
+        },
+        {
+          "code": "DRS120",
+          "slug": "insulin-serum",
+          "name": "Insulin-Serum",
+          "nameTelugu": "ఇన్సులిన్-సీరం",
+          "symptoms": [
+            "Blood sugar imbalance",
+            "fatigue",
+            "weight changes"
+          ]
+        },
+        {
+          "code": "DRS061",
+          "slug": "c-peptide-serum",
+          "name": "C-Peptide-Serum",
+          "nameTelugu": "సి-పెప్టైడ్-సీరం",
+          "symptoms": [
+            "Excess thirst",
+            "diabetes monitoring",
+            "fatigue"
+          ]
+        }
+      ],
+      "testCount": 9
+    },
+    {
+      "slug": "checkup",
+      "name": "Checkup",
+      "testCodes": [
+        "DRS048",
+        "DRS091",
+        "DRS093",
+        "DRS094",
+        "DRS131",
+        "DRS133",
+        "DRS127",
+        "DRS173",
+        "DRS056",
+        "DRS002",
+        "DRS190",
+        "DRS041",
+        "DRS062",
+        "DRS081",
+        "DRS080",
+        "DRS092"
+      ],
+      "tests": [
+        {
+          "code": "DRS048",
+          "slug": "cbc",
+          "name": "CBC",
+          "nameTelugu": "సంపూర్ణ రక్త పరీక్ష (సీబీసీ)",
+          "symptoms": [
+            "Weakness",
+            "infection",
+            "anemia signs"
+          ]
+        },
+        {
+          "code": "DRS091",
+          "slug": "glucose-blood-fasting",
+          "name": "Glucose-Blood-Fasting",
+          "nameTelugu": "గ్లూకోజ్-బ్లడ్-ఫాస్టింగ్",
+          "symptoms": [
+            "Excess thirst",
+            "frequent urination",
+            "fatigue"
+          ]
+        },
+        {
+          "code": "DRS093",
+          "slug": "glucose-blood-random-wb-na-fluoride",
+          "name": "Glucose-Blood-Random-WB-Na Fluoride",
+          "nameTelugu": "గ్లూకోజ్-రక్తం-రాండమ్-WB-Na ఫ్లోరైడ్",
+          "symptoms": [
+            "Sudden weakness",
+            "dizziness",
+            "diabetes symptoms"
+          ]
+        },
+        {
+          "code": "DRS094",
+          "slug": "glycosylated-hemoglobin-ghb-hba1c-wb-edta",
+          "name": "Glycosylated Hemoglobin (GHb/HbA1c)-WB-EDTA",
+          "nameTelugu": "గ్లైకోసిలేటెడ్ హిమోగ్లోబిన్ (GHb/HbA1c)-WB-EDTA",
+          "symptoms": [
+            "Diabetes monitoring",
+            "fatigue",
+            "blurred vision"
+          ]
+        },
+        {
+          "code": "DRS131",
+          "slug": "lipid-profile-serum",
+          "name": "Lipid Profile-Serum",
+          "nameTelugu": "లిపిడ్ ప్రొఫైల్-సీరం",
+          "symptoms": [
+            "Chest pain",
+            "obesity",
+            "cardiovascular risk"
+          ]
+        },
+        {
+          "code": "DRS133",
+          "slug": "liver-function-test-lft-serum",
+          "name": "Liver Function Test (LFT)-Serum",
+          "nameTelugu": "లివర్ ఫంక్షన్ టెస్ట్ (LFT)-సీరం",
+          "symptoms": [
+            "Jaundice",
+            "abdominal pain",
+            "fatigue"
+          ]
+        },
+        {
+          "code": "DRS127",
+          "slug": "kidney-function-test-kft-serum",
+          "name": "Kidney Function Test (KFT)-Serum",
+          "nameTelugu": "కిడ్నీ ఫంక్షన్ టెస్ట్ (KFT)-సీరం",
+          "symptoms": [
+            "Swelling",
+            "fatigue",
+            "reduced urine output"
+          ]
+        },
+        {
+          "code": "DRS173",
+          "slug": "thyroid-profile-total",
+          "name": "Thyroid Profile-Total",
+          "nameTelugu": "థైరాయిడ్ ప్రొఫైల్-టోటల్",
+          "symptoms": [
+            "Weight changes",
+            "fatigue",
+            "hair loss"
+          ]
+        },
+        {
+          "code": "DRS056",
+          "slug": "complete-urine-analysis",
+          "name": "Complete Urine Analysis",
+          "nameTelugu": "కంప్లీట్ యూరిన్ అనాలిసిస్",
+          "symptoms": [
+            "Burning urination",
+            "infection",
+            "kidney issues"
+          ]
+        },
+        {
+          "code": "DRS002",
+          "slug": "25-hydroxy-vitamin-d-serum",
+          "name": "25-Hydroxy Vitamin D-Serum",
+          "nameTelugu": "25-హైడ్రాక్సీ విటమిన్ డి-సీరం",
+          "symptoms": [
+            "Bone pain",
+            "fatigue",
+            "muscle weakness",
+            "frequent fractures"
+          ]
+        },
+        {
+          "code": "DRS190",
+          "slug": "vitamin-b12-serum",
+          "name": "Vitamin-B12-Serum",
+          "nameTelugu": "విటమిన్-బి12-సీరం",
+          "symptoms": [
+            "Numbness",
+            "fatigue",
+            "memory issues"
+          ]
+        },
+        {
+          "code": "DRS041",
+          "slug": "calcium-serum",
+          "name": "Calcium-Serum",
+          "nameTelugu": "కాల్షియం-సీరం",
+          "symptoms": [
+            "Muscle cramps",
+            "tingling",
+            "bone weakness"
+          ]
+        },
+        {
+          "code": "DRS062",
+          "slug": "c-reactive-protein-crp-serum",
+          "name": "C-Reactive Protein (CRP)-Serum",
+          "nameTelugu": "సి-రియాక్టివ్ ప్రోటీన్ (CRP)-సీరం",
+          "symptoms": [
+            "Fever",
+            "inflammation",
+            "body pain"
+          ]
+        },
+        {
+          "code": "DRS081",
+          "slug": "erythrocyte-sedimentation-rate-esr",
+          "name": "Erythrocyte Sedimentation Rate (ESR)",
+          "nameTelugu": "ఎరిత్రోసైట్ సెడిమెంటేషన్ రేట్ (ESR)",
+          "symptoms": [
+            "Fever",
+            "infection",
+            "joint pain",
+            "inflammation"
+          ]
+        },
+        {
+          "code": "DRS080",
+          "slug": "electrolyte-profile-serum",
+          "name": "Electrolyte Profile-Serum",
+          "nameTelugu": "ఎలక్ట్రోలైట్ ప్రొఫైల్-సీరం",
+          "symptoms": [
+            "Dehydration",
+            "muscle cramps",
+            "weakness"
+          ]
+        },
+        {
+          "code": "DRS092",
+          "slug": "glucose-blood-post-prandial-pp",
+          "name": "Glucose-Blood-Post Prandial(PP)",
+          "nameTelugu": "గ్లూకోజ్-రక్తం-భోజనం తర్వాత (PP)",
+          "symptoms": [
+            "Excess thirst",
+            "frequent urination",
+            "tiredness"
+          ]
+        }
+      ],
+      "testCount": 16
+    },
+    {
+      "slug": "maleria",
+      "name": "Maleria",
+      "testCodes": [
+        "DRS136",
+        "DRS036",
+        "DRS048",
+        "DRS143",
+        "DRS133",
+        "DRS127",
+        "DRS078",
+        "DRS062",
+        "DRS081"
+      ],
+      "tests": [
+        {
+          "code": "DRS136",
+          "slug": "malarial-parasite-identification-wb-edta",
+          "name": "Malarial Parasite Identification-WB-EDTA",
+          "nameTelugu": "మలేరియా పరాన్నజీవి గుర్తింపు-WB-EDTA",
+          "symptoms": [
+            "Fever with chills",
+            "sweating",
+            "body pain"
+          ]
+        },
+        {
+          "code": "DRS036",
+          "slug": "blood-picture-peripheral-smear-examination",
+          "name": "Blood Picture-Peripheral Smear Examination",
+          "nameTelugu": "రక్త చిత్రం - పెరిఫెరల్ స్మియర్ పరీక్ష",
+          "symptoms": [
+            "Fever",
+            "anemia",
+            "weakness",
+            "infection signs"
+          ]
+        },
+        {
+          "code": "DRS048",
+          "slug": "cbc",
+          "name": "CBC",
+          "nameTelugu": "సంపూర్ణ రక్త పరీక్ష (సీబీసీ)",
+          "symptoms": [
+            "Weakness",
+            "infection",
+            "anemia signs"
+          ]
+        },
+        {
+          "code": "DRS143",
+          "slug": "platelet-count-pc-wb-edta",
+          "name": "Platelet Count (PC)-WB-EDTA",
+          "nameTelugu": "ప్లేట్",
+          "symptoms": [
+            "Bleeding",
+            "dengue fever",
+            "easy bruising"
+          ]
+        },
+        {
+          "code": "DRS133",
+          "slug": "liver-function-test-lft-serum",
+          "name": "Liver Function Test (LFT)-Serum",
+          "nameTelugu": "లివర్ ఫంక్షన్ టెస్ట్ (LFT)-సీరం",
+          "symptoms": [
+            "Jaundice",
+            "abdominal pain",
+            "fatigue"
+          ]
+        },
+        {
+          "code": "DRS127",
+          "slug": "kidney-function-test-kft-serum",
+          "name": "Kidney Function Test (KFT)-Serum",
+          "nameTelugu": "కిడ్నీ ఫంక్షన్ టెస్ట్ (KFT)-సీరం",
+          "symptoms": [
+            "Swelling",
+            "fatigue",
+            "reduced urine output"
+          ]
+        },
+        {
+          "code": "DRS078",
+          "slug": "dengue-profile-antibody-ns1-antigen-igg-igm-rapid",
+          "name": "Dengue Profile (Antibody & NS1 Antigen) IGG &IGM ) RAPID",
+          "nameTelugu": "డెంగ్యూ ప్రొఫైల్ (యాంటీబాడీ & NS1 యాంటిజెన్) IGG & IGM ర్యాపిడ్",
+          "symptoms": [
+            "High fever",
+            "body pain",
+            "low platelets"
+          ]
+        },
+        {
+          "code": "DRS062",
+          "slug": "c-reactive-protein-crp-serum",
+          "name": "C-Reactive Protein (CRP)-Serum",
+          "nameTelugu": "సి-రియాక్టివ్ ప్రోటీన్ (CRP)-సీరం",
+          "symptoms": [
+            "Fever",
+            "inflammation",
+            "body pain"
+          ]
+        },
+        {
+          "code": "DRS081",
+          "slug": "erythrocyte-sedimentation-rate-esr",
+          "name": "Erythrocyte Sedimentation Rate (ESR)",
+          "nameTelugu": "ఎరిత్రోసైట్ సెడిమెంటేషన్ రేట్ (ESR)",
+          "symptoms": [
+            "Fever",
+            "infection",
+            "joint pain",
+            "inflammation"
+          ]
+        }
+      ],
+      "testCount": 9
+    },
+    {
+      "slug": "dengue",
+      "name": "Dengue",
+      "testCodes": [
+        "DRS077",
+        "DRS076",
+        "DRS075",
+        "DRS048",
+        "DRS078",
+        "DRS143",
+        "DRS133",
+        "DRS127",
+        "DRS080",
+        "DRS136",
+        "DRS062",
+        "DRS081"
+      ],
+      "tests": [
+        {
+          "code": "DRS077",
+          "slug": "dengue-ns1-rapid",
+          "name": "Dengue NS1 RAPID",
+          "nameTelugu": "డెంగ్యూ NS1 ర్యాపిడ్",
+          "symptoms": [
+            "Sudden fever",
+            "headache",
+            "joint pain"
+          ]
+        },
+        {
+          "code": "DRS076",
+          "slug": "dengue-igm-antibody-serum-elisa",
+          "name": "Dengue IgM Antibody-Serum(ELISA)",
+          "nameTelugu": "డెంగ్యూ IgM యాంటీబాడీ-సీరం (ఎలైసా)",
+          "symptoms": [
+            "Recent fever",
+            "rash",
+            "body pain"
+          ]
+        },
+        {
+          "code": "DRS075",
+          "slug": "dengue-igg-antibody-serum-elisa",
+          "name": "Dengue IgG Antibody-Serum( ELISA)",
+          "nameTelugu": "డెంగ్యూ IgG యాంటీబాడీ-సీరం (ఎలైసా)",
+          "symptoms": [
+            "Past dengue infection",
+            "recurrent fever"
+          ]
+        },
+        {
+          "code": "DRS048",
+          "slug": "cbc",
+          "name": "CBC",
+          "nameTelugu": "సంపూర్ణ రక్త పరీక్ష (సీబీసీ)",
+          "symptoms": [
+            "Weakness",
+            "infection",
+            "anemia signs"
+          ]
+        },
+        {
+          "code": "DRS078",
+          "slug": "dengue-profile-antibody-ns1-antigen-igg-igm-rapid",
+          "name": "Dengue Profile (Antibody & NS1 Antigen) IGG &IGM ) RAPID",
+          "nameTelugu": "డెంగ్యూ ప్రొఫైల్ (యాంటీబాడీ & NS1 యాంటిజెన్) IGG & IGM ర్యాపిడ్",
+          "symptoms": [
+            "High fever",
+            "body pain",
+            "low platelets"
+          ]
+        },
+        {
+          "code": "DRS143",
+          "slug": "platelet-count-pc-wb-edta",
+          "name": "Platelet Count (PC)-WB-EDTA",
+          "nameTelugu": "ప్లేట్",
+          "symptoms": [
+            "Bleeding",
+            "dengue fever",
+            "easy bruising"
+          ]
+        },
+        {
+          "code": "DRS133",
+          "slug": "liver-function-test-lft-serum",
+          "name": "Liver Function Test (LFT)-Serum",
+          "nameTelugu": "లివర్ ఫంక్షన్ టెస్ట్ (LFT)-సీరం",
+          "symptoms": [
+            "Jaundice",
+            "abdominal pain",
+            "fatigue"
+          ]
+        },
+        {
+          "code": "DRS127",
+          "slug": "kidney-function-test-kft-serum",
+          "name": "Kidney Function Test (KFT)-Serum",
+          "nameTelugu": "కిడ్నీ ఫంక్షన్ టెస్ట్ (KFT)-సీరం",
+          "symptoms": [
+            "Swelling",
+            "fatigue",
+            "reduced urine output"
+          ]
+        },
+        {
+          "code": "DRS080",
+          "slug": "electrolyte-profile-serum",
+          "name": "Electrolyte Profile-Serum",
+          "nameTelugu": "ఎలక్ట్రోలైట్ ప్రొఫైల్-సీరం",
+          "symptoms": [
+            "Dehydration",
+            "muscle cramps",
+            "weakness"
+          ]
+        },
+        {
+          "code": "DRS136",
+          "slug": "malarial-parasite-identification-wb-edta",
+          "name": "Malarial Parasite Identification-WB-EDTA",
+          "nameTelugu": "మలేరియా పరాన్నజీవి గుర్తింపు-WB-EDTA",
+          "symptoms": [
+            "Fever with chills",
+            "sweating",
+            "body pain"
+          ]
+        },
+        {
+          "code": "DRS062",
+          "slug": "c-reactive-protein-crp-serum",
+          "name": "C-Reactive Protein (CRP)-Serum",
+          "nameTelugu": "సి-రియాక్టివ్ ప్రోటీన్ (CRP)-సీరం",
+          "symptoms": [
+            "Fever",
+            "inflammation",
+            "body pain"
+          ]
+        },
+        {
+          "code": "DRS081",
+          "slug": "erythrocyte-sedimentation-rate-esr",
+          "name": "Erythrocyte Sedimentation Rate (ESR)",
+          "nameTelugu": "ఎరిత్రోసైట్ సెడిమెంటేషన్ రేట్ (ESR)",
+          "symptoms": [
+            "Fever",
+            "infection",
+            "joint pain",
+            "inflammation"
+          ]
+        }
+      ],
+      "testCount": 12
+    },
+    {
+      "slug": "vitamin",
+      "name": "Vitamin",
+      "testCodes": [
+        "DRS002",
+        "DRS190",
+        "DRS087",
+        "DRS041",
+        "DRS125",
+        "DRS048",
+        "DRS114"
+      ],
+      "tests": [
+        {
+          "code": "DRS002",
+          "slug": "25-hydroxy-vitamin-d-serum",
+          "name": "25-Hydroxy Vitamin D-Serum",
+          "nameTelugu": "25-హైడ్రాక్సీ విటమిన్ డి-సీరం",
+          "symptoms": [
+            "Bone pain",
+            "fatigue",
+            "muscle weakness",
+            "frequent fractures"
+          ]
+        },
+        {
+          "code": "DRS190",
+          "slug": "vitamin-b12-serum",
+          "name": "Vitamin-B12-Serum",
+          "nameTelugu": "విటమిన్-బి12-సీరం",
+          "symptoms": [
+            "Numbness",
+            "fatigue",
+            "memory issues"
+          ]
+        },
+        {
+          "code": "DRS087",
+          "slug": "folate-serum-folic-acid-serum",
+          "name": "Folate Serum (Folic Acid)-Serum",
+          "nameTelugu": "ఫోలేట్ సీరం (ఫోలిక్ ఆమ్లం)-సీరం",
+          "symptoms": [
+            "Fatigue",
+            "anemia",
+            "weakness"
+          ]
+        },
+        {
+          "code": "DRS041",
+          "slug": "calcium-serum",
+          "name": "Calcium-Serum",
+          "nameTelugu": "కాల్షియం-సీరం",
+          "symptoms": [
+            "Muscle cramps",
+            "tingling",
+            "bone weakness"
+          ]
+        },
+        {
+          "code": "DRS125",
+          "slug": "iron-defficiency-profile-i",
+          "name": "Iron Defficiency Profile-I",
+          "nameTelugu": "ఇనుము లోపం ప్రొఫైల్-I",
+          "symptoms": [
+            "Fatigue",
+            "weakness",
+            "pale skin",
+            "dizziness",
+            "shortness of breath",
+            "hair fall"
+          ]
+        },
+        {
+          "code": "DRS048",
+          "slug": "cbc",
+          "name": "CBC",
+          "nameTelugu": "సంపూర్ణ రక్త పరీక్ష (సీబీసీ)",
+          "symptoms": [
+            "Weakness",
+            "infection",
+            "anemia signs"
+          ]
+        },
+        {
+          "code": "DRS114",
+          "slug": "homocysteine-serum",
+          "name": "Homocysteine-Serum",
+          "nameTelugu": "హోమోసిస్టైన్-సీరం",
+          "symptoms": [
+            "Heart risk",
+            "numbness",
+            "weakness"
+          ]
+        }
+      ],
+      "testCount": 7
+    }
+  ]
+}

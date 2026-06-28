@@ -1,39 +1,38 @@
 # Dr Swift Diagnostics — Customer Flutter App
 
-Production-grade iOS and Android app for **Dr Swift Diagnostics** ([drswift.in](https://drswift.in)).
+Production-grade **iOS and Android** app for [Dr Swift Diagnostics](https://drswift.in).
 
-Book at-home diagnostic tests, manage family health profiles, and view longitudinal reports with trends and insights.
+Book at-home diagnostic tests, browse health profiles, and (in future phases) manage family reports and longitudinal health trends.
 
-> **Status:** Phase 0 scaffold complete — run `./scripts/setup.sh` after installing Flutter SDK.
+> **Status:** Phase 0–1 in progress — catalog UI wired to seed-data JSON fixtures; auth, cart, and reports APIs pending.
+
+**Tagline:** *See More Than Numbers. See Your Health.*
 
 ---
 
 ## Table of Contents
 
-- [Product Vision](#product-vision)
-- [Technology Stack](#technology-stack)
-- [Repository Assets](#repository-assets)
-- [Platform Context](#platform-context)
+- [Getting Started](#getting-started)
+- [Catalog Data](#catalog-data)
+- [Project Structure](#project-structure)
+- [Run & Build](#run--build)
 - [Architecture](#architecture)
-- [Navigation & Screens](#navigation--screens)
-- [Feature Modules](#feature-modules)
-- [API Contract](#api-contract)
+- [Navigation](#navigation)
+- [API Integration](#api-integration)
 - [Design System](#design-system)
-- [Implementation Phases](#implementation-phases)
-- [Project Bootstrap Checklist](#project-bootstrap-checklist)
-- [Testing Strategy](#testing-strategy)
-- [Open Decisions](#open-decisions)
-- [Definition of Done (v1)](#definition-of-done-v1)
+- [Testing](#testing)
+- [Roadmap](#roadmap)
 - [Related Repositories](#related-repositories)
+
+---
 
 ## Getting Started
 
 ### Prerequisites
 
-- [Flutter SDK](https://docs.flutter.dev/get-started/install) 3.3+ — installed via `brew install --cask flutter`
-- CocoaPods (iOS) — `brew install cocoapods`
-- Xcode (iOS builds) — install from App Store, then run `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer`
-- Android Studio (Android builds) — for Android SDK and emulator
+- [Flutter SDK](https://docs.flutter.dev/get-started/install) 3.3+ (`brew install --cask flutter`)
+- CocoaPods for iOS (`brew install cocoapods`)
+- Xcode (iOS) / Android Studio (Android SDK)
 
 ### Setup
 
@@ -42,311 +41,242 @@ cd swift_customer_flutter_chatGPT
 ./scripts/setup.sh
 ```
 
-The setup script generates `android/` and `ios/` folders (if missing), fetches dependencies, and runs static analysis.
+This fetches dependencies, generates platform folders if missing, and runs static analysis.
 
-### Run
+### Quick run
 
 ```bash
-# Development (test API)
+flutter run --dart-define=ENV=dev
+```
+
+---
+
+## Catalog Data
+
+The app no longer uses hardcoded mock catalog data. Tests, symptom categories, and health profiles are loaded from **JSON fixtures** generated from the seed CSV files you imported into DrSwift-CMS.
+
+### Source files (repo root)
+
+| CSV | Contents |
+|-----|----------|
+| `Test List-Table 1.csv` | 52 individual lab tests (codes, names, Telugu, symptoms) |
+| `Category List-Table 1.csv` | 10 symptom categories → test mappings (Weakness, Fever, Sugar, …) |
+| `Profiles-Table 1.csv` | 7 health profiles (DRS Diabetic, Check 72, Fever, …) |
+
+### Generated fixtures (`assets/data/`)
+
+| JSON file | Shape | Used for |
+|-----------|-------|----------|
+| `catalog.json` | `GET /api/v1/public/catalog` | All tests + profiles (`tests`, `promotions`, `featuredCollections`) |
+| `categories.json` | App-specific | Symptom category list and test membership |
+| `profiles.json` | App-specific | Health profile packages and included tests |
+
+Regenerate after CSV edits:
+
+```bash
+python3 scripts/generate_catalog_json.py
+```
+
+### Data flow
+
+```
+Seed CSVs  →  scripts/generate_catalog_json.py  →  assets/data/*.json
+                                                        ↓
+                                              AssetCatalogRepository
+                                                        ↓
+                                              CatalogUiMapper → UI screens
+```
+
+### Switching to live CMS APIs
+
+JSON fixtures mirror the [DrSwift-CMS](../DrSwift-CMS/) public catalog DTOs (`CatalogController`). To use HTTP instead of bundled assets:
+
+```bash
+flutter run --dart-define=USE_CATALOG_API=true --dart-define=ENV=dev
+```
+
+| Mode | Repository | Data source |
+|------|------------|-------------|
+| Default | `AssetCatalogRepository` | `assets/data/*.json` |
+| `USE_CATALOG_API=true` | `ApiCatalogRepository` | `GET /api/v1/public/catalog` |
+
+**Important:** CMS public endpoints use server-side Basic Auth. Do **not** embed CMS credentials in the mobile app — route catalog calls through a Customer BFF or secure proxy in production.
+
+Placeholder prices in JSON are used because the CSVs do not include pricing. Live CMS/DB data will supply real `priceCents` when the API is wired.
+
+---
+
+## Project Structure
+
+```
+lib/
+  app.dart, main.dart
+  core/
+    config/           # AppConfig, environment flavors
+    constants/        # ApiPaths, AssetPaths
+    network/          # Dio ApiClient, interceptors
+    storage/          # Secure JWT storage
+    theme/            # Colors, typography, spacing
+    widgets/          # Design system (DsScaffold, DsCard, …)
+    errors/
+  features/
+    onboarding/       # Splash + 3-page onboarding
+    home/             # Tests tab home
+    catalog/          # Categories, test list, test detail, JSON/API repository
+    profiles/         # Health profile browse + booking flow (mock checkout)
+    reports/          # Reports tab shell
+    dashboard/        # Health tab (trend charts shell)
+    profile/          # Account tab
+    authentication/   # Login placeholder
+  routing/            # GoRouter + 4-tab shell
+
+assets/
+  data/               # catalog.json, categories.json, profiles.json
+  icons/              # SVG icons
+  images/             # Logo
+  onboarding/         # Onboarding illustrations
+
+scripts/
+  setup.sh
+  generate_catalog_json.py
+
+test/                 # Unit + widget tests
+```
+
+### Key catalog files
+
+| Path | Role |
+|------|------|
+| `lib/features/catalog/data/models/catalog_models.dart` | CMS-aligned DTOs |
+| `lib/features/catalog/data/repositories/catalog_repository.dart` | Asset + API repositories |
+| `lib/features/catalog/data/catalog_providers.dart` | Riverpod providers |
+| `lib/features/catalog/data/mappers/catalog_ui_mapper.dart` | DTO → screen models |
+| `lib/features/catalog/presentation/catalog_route_loaders.dart` | Async route wrappers |
+
+---
+
+## Run & Build
+
+```bash
+# Development
 flutter run --dart-define=ENV=dev
 
 # Other environments
 flutter run --dart-define=ENV=test
 flutter run --dart-define=ENV=uat
 flutter run --dart-define=ENV=prod
+
+# Live catalog API (when BFF/CMS endpoint is configured)
+flutter run --dart-define=ENV=dev --dart-define=USE_CATALOG_API=true
+
+# Analyze & test
+flutter analyze
+flutter test
 ```
 
-### Project structure (implemented)
+### Environment API base URLs
 
-```
-lib/
-  app.dart, main.dart
-  core/          # config, network, storage, theme, widgets, errors
-  features/
-    onboarding/  # splash + 3-page onboarding
-    home/        # Tests tab (mock catalog UI)
-    reports/     # Reports tab (guest + sample preview)
-    dashboard/   # Health tab (trend charts)
-    profile/     # Account tab
-    authentication/  # Login screen shell
-  routing/       # GoRouter + 4-tab shell
-test/            # unit tests
-```
+Configured in `lib/core/config/app_config.dart`:
 
----
-
-**Tagline:** *See More Than Numbers. See Your Health.*
-
-Dr Swift is a **longitudinal health history platform**, not just a test-ordering app. The differentiator is family-scoped reports, biomarker trends, and actionable insights over time.
-
-| Principle | Detail |
-|-----------|--------|
-| Core asset | Health history per family member (Swift SSN internally — never exposed to mobile) |
-| Collection model | Home sample collection only — phlebotomist visits the customer |
-| Reports | Permanent access; English and Telugu PDFs |
-| Family | One account manages multiple family members; insights are never mixed across profiles |
-| UX philosophy | Apple-grade simplicity — one primary action per screen, progressive disclosure |
-
----
-
-## Technology Stack
-
-### Mobile (this repo)
-
-| Layer | Choice |
-|-------|--------|
-| Framework | Flutter 3.x (latest stable), Dart 3 |
-| State management | Riverpod |
-| Navigation | GoRouter |
-| Models | Freezed + json_serializable |
-| HTTP | Dio (interceptors for JWT, retry) |
-| Auth | Firebase (OTP, Google, Apple) → backend JWT exchange |
-| Secure storage | flutter_secure_storage |
-| Charts | fl_chart |
-| Images | cached_network_image, flutter_svg |
-| Observability | Firebase Crashlytics, Firebase Analytics |
-| Notifications | Firebase Cloud Messaging |
-
-**Not used:** Provider, GetX, BLoC, MVC, singleton-heavy architecture, direct Supabase access.
-
-### Backend & Infrastructure
-
-| Layer | Choice |
-|-------|--------|
-| API | Java, Spring Boot |
-| Hosting | DigitalOcean, nginx, Cloudflare |
-| Database | Supabase PostgreSQL (`swiftunit` schema) |
-| CMS / Catalog | [DrSwift-CMS](../DrSwift-CMS/) |
-| Auth | Firebase ID token verification → JWT |
-
----
-
-## Repository Assets
-
-| Path | Purpose |
-|------|---------|
-| [`plan.txt`](./plan.txt) | Full engineering specification (architecture, modules, code quality) |
-| [`ui_ux.png`](./ui_ux.png) | Primary UI/UX mockup (11 screens) |
-| [`public/assets/icons/`](./public/assets/icons/) | Curated SVG icons for the app |
-| [`svg files/`](./svg%20files/) | Source SVG asset library |
-
-Brand, UX, and data-model docs live in [`swift-customer-portal-chatGPT`](../swift-customer-portal-chatGPT/):
-
-- `01-Brand.md` — colors, personality, tagline
-- `02-DESIGN-SYSTEM.md` — cards, typography, buttons
-- `04-MOBILE-APP-UX.md` — mobile UX philosophy (note: tab count differs from mockup — see [Navigation](#navigation--screens))
-- `05-REPORTS-AND-INSIGHTS.md` — Reports tab behavior (highest-priority module)
-- `06-BUSINESS-RULES.md` — family, orders, reports rules
-- `07-DATA-MODEL.md` — Swift SSN, ownership model
-- `APPLICATION-SKELETON.md` — planned backend API contracts
-
----
-
-## Platform Context
-
-### What exists today
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│  DEPLOYED                                                   │
-│  • DrSwift-CMS — catalog API (read-only, Basic Auth)        │
-│    GET /api/v1/public/catalog, /hero-carousel, /tests/{slug}│
-│  • Channel Partner API — *-api.drswift.in (partner app)     │
-│  • Reports service — *-reports.drswift.in                   │
-│  • Patient web portal — unit/test/uat.drswift.in            │
-├─────────────────────────────────────────────────────────────┤
-│  PLANNED (skeleton only)                                    │
-│  • Customer BFF — auth, cart, orders, family, reports       │
-│  • This Flutter app                                         │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### Capability matrix
-
-| Capability | Status | Location |
-|------------|--------|----------|
-| Test catalog (100+ tests, promos) | **Live** | DrSwift-CMS `/api/v1/public/*` |
-| Firebase → JWT auth | **Not built** | `POST /api/auth/firebase/exchange` (skeleton) |
-| Cart, checkout, orders | **Not built** | `swift-customer-portal-chatGPT` API skeleton |
-| Family profiles | **Not built** | Same skeleton |
-| Reports & health summary | **Not built** | DB tables exist; API skeleton defined |
-| Addresses | **Not built** | Domain entity only — API TBD |
-| Push notifications | **Not built** | `device_push_tokens` table exists |
-
-**Critical rule:** The mobile app must **never** embed CMS Basic Auth credentials or query Supabase directly. All data flows through a **Customer BFF** with JWT auth.
+| ENV | Base URL |
+|-----|----------|
+| `dev` / `test` | `https://test-api-customer.drswift.in` |
+| `uat` | `https://uat-api-customer.drswift.in` |
+| `prod` | `https://api.drswift.in` |
 
 ---
 
 ## Architecture
 
-### System overview
+### Stack
+
+| Layer | Choice |
+|-------|--------|
+| Framework | Flutter 3.x, Dart 3 |
+| State | Riverpod |
+| Navigation | GoRouter |
+| HTTP | Dio (JWT interceptors, retry) |
+| Models | Freezed + json_serializable (core); hand-written catalog DTOs |
+| Auth (planned) | Firebase → Customer BFF JWT exchange |
+| Storage | flutter_secure_storage |
+| Charts | fl_chart |
+| Observability | Firebase Crashlytics, Analytics, FCM |
+
+Feature-first layout: each feature owns `data/`, `presentation/` (and `domain/` when business logic grows).
+
+### System context
 
 ```
 ┌──────────────┐     Firebase Auth      ┌──────────────┐
 │  Flutter App │ ◄────────────────────► │   Firebase   │
 │  (this repo) │     FCM / Crashlytics    └──────────────┘
 └──────┬───────┘
-       │ HTTPS + JWT
+       │ HTTPS + JWT (planned)
        ▼
-┌──────────────┐     catalog proxy      ┌──────────────┐
+┌──────────────┐     catalog            ┌──────────────┐
 │ Customer BFF │ ◄────────────────────► │  DrSwift-CMS │
-│ (Spring Boot)│                          └──────────────┘
+│ (planned)    │                          └──────────────┘
 └──────┬───────┘
-       │
        ▼
-┌──────────────┐     reports (optional)  ┌──────────────┐
-│   Supabase   │ ◄────────────────────► │ Reports Svc  │
-│  swiftunit   │                          └──────────────┘
+┌──────────────┐
+│   Supabase   │  swiftunit schema
 └──────────────┘
 ```
 
-### Flutter folder structure
-
-Feature-first Clean Architecture — separate `data`, `domain`, and `presentation` per feature:
-
-```
-lib/
-  core/
-    config/       # flavors, env, API base URL
-    constants/
-    errors/
-    network/      # ApiClient, interceptors
-    services/
-    storage/      # secure JWT storage
-    theme/        # Material 3, light/dark
-    utils/
-    widgets/      # shared design-system components
-  features/
-    authentication/
-    onboarding/
-    home/
-    categories/
-    tests/
-    cart/
-    booking/
-    reports/
-    dashboard/    # Health tab
-    profile/
-    family/
-    notifications/
-    orders/
-    addresses/
-  routing/        # GoRouter + auth guards
-  main.dart
-```
-
-### Auth flow
-
-1. User signs in via Firebase (OTP / Google / Apple)
-2. App sends Firebase ID token to `POST /api/auth/firebase/exchange`
-3. Backend returns `accessToken`, `refreshToken`, and `account`
-4. Tokens stored in `flutter_secure_storage`
-5. Dio `AuthInterceptor` attaches JWT; handles automatic refresh
-6. Phone verification required before first order
+**Rules:**
+- Never query Supabase directly from the mobile app.
+- Never embed CMS Basic Auth credentials in the app binary.
+- Mobile uses `familyProfileId`; Swift SSN stays internal to backend only.
 
 ---
 
-## Navigation & Screens
+## Navigation
 
-### Bottom navigation (follow `ui_ux.png`)
+4-tab shell per `ui_ux.png`:
 
-| Tab | Purpose |
-|-----|---------|
-| **Tests** | Discovery — search, categories, health profiles, test details, cart entry |
-| **Reports** | Report list, biomarker cards, insights, in-header family switcher |
-| **Health** | Longitudinal trend dashboard (fl_chart) |
-| **Account** | Auth, profile, family, orders, addresses, notifications, settings |
+| Tab | Route | Status |
+|-----|-------|--------|
+| **Tests** | `/tests` | Home, categories, profiles, test detail — **seed JSON** |
+| **Reports** | `/reports` | Shell UI |
+| **Health** | `/health` | Trend dashboard shell |
+| **Account** | `/account` | Shell UI |
 
-> **Note:** `04-MOBILE-APP-UX.md` describes 5 tabs (Home, Tests, Packages, Reports, Account). The **mockup and `plan.txt` use 4 tabs** — packages/health profiles live inside the Tests tab.
+### Implemented catalog routes
 
-### Screen map (mockup → feature)
-
-| Mockup | Screen | Module | Auth |
-|--------|--------|--------|------|
-| 1A | Splash | `onboarding` | No |
-| 1B–1C | Onboarding (3 pages) | `onboarding` | No |
-| 2 | Tests home | `home`, `categories` | Browse: No |
-| 2B | All categories | `categories` | No |
-| 2C | Tests in category | `tests` | No |
-| 2A | Health profile detail | `tests` | No |
-| 2D | Test detail bottom sheet | `tests` | No |
-| 3 | Reports | `reports` | Yes |
-| 4 | Health dashboard | `dashboard` | Yes |
-| 5 | Account / Login | `authentication`, `profile` | Mixed |
-
-Additional screens (not in mockup): Cart, Checkout, Address picker, Slot selection, Order confirmation, Order history, Family CRUD, Notification inbox, PDF viewer, Settings, Support.
+| Route | Screen |
+|-------|--------|
+| `/tests` | Tests home (profiles + category preview) |
+| `/categories` | All symptom categories |
+| `/categories/:slug` | Tests in category |
+| `/tests/:slug` | Test detail bottom sheet |
+| `/profiles` | Health profiles grid |
+| `/profiles/:slug` | Profile detail + booking flow |
 
 ---
 
-## Feature Modules
+## API Integration
 
-### Authentication & Onboarding
-- Splash with JWT check
-- 3-page value-prop onboarding
-- Phone OTP, Google Sign-In, Apple Sign-In (iOS)
-- Login / Sign up toggle
-- Guest catalog browse; login gate on cart
+### Live today (DrSwift-CMS)
 
-### Tests (Discovery & Booking)
-- Search with debounce
-- Category grid and full category list
-- Health profile (package) horizontal scroll + detail
-- Test detail bottom sheet: reference range bar, prep instructions, "often booked with"
-- Add to cart (mixed tests + packages)
+| Endpoint | Purpose |
+|----------|---------|
+| `GET /api/v1/public/catalog` | Full catalog bundle |
+| `GET /api/v1/public/catalog/tests/{slug}` | Single test detail |
+| `GET /api/v1/public/hero-carousel?slug=` | Promo carousel |
+| `GET /api/v1/public/health` | Health check |
 
-### Cart & Booking
-- Server-synced cart with per-line family member
-- Address management
-- Slot selection → quote → place order
-- Payment placeholder in v1 (Razorpay/PhonePe in post-launch phase)
+### Planned (Customer BFF skeleton)
 
-### Reports (highest priority)
-- Family switcher always in header — never navigate away to switch
-- States: no reports / one report / multiple reports
-- Biomarker cards with status colors (green / orange / red)
-- Health summary, parameter detail, PDF download (EN / TE)
-- Historical comparison (requires 2+ reports)
+| Domain | Endpoints |
+|--------|-------------|
+| Auth | `POST /api/auth/firebase/exchange` |
+| Account | `GET / PATCH /api/me` |
+| Cart / Checkout | `/api/cart`, `/api/checkout/*` |
+| Orders | `/api/orders` |
+| Family | `/api/family` |
+| Reports | `/api/reports`, `/api/reports/summary` |
 
-### Health Dashboard
-- Per-metric mini line charts, current value, trend direction
-- Data from reports summary and parameter trend APIs
-
-### Account
-- Profile, family members, orders, addresses, notifications, settings, support, logout
-
----
-
-## API Contract
-
-Mobile-facing contract (from `swift-customer-portal-chatGPT` skeleton). Version as `/api/v1/...` when implemented.
-
-### Recommended base URLs
-
-| Environment | Customer API |
-|-------------|--------------|
-| Unit | `https://unit-api-customer.drswift.in` (or `https://unit.drswift.in/api`) |
-| Test | `https://test-api-customer.drswift.in` |
-| UAT | `https://uat-api-customer.drswift.in` |
-| Production | `https://api.drswift.in` |
-
-### Endpoints
-
-| Domain | Methods |
-|--------|---------|
-| **Auth** | `POST /api/auth/firebase/exchange` |
-| **Account** | `GET / PATCH /api/me` |
-| **Catalog** | `GET /api/catalog/categories`, `/tests`, `/tests/{id}`, `/packages`, `/packages/{slug}` |
-| **Cart** | `GET /api/cart`, `POST /api/cart/items`, `DELETE /api/cart/items/{id}` |
-| **Checkout** | `POST /api/checkout/quote`, `POST /api/checkout/place-order` |
-| **Orders** | `GET /api/orders`, `GET /api/orders/{id}`, `POST /api/orders/{id}/cancel` |
-| **Family** | `GET / POST /api/family`, `GET / PATCH /api/family/{id}` |
-| **Reports** | `GET /api/reports?familyProfileId=`, `/summary`, `/parameters/{id}/trend` |
-| **Addresses** | `GET / POST / PATCH / DELETE /api/addresses` *(TBD)* |
-| **Notifications** | `POST /api/devices/push-token`, `GET /api/notifications` *(TBD)* |
-
-### Catalog ID reconciliation
-
-CMS returns `Long` IDs and slugs with `priceCents`. Customer skeleton uses `UUID` and `priceMinor`. The Customer BFF needs an **adapter layer** — recommend slugs for URLs in v1.
+See [`swift-customer-portal-chatGPT`](../swift-customer-portal-chatGPT/) for API skeleton contracts and [`plan.txt`](./plan.txt) for the full engineering spec.
 
 ---
 
@@ -354,154 +284,77 @@ CMS returns `Long` IDs and slugs with `priceCents`. Customer skeleton uses `UUID
 
 | Token | Value |
 |-------|-------|
-| Primary purple | `#583A8E` — `RGB(88, 58, 142)` |
-| Background | White (light mode primary) |
-| Card radius | 24px |
-| Card border | `1px solid rgba(88, 58, 142, 0.10)` |
-| Status — normal | Green |
-| Status — borderline | Orange |
-| Status — low / high / critical | Red |
-| Icons | Custom SVGs in `public/assets/icons/` |
+| Primary purple | `#583A8E` / `#662FC1` |
+| Icons | `assets/icons/*.svg` |
+| Logo | `assets/images/logo.png` |
 
-### Shared widgets to build (`core/widgets/`)
+Shared widgets live in `lib/core/widgets/` — `DsScaffold`, `DsPrimaryButton`, `DsStatusChip`, `DsEmptyState`, `DsErrorState`, etc.
 
-`DsScaffold`, `DsCard`, `DsPrimaryButton`, `DsOutlineButton`, `DsStatusChip`, `DsReferenceRangeBar`, `DsSkeleton`, `DsEmptyState`, `DsErrorState`, `DsOfflineBanner`, `DsTestListTile`, `DsCategoryTile`, `DsHealthProfileCard`, `DsBiomarkerCard`, `DsTrendSparkline`, `DsFamilyProfileSwitcher`, `DsBottomSheet`
+Brand and UX reference docs: [`swift-customer-portal-chatGPT`](../swift-customer-portal-chatGPT/) (`01-Brand.md`, `02-DESIGN-SYSTEM.md`, `04-MOBILE-APP-UX.md`).
 
-Material 3, light + dark mode, accessibility labels, skeleton loaders, pull-to-refresh, proper empty/error/offline states.
+UI mockup: [`ui_ux.png`](./ui_ux.png)
 
 ---
 
-## Implementation Phases
+## Testing
 
-### Phase 0 — Foundation (Weeks 1–2)
+```bash
+flutter test
+```
 
-| Backend | Mobile |
-|---------|--------|
-| Customer BFF: auth exchange + JWT | `flutter create`, folder structure, flavors |
-| CMS catalog adapter | Design system + core widgets |
-| OpenAPI spec, nginx route | Firebase project setup |
-| Address + push-token contracts | Asset pipeline |
-
-**Exit:** Auth exchange works E2E; catalog returns data; app launches with themed shell.
-
-### Phase 1 — Auth & Catalog UI (Weeks 3–5)
-
-| Backend | Mobile |
-|---------|--------|
-| Firebase Admin token verification | Splash, onboarding, login |
-| Catalog endpoints with search | Tests tab: home, categories, lists, detail sheet |
-| Refresh token endpoint | GoRouter + auth guards, guest browse |
-
-**Exit:** User can sign in and browse full catalog matching mockup.
-
-### Phase 2 — Cart & Booking (Weeks 6–8)
-
-| Backend | Mobile |
-|---------|--------|
-| Cart, family, address, checkout, orders APIs | Cart, family CRUD, checkout flow |
-| Phone verification gate | Order history |
-
-**Exit:** End-to-end order placement (payment placeholder).
-
-### Phase 3 — Reports & Health (Weeks 9–11)
-
-| Backend | Mobile |
-|---------|--------|
-| Reports list, summary, trends, PDF URLs | Reports tab (all states), family switcher |
-| Insights (rule-based v1) | Health tab charts, parameter detail |
-
-**Exit:** Reports, trends, and insights per family member; PDF download works.
-
-### Phase 4 — Polish & Release (Weeks 12–14)
-
-| Backend | Mobile |
-|---------|--------|
-| FCM push triggers | FCM registration, notification inbox |
-| Prod deployment | Dark mode, a11y, offline, tests, store submission |
-
-**Exit:** TestFlight + Play internal track; crash-free > 99%.
-
-### Phase 5 — Post-launch
-
-Razorpay/PhonePe payments, coupons, doctor sharing, referrals, Telugu UI localization.
+| Test file | Covers |
+|-----------|--------|
+| `test/catalog_flow_test.dart` | Seed JSON load, category UI |
+| `test/core/app_theme_test.dart` | Theme tokens |
+| `test/core/error_mapper_test.dart` | Dio error mapping |
+| `test/widget_test.dart` | App bootstrap |
 
 ---
 
-## Project Bootstrap Checklist
+## Roadmap
 
-When implementation begins:
+| Phase | Focus | Status |
+|-------|-------|--------|
+| **0** | Scaffold, theme, routing, design system | Done |
+| **1** | Catalog UI + seed JSON fixtures | **In progress** |
+| **1b** | Wire catalog to CMS/BFF API | Next |
+| **2** | Firebase auth + JWT, cart, checkout | Planned |
+| **3** | Reports, family switcher, health trends | Planned |
+| **4** | FCM, polish, store release | Planned |
 
-1. `flutter create` project in this directory
-2. Add dependencies: `flutter_riverpod`, `go_router`, `freezed_annotation`, `json_annotation`, `dio`, `firebase_core`, `firebase_auth`, `firebase_messaging`, `firebase_crashlytics`, `firebase_analytics`, `google_sign_in`, `sign_in_with_apple`, `flutter_secure_storage`, `cached_network_image`, `flutter_svg`, `fl_chart`, `intl`, `permission_handler`, `share_plus`, `connectivity_plus`
-3. Dev deps: `build_runner`, `freezed`, `json_serializable`, `mocktail`, `flutter_lints`
-4. Flavors: `dev`, `test`, `uat`, `prod` with per-env `API_BASE_URL`
-5. Copy icons from `public/assets/icons/`; logo from `../swift-customer-portal-chatGPT/logo500x500.png`
-6. Build core layer first: `AppConfig`, `ApiClient`, interceptors, `AppTheme`, `AppRouter`
-7. CI: `flutter analyze`, `flutter test`, format check on PR
+Full phased plan: [`plan.txt`](./plan.txt)
 
----
+### v1 definition of done (summary)
 
-## Testing Strategy
-
-| Layer | Scope |
-|-------|-------|
-| **Unit** | DTO mappers, reference-range status logic, cart totals, JWT expiry |
-| **Widget** | Biomarker card, reference range bar, login form, family switcher |
-| **Integration** | Auth flow, catalog fetch, cart add/remove |
-| **Manual QA** | Guest browse, OTP/Google/Apple, mixed cart, family switch, offline, dark mode |
-
-Seed Supabase with sample reports for 2 family members and 3+ report dates before Phase 3.
-
----
-
-## Open Decisions
-
-| # | Topic | Recommendation |
-|---|-------|----------------|
-| 1 | Customer API hosting | New BFF service (not extend CMS admin) |
-| 2 | Catalog IDs | Slugs for URLs in v1; UUID when account DB is live |
-| 3 | Reports service | BFF aggregates for mobile; separate service for ingestion |
-| 4 | Payment | Razorpay / PhonePe (India market) |
-| 5 | Tab count | 4 tabs per `ui_ux.png` |
-| 6 | Health profiles | Map CMS `testType` bundles → `PackageResponse` |
-| 7 | Swift SSN | Internal only; mobile uses `familyProfileId` |
-
----
-
-## Definition of Done (v1)
-
-- [ ] 4-tab app matches `ui_ux.png` for all designed screens
-- [ ] Firebase OTP + Google + Apple on iOS and Android
-- [ ] JWT auth with secure storage and automatic refresh
-- [ ] Full catalog browse (categories, tests, health profiles, search)
-- [ ] Cart + checkout + order history (payment placeholder OK)
-- [ ] Family member management
-- [ ] Reports with family switcher, biomarker status, PDF download
-- [ ] Health dashboard with trend charts
-- [ ] Push notifications for order status
-- [ ] Dark mode, accessibility, skeleton/empty/error/offline states
-- [ ] Crashlytics + Analytics
-- [ ] No Supabase or CMS credentials in the mobile binary
-- [ ] TestFlight and Play Console internal track
+- [x] 4-tab shell matching mockup structure
+- [x] Catalog browse from real seed data (JSON)
+- [ ] Firebase OTP + Google + Apple sign-in
+- [ ] JWT auth with secure storage
+- [ ] Cart + checkout + orders via Customer BFF
+- [ ] Reports with family switcher and PDF download
+- [ ] Health dashboard from report trend APIs
+- [ ] No Supabase or CMS credentials in the app binary
 
 ---
 
 ## Related Repositories
 
-| Repo | Role |
-|------|------|
-| [DrSwift-CMS](../DrSwift-CMS/) | Catalog content management + read-only public catalog API |
-| [swift-customer-portal-chatGPT](../swift-customer-portal-chatGPT/) | Patient web portal + customer BFF API skeleton |
-| [DrSwift-ChannelPartner-Backend](../DrSwift-ChannelPartner-Backend/) | Channel partner mobile app API (separate product) |
+| Repository | Role |
+|------------|------|
+| [DrSwift-CMS](../DrSwift-CMS/) | Catalog CMS + `GET /api/v1/public/*` |
+| [swift-customer-portal-chatGPT](../swift-customer-portal-chatGPT/) | Patient web portal + Customer BFF skeleton |
 | [DrSwift-CMS/datamodel.sql](../DrSwift-CMS/datamodel.sql) | Supabase `swiftunit` schema |
 
 ---
 
-## Immediate Next Steps
+## Repository Assets
 
-1. Confirm 4-tab navigation and Customer API hostname
-2. Implement Customer BFF — auth + catalog adapter first (`swift-customer-portal-chatGPT`)
-3. Publish OpenAPI 3.0 from skeleton interfaces
-4. Create Firebase project (iOS bundle ID + Android application ID)
-5. Bootstrap Flutter project (Phase 0 checklist)
-6. Seed test reports in Supabase for Reports/Health UI development
+| Path | Purpose |
+|------|---------|
+| [`plan.txt`](./plan.txt) | Full engineering specification |
+| [`ui_ux.png`](./ui_ux.png) | Primary UI mockup (11 screens) |
+| `Test List-Table 1.csv` | Seed test catalog |
+| `Category List-Table 1.csv` | Seed symptom categories |
+| `Profiles-Table 1.csv` | Seed health profiles |
+| `assets/data/` | Generated catalog JSON fixtures |
+| `assets/icons/` | App SVG icons |

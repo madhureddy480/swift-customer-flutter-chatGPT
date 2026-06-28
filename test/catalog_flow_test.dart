@@ -1,33 +1,63 @@
-import 'package:dr_swift_diagnostics/features/catalog/data/mock_health_data.dart';
+import 'package:dr_swift_diagnostics/features/catalog/data/catalog_providers.dart';
+import 'package:dr_swift_diagnostics/features/catalog/data/catalog_view_models.dart';
 import 'package:dr_swift_diagnostics/features/catalog/presentation/screens/category_test_list_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('catalog data exposes all categories and HbA1c details', () {
-    expect(MockHealthData.categories, hasLength(8));
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  test('seed catalog exposes symptom categories and glucose test', () async {
+    final container = ProviderContainer();
+    addTearDown(container.dispose);
+
+    final categories = await container.read(healthCategoriesProvider.future);
+    expect(categories, isNotEmpty);
     expect(
-      MockHealthData.categoryById('diabetes-metabolic').testCount,
-      26,
+      categories.any((category) => category.id == 'sugar'),
+      isTrue,
     );
 
-    final hba1c = MockHealthData.testById('hba1c');
-    expect(hba1c.name, 'HbA1c');
-    expect(hba1c.price, 299);
-    expect(hba1c.referenceRanges, hasLength(4));
+    final glucose = await container.read(
+      healthTestBySlugProvider('glucose-blood-fasting').future,
+    );
+    expect(glucose, isNotNull);
+    expect(glucose!.name, contains('Glucose'));
+    expect(glucose.price, greaterThan(0));
   });
 
   testWidgets('category test Add button updates local state', (tester) async {
-    final category = MockHealthData.categoryById('diabetes-metabolic');
-
-    await tester.pumpWidget(
-      MaterialApp(home: CategoryTestListScreen(category: category)),
+    const category = HealthCategory(
+      id: 'sugar',
+      name: 'Sugar',
+      testCount: 1,
+      icon: Icons.water_drop_outlined,
+      color: Color(0xFF18AA63),
+      tests: [
+        HealthTest(
+          id: 'glucose-blood-fasting',
+          name: 'Glucose-Blood-Fasting',
+          subtitle: 'Excess thirst, frequent urination, fatigue',
+          price: 99,
+          sampleType: 'Blood',
+          tags: ['Blood', 'NABL Labs'],
+          whatIsIt: 'Measures fasting blood glucose.',
+          whyTakeThisTest: 'Screens for diabetes risk.',
+          referenceRanges: [],
+          preparation: 'Fasting of 8-10 hours required.',
+          oftenBookedWith: const ['Glycosylated Hemoglobin (GHb/HbA1c)-WB-EDTA'],
+        ),
+      ],
     );
 
-    final addButtons = find.widgetWithText(OutlinedButton, 'Add');
-    expect(addButtons, findsNWidgets(category.tests.length));
+    await tester.pumpWidget(
+      const MaterialApp(home: CategoryTestListScreen(category: category)),
+    );
 
-    await tester.tap(addButtons.first);
+    expect(find.widgetWithText(OutlinedButton, 'Add'), findsOneWidget);
+
+    await tester.tap(find.widgetWithText(OutlinedButton, 'Add'));
     await tester.pump();
 
     expect(find.widgetWithText(OutlinedButton, 'Added'), findsOneWidget);

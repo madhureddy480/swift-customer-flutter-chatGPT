@@ -1,8 +1,5 @@
 import 'package:dr_swift_diagnostics/features/authentication/presentation/screens/login_screen.dart';
-import 'package:dr_swift_diagnostics/features/catalog/data/mock_health_data.dart';
-import 'package:dr_swift_diagnostics/features/catalog/presentation/screens/all_categories_screen.dart';
-import 'package:dr_swift_diagnostics/features/catalog/presentation/screens/category_test_list_screen.dart';
-import 'package:dr_swift_diagnostics/features/catalog/presentation/screens/test_detail_screen.dart';
+import 'package:dr_swift_diagnostics/features/catalog/presentation/catalog_route_loaders.dart';
 import 'package:dr_swift_diagnostics/features/dashboard/presentation/screens/health_dashboard_screen.dart';
 import 'package:dr_swift_diagnostics/features/home/presentation/screens/tests_home_screen.dart';
 import 'package:dr_swift_diagnostics/features/onboarding/presentation/screens/onboarding_screen.dart';
@@ -57,22 +54,70 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
               GoRoute(
                 path: RoutePaths.categories,
-                builder: (context, state) => const AllCategoriesScreen(),
+                builder: (context, state) => const AllCategoriesRoute(),
               ),
               GoRoute(
                 path: RoutePaths.categoryTests,
-                builder: (context, state) => CategoryTestListScreen(
-                  category: MockHealthData.categoryById(
-                    state.pathParameters['slug'] ?? '',
-                  ),
+                builder: (context, state) => CategoryTestListRoute(
+                  slug: state.pathParameters['slug'] ?? '',
                 ),
               ),
               GoRoute(
                 path: RoutePaths.testDetail,
-                builder: (context, state) => TestDetailScreen(
-                  test: MockHealthData.testById(
-                    state.pathParameters['id'] ?? '',
-                  ),
+                builder: (context, state) => TestDetailRoute(
+                  slug: state.pathParameters['id'] ?? '',
+                ),
+              ),
+              GoRoute(
+                path: RoutePaths.profiles,
+                builder: (context, state) => const ProfilesGridRoute(),
+              ),
+              GoRoute(
+                path: RoutePaths.healthProfile,
+                builder: (context, state) => ProfileDetailsRoute(
+                  slug: state.pathParameters['slug'] ?? '',
+                ),
+              ),
+              GoRoute(
+                path: RoutePaths.healthProfileTests,
+                builder: (context, state) => ProfileTestsRoute(
+                  slug: state.pathParameters['slug'] ?? '',
+                ),
+              ),
+              GoRoute(
+                path: RoutePaths.healthProfileMoreInfo,
+                builder: (context, state) => ProfileMoreInfoRoute(
+                  slug: state.pathParameters['slug'] ?? '',
+                ),
+              ),
+              GoRoute(
+                path: RoutePaths.healthProfileAdded,
+                builder: (context, state) => ProfileAddedRoute(
+                  slug: state.pathParameters['slug'] ?? '',
+                ),
+              ),
+              GoRoute(
+                path: RoutePaths.cart,
+                builder: (context, state) => ProfileCartRoute(
+                  slug: state.pathParameters['slug'] ?? '',
+                ),
+              ),
+              GoRoute(
+                path: RoutePaths.book,
+                builder: (context, state) => ProfileBookRoute(
+                  slug: state.pathParameters['slug'] ?? '',
+                ),
+              ),
+              GoRoute(
+                path: RoutePaths.checkout,
+                builder: (context, state) => ProfileCheckoutRoute(
+                  slug: state.pathParameters['slug'] ?? '',
+                ),
+              ),
+              GoRoute(
+                path: RoutePaths.orders,
+                builder: (context, state) => ProfileOrdersRoute(
+                  slug: state.pathParameters['slug'] ?? '',
                 ),
               ),
             ],

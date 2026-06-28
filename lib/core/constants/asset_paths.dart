@@ -1,4 +1,4 @@
-/// Canonical asset paths — all icons from [public/assets/icons].
+/// Canonical asset paths — all icons from [assets/icons].
 abstract final class AssetPaths {
   static const logo = 'assets/images/logo.png';
   static const onboardingHealthProfiles =
@@ -6,7 +6,7 @@ abstract final class AssetPaths {
   static const onboardingFamily = 'assets/onboarding/family_account.png';
   static const onboardingResultsInsights =
       'assets/onboarding/results_insights.png';
-  static const iconsBase = 'public/assets/icons';
+  static const iconsBase = 'assets/icons';
 
   // Onboarding & splash feature icons
   static const bookTests = '$iconsBase/book-tests-icon.svg';

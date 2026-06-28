@@ -4,6 +4,11 @@ abstract final class ApiPaths {
   static const catalogCategories = '/api/catalog/categories';
   static const catalogTests = '/api/catalog/tests';
   static const catalogPackages = '/api/catalog/packages';
+
+  // DrSwift-CMS public catalog (used when USE_CATALOG_API=true).
+  static const cmsCatalog = '/api/v1/public/catalog';
+  static const cmsTestBySlug = '/api/v1/public/catalog/tests';
+  static const cmsHeroCarousel = '/api/v1/public/hero-carousel';
   static const cart = '/api/cart';
   static const checkoutQuote = '/api/checkout/quote';
   static const checkoutPlaceOrder = '/api/checkout/place-order';
