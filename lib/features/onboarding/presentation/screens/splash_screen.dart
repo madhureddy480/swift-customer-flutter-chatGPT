@@ -2,22 +2,25 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:dr_swift_diagnostics/core/constants/asset_paths.dart';
+import 'package:dr_swift_diagnostics/features/onboarding/data/onboarding_repository.dart';
 import 'package:dr_swift_diagnostics/routing/route_paths.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 /// Splash screen matching the compact portrait brand reference.
 ///
 /// Shows the opening brand slide before continuing to the splash carousel.
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   Timer? _nextSlideTimer;
+  late final Future<bool> _onboardingCompleteFuture;
 
   static const _features = <(IconData, String)>[
     (Icons.medical_services_outlined, 'At-home collection'),
@@ -30,10 +33,22 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    _onboardingCompleteFuture =
+        ref.read(onboardingRepositoryProvider).isComplete();
     _nextSlideTimer = Timer(const Duration(seconds: 5), () {
-      if (!mounted) return;
-      context.go('${RoutePaths.onboarding}?page=1');
+      unawaited(_onSplashComplete());
     });
+  }
+
+  Future<void> _onSplashComplete() async {
+    if (!mounted) return;
+
+    final complete = await _onboardingCompleteFuture;
+
+    if (!mounted) return;
+    context.go(
+      complete ? RoutePaths.tests : '${RoutePaths.onboarding}?page=1',
+    );
   }
 
   @override

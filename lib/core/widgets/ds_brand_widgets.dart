@@ -67,6 +67,81 @@ class DsAppHeader extends StatelessWidget {
   }
 }
 
+/// Centered brand lockup for login screen — horizontal logo + tagline.
+class DsLoginBrandLockup extends StatelessWidget {
+  const DsLoginBrandLockup({super.key});
+
+  static const _navy = AppColors.navy;
+  static const _taglineOrange = Color(0xFFE8940A);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const DsLogo(
+              assetPath: AssetPaths.logo,
+              width: 54,
+              height: 54,
+            ),
+            const SizedBox(width: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Dr Swift',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 19,
+                        color: AppColors.textPrimary,
+                        height: 1.1,
+                        letterSpacing: -0.15,
+                      ),
+                ),
+                const Text(
+                  'DIAGNOSTICS',
+                  style: TextStyle(
+                    fontSize: 9.5,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 2.2,
+                    color: AppColors.textPrimary,
+                    height: 1.35,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        const Text.rich(
+          textAlign: TextAlign.center,
+          TextSpan(
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+              height: 1.45,
+              color: _navy,
+            ),
+            children: [
+              TextSpan(text: 'See More Than Numbers,\nSee '),
+              TextSpan(
+                text: 'Your',
+                style: TextStyle(color: _taglineOrange),
+              ),
+              TextSpan(text: ' Health.'),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 /// Dark onboarding header: logo + tagline (mockup 1A–1C).
 class DsOnboardingHeader extends StatelessWidget {
   const DsOnboardingHeader({super.key});
@@ -144,7 +219,93 @@ class DsFeatureRow extends StatelessWidget {
   }
 }
 
-/// Circular health profile chip (mockup screen 2).
+/// Health profile card for Tests home — matches `docs/health_profile_flow.png`.
+class DsHealthProfileCard extends StatelessWidget {
+  const DsHealthProfileCard({
+    required this.title,
+    required this.testCount,
+    required this.iconAsset,
+    required this.accentColor,
+    super.key,
+    this.onTap,
+  });
+
+  final String title;
+  final int testCount;
+  final String iconAsset;
+  final Color accentColor;
+  final VoidCallback? onTap;
+
+  static const cardWidth = 108.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      label: '$title, $testCount tests',
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: cardWidth,
+          padding: const EdgeInsets.fromLTRB(10, 14, 10, 12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: const Color(0xFFE8E8EF)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 54,
+                height: 54,
+                decoration: BoxDecoration(
+                  color: accentColor.withValues(alpha: 0.14),
+                  shape: BoxShape.circle,
+                ),
+                alignment: Alignment.center,
+                child: DsSvg(iconAsset, size: 34),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                title,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Color(0xFF071B3A),
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w700,
+                  height: 1.15,
+                  letterSpacing: -0.1,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                '$testCount Tests',
+                style: const TextStyle(
+                  color: Color(0xFF667085),
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  height: 1,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Circular health profile chip (legacy — prefer [DsHealthProfileCard] on Tests home).
 class DsHealthProfileChip extends StatelessWidget {
   const DsHealthProfileChip({
     required this.label,

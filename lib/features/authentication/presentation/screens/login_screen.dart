@@ -1,14 +1,13 @@
-import 'package:dr_swift_diagnostics/core/constants/asset_paths.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
-import 'package:dr_swift_diagnostics/core/widgets/ds_asset_image.dart';
+import 'package:dr_swift_diagnostics/core/widgets/ds_brand_widgets.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_buttons.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_scaffold.dart';
 import 'package:dr_swift_diagnostics/routing/route_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-/// Login / Sign Up — matches mockup screen 5.
+/// Login / Sign Up — matches `ui_ux.png` screen 5.
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -42,108 +41,138 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return DsScaffold(
       appBar: AppBar(
+        elevation: 0,
+        scrolledUnderElevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
           onPressed: () =>
               context.canPop() ? context.pop() : context.go(RoutePaths.account),
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(AppSpacing.xl),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.xl,
+          0,
+          AppSpacing.xl,
+          AppSpacing.xxxl,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Center(
-              child: Column(
-                children: [
-                  const DsLogo(
-                    assetPath: AssetPaths.logo,
-                    width: 72,
-                    height: 72,
-                  ),
-                  const SizedBox(height: AppSpacing.md),
-                  Text(
-                    'Dr Swift Diagnostics',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: AppSpacing.xl),
             _LoginSignUpToggle(
               isSignUp: _isSignUp,
               onChanged: (value) => setState(() => _isSignUp = value),
             ),
             const SizedBox(height: AppSpacing.xl),
+            const Center(child: DsLoginBrandLockup()),
+            const SizedBox(height: AppSpacing.xl),
             TextField(
               controller: _phoneController,
               keyboardType: TextInputType.phone,
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+                color: _ink,
+              ),
               decoration: InputDecoration(
-                labelText: 'Mobile number',
+                hintText: 'Enter mobile number',
+                hintStyle: TextStyle(
+                  color: AppColors.textTertiary.withValues(alpha: 0.95),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 15,
+                ),
+                filled: true,
+                fillColor: const Color(0xFFF2F2F7),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 16,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Color(0xFFE2E6EE)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Color(0xFFE2E6EE)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(
+                    color: AppColors.primaryVibrant,
+                    width: 1.5,
+                  ),
+                ),
                 prefixIcon: Padding(
-                  padding: const EdgeInsets.only(left: 12, right: 4),
+                  padding: const EdgeInsets.only(left: 14, right: 8),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
+                      const Text(
+                        '🇮🇳',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(width: 6),
+                      const Text(
                         '+91',
-                        style: theme.textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
+                        style: TextStyle(
+                          color: _ink,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                       Container(
                         width: 1,
-                        height: 24,
-                        margin: const EdgeInsets.only(left: 8),
-                        color: AppColors.divider,
+                        height: 22,
+                        margin: const EdgeInsets.only(left: 10),
+                        color: const Color(0xFFD8DEE8),
                       ),
                     ],
                   ),
                 ),
+                prefixIconConstraints: const BoxConstraints(minWidth: 0),
               ),
             ),
             const SizedBox(height: AppSpacing.xl),
-            DsPrimaryButton(
-              label: 'Continue with OTP',
-              isLoading: _isLoading,
-              onPressed: _continueWithOtp,
+            SizedBox(
+              height: 52,
+              child: DsPrimaryButton(
+                label: 'Continue with OTP',
+                isLoading: _isLoading,
+                onPressed: _continueWithOtp,
+              ),
             ),
             const SizedBox(height: AppSpacing.lg),
-            Row(
+            const Row(
               children: [
-                const Expanded(child: Divider()),
+                Expanded(child: Divider(color: Color(0xFFE2E6EE))),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.md,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
                   child: Text(
                     'or',
-                    style: theme.textTheme.bodySmall,
+                    style: TextStyle(
+                      color: _muted,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-                const Expanded(child: Divider()),
+                Expanded(child: Divider(color: Color(0xFFE2E6EE))),
               ],
             ),
             const SizedBox(height: AppSpacing.lg),
-            _SocialButton(
+            const _SocialButton(
               label: 'Continue with Google',
-              icon: Icons.g_mobiledata,
-              onTap: () {},
+              child: _GoogleMark(),
             ),
             const SizedBox(height: AppSpacing.md),
-            _SocialButton(
+            const _SocialButton(
               label: 'Continue with Apple',
-              icon: Icons.apple,
-              onTap: () {},
+              child: Icon(Icons.apple, size: 22, color: _ink),
             ),
-            const SizedBox(height: AppSpacing.xxxl),
-            const _BenefitsChecklist(),
+            const SizedBox(height: AppSpacing.xxl),
+            const _BenefitsSection(),
           ],
         ),
       ),
@@ -164,8 +193,8 @@ class _LoginSignUpToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.surfaceVariant,
-        borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
+        color: const Color(0xFFF2F2F7),
+        borderRadius: BorderRadius.circular(12),
       ),
       padding: const EdgeInsets.all(4),
       child: Row(
@@ -209,24 +238,16 @@ class _ToggleChip extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
-          color: selected ? Colors.white : Colors.transparent,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: selected
-              ? [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.06),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ]
-              : null,
+          color: selected ? AppColors.primaryVibrant : Colors.transparent,
+          borderRadius: BorderRadius.circular(10),
         ),
         alignment: Alignment.center,
         child: Text(
           label,
           style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: selected ? AppColors.primary : AppColors.textSecondary,
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+            color: selected ? Colors.white : AppColors.textSecondary,
           ),
         ),
       ),
@@ -237,73 +258,134 @@ class _ToggleChip extends StatelessWidget {
 class _SocialButton extends StatelessWidget {
   const _SocialButton({
     required this.label,
-    required this.icon,
-    required this.onTap,
+    required this.child,
   });
 
   final String label;
-  final IconData icon;
-  final VoidCallback onTap;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-      onPressed: onTap,
-      style: OutlinedButton.styleFrom(
-        foregroundColor: AppColors.textPrimary,
-        side: const BorderSide(color: AppColors.divider),
-        minimumSize: const Size.fromHeight(52),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSpacing.buttonRadius),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, size: 22),
-          const SizedBox(width: AppSpacing.sm),
-          Text(
-            label,
-            style: const TextStyle(fontWeight: FontWeight.w600),
+    return SizedBox(
+      height: 52,
+      child: OutlinedButton(
+        onPressed: () {},
+        style: OutlinedButton.styleFrom(
+          foregroundColor: _ink,
+          backgroundColor: Colors.white,
+          side: const BorderSide(color: Color(0xFFE2E6EE)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
           ),
-        ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            child,
+            const SizedBox(width: AppSpacing.sm),
+            Text(
+              label,
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-class _BenefitsChecklist extends StatelessWidget {
-  const _BenefitsChecklist();
+class _GoogleMark extends StatelessWidget {
+  const _GoogleMark();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 22,
+      height: 22,
+      alignment: Alignment.center,
+      child: const Text(
+        'G',
+        style: TextStyle(
+          color: Color(0xFF4285F4),
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+          height: 1,
+        ),
+      ),
+    );
+  }
+}
+
+class _BenefitsSection extends StatelessWidget {
+  const _BenefitsSection();
 
   static const _items = [
-    (AssetPaths.accurateResults, 'Accurate, NABL-certified results'),
-    (AssetPaths.downloadAnytime, 'Download reports anytime'),
-    (AssetPaths.compareHistory, 'Compare your health history'),
-    (AssetPaths.addFamily, 'Add family members easily'),
+    'Track all your reports in one place',
+    'One account for the whole family',
+    'See trends, insights & stay healthy',
   ];
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: _items.map((item) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: AppSpacing.md),
-          child: Row(
-            children: [
-              DsSvg(item.$1, size: 28),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: Text(
-                  item.$2,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: AppColors.textSecondary,
-                      ),
-                ),
-              ),
-            ],
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'With Dr Swift, you can:',
+          style: TextStyle(
+            color: _ink,
+            fontSize: 14,
+            fontWeight: FontWeight.w800,
+            height: 1.2,
           ),
-        );
-      }).toList(),
+        ),
+        const SizedBox(height: 14),
+        for (var index = 0; index < _items.length; index++) ...[
+          _BenefitRow(label: _items[index]),
+          if (index < _items.length - 1) const SizedBox(height: 12),
+        ],
+      ],
     );
   }
 }
+
+class _BenefitRow extends StatelessWidget {
+  const _BenefitRow({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(top: 1),
+          child: Icon(
+            Icons.check_rounded,
+            color: AppColors.primaryVibrant,
+            size: 18,
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Text(
+            label,
+            style: const TextStyle(
+              color: _muted,
+              fontSize: 13.5,
+              fontWeight: FontWeight.w600,
+              height: 1.35,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+const _ink = Color(0xFF1A1C1E);
+const _muted = Color(0xFF667085);

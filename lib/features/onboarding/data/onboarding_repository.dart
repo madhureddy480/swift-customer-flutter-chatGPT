@@ -9,8 +9,14 @@ class OnboardingRepository {
   final SecureStorageService _secureStorage;
 
   Future<bool> isComplete() async {
-    final value = await _secureStorage.read(StorageKeys.onboardingComplete);
-    return value == 'true';
+    try {
+      final value = await _secureStorage
+          .read(StorageKeys.onboardingComplete)
+          .timeout(const Duration(seconds: 2));
+      return value == 'true';
+    } catch (_) {
+      return false;
+    }
   }
 
   Future<void> markComplete() async {

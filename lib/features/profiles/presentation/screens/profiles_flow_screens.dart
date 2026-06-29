@@ -9,8 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-const _navy = Color(0xFF071B3A);
+const _navy = Color(0xFF1A1C1E);
 const _muted = Color(0xFF667085);
+const _profileScreenBg = Color(0xFFF4F7FA);
+const _checkTeal = Color(0xFF1A8FBF);
 
 class ProfilesGridScreen extends StatelessWidget {
   const ProfilesGridScreen({required this.profiles, super.key});
@@ -65,57 +67,52 @@ class ProfileDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DsScaffold(
-      safeArea: false,
-      body: CustomScrollView(
-        slivers: [
-          _ProfileAppBar(
-            title: profile.name,
-            showBack: true,
-            trailing: Icons.ios_share_rounded,
-          ).asSliver(),
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate([
-                _HeroProfileCard(profile: profile),
-                const SizedBox(height: 14),
-                _InfoCard(
-                  title: 'What is it for?',
-                  child: Text(profile.whatIsItFor, style: _bodyStyle),
-                ),
-                const SizedBox(height: 10),
-                _InfoCard(
-                  title: 'Highlights',
-                  child: Column(
-                    children: [
-                      for (final item in profile.highlights)
-                        _CheckLine(label: item),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: TextButton(
-                          onPressed: () => context
-                              .push('/profiles/${profile.slug}/more-info'),
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                            minimumSize: const Size(80, 28),
-                          ),
-                          child: const Text('View more'),
-                        ),
-                      ),
-                    ],
+    return ColoredBox(
+      color: _profileScreenBg,
+      child: SafeArea(
+        bottom: false,
+        child: Column(
+          children: [
+            _ProfileBackBar(),
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.fromLTRB(16, 4, 16, 12),
+                children: [
+                  _HeroProfileCard(profile: profile),
+                  const SizedBox(height: 12),
+                  _InfoCard(
+                    title: 'What is it for?',
+                    child: Text(profile.whatIsItFor, style: _bodyStyle),
                   ),
-                ),
-                const SizedBox(height: 10),
-                DsOutlineButton(
+                  const SizedBox(height: 12),
+                  _InfoCard(
+                    title: 'Highlights',
+                    child: Column(
+                      children: [
+                        for (final item in profile.highlights)
+                          _CheckLine(label: item),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              color: _profileScreenBg,
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+              child: SizedBox(
+                width: double.infinity,
+                height: 48,
+                child: DsOutlineButton(
                   label: 'View Tests Included',
                   onPressed: () =>
                       context.push('/profiles/${profile.slug}/tests'),
                 ),
-              ]),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -649,13 +646,36 @@ class _ProfileGridCard extends StatelessWidget {
   }
 }
 
+class _ProfileBackBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(4, 4, 8, 0),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: IconButton(
+          onPressed: () => context.canPop()
+              ? context.pop()
+              : context.go(RoutePaths.tests),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
+          color: _navy,
+        ),
+      ),
+    );
+  }
+}
+
 class _HeroProfileCard extends StatelessWidget {
   const _HeroProfileCard({required this.profile});
 
   final HealthProfileData profile;
 
+  static const _mostPopularSlugs = {'drs-diabetic'};
+
   @override
   Widget build(BuildContext context) {
+    final showBadge = _mostPopularSlugs.contains(profile.slug);
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: _cardDecoration,
@@ -665,8 +685,8 @@ class _HeroProfileCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _IconBubble(profile: profile, size: 64, iconSize: 43),
-              const SizedBox(width: 14),
+              _IconBubble(profile: profile, size: 56, iconSize: 38),
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -679,19 +699,24 @@ class _HeroProfileCard extends StatelessWidget {
                             profile.name,
                             style: const TextStyle(
                               color: _navy,
-                              fontSize: 18,
+                              fontSize: 17,
                               fontWeight: FontWeight.w800,
+                              height: 1.2,
                             ),
                           ),
                         ),
-                        const Text(
-                          'Most Popular',
-                          style: TextStyle(
-                            color: AppColors.error,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w800,
+                        if (showBadge)
+                          const Padding(
+                            padding: EdgeInsets.only(left: 8, top: 2),
+                            child: Text(
+                              'Most Popular',
+                              style: TextStyle(
+                                color: AppColors.error,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
                           ),
-                        ),
                       ],
                     ),
                     const SizedBox(height: 4),
@@ -699,8 +724,8 @@ class _HeroProfileCard extends StatelessWidget {
                       '${profile.testCount} Tests',
                       style: const TextStyle(
                         color: AppColors.success,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w800,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ],
@@ -708,8 +733,11 @@ class _HeroProfileCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 18),
-          Text(profile.description, style: _bodyStyle),
+          const SizedBox(height: 14),
+          Text(
+            profile.description,
+            style: _bodyStyle.copyWith(fontSize: 13, height: 1.4),
+          ),
           const SizedBox(height: 14),
           const Wrap(
             spacing: 8,
@@ -723,12 +751,16 @@ class _HeroProfileCard extends StatelessWidget {
               _Tag(label: 'All Ages', icon: Icons.groups_outlined),
             ],
           ),
-          const SizedBox(height: 18),
+          const SizedBox(height: 16),
           _PriceLine(profile: profile),
-          const SizedBox(height: 12),
-          DsPrimaryButton(
-            label: 'Add to Cart',
-            onPressed: () => context.push('/profiles/${profile.slug}/added'),
+          const SizedBox(height: 14),
+          SizedBox(
+            width: double.infinity,
+            height: 48,
+            child: DsPrimaryButton(
+              label: 'Add to Cart',
+              onPressed: () => context.push('/profiles/${profile.slug}/added'),
+            ),
           ),
         ],
       ),
@@ -858,13 +890,13 @@ class _InfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(14),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 14),
       decoration: _cardDecoration,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, style: _sectionTitle),
-          const SizedBox(height: 10),
+          const SizedBox(height: 12),
           child,
         ],
       ),
@@ -1313,6 +1345,9 @@ class _PriceLine extends StatelessWidget {
   final HealthProfileData profile;
   final bool compact;
 
+  bool get _hasDiscount =>
+      profile.discount.isNotEmpty && profile.originalPrice > profile.price;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -1322,36 +1357,39 @@ class _PriceLine extends StatelessWidget {
           profile.formattedPrice,
           style: TextStyle(
             color: _navy,
-            fontSize: compact ? 22 : 24,
-            fontWeight: FontWeight.w900,
+            fontSize: compact ? 22 : 26,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -0.5,
           ),
         ),
-        const SizedBox(width: 8),
-        Text(
-          profile.formattedOriginalPrice,
-          style: const TextStyle(
-            color: _muted,
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-            decoration: TextDecoration.lineThrough,
-          ),
-        ),
-        const SizedBox(width: 8),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-          decoration: BoxDecoration(
-            color: const Color(0xFFEAF8EF),
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Text(
-            profile.discount,
+        if (_hasDiscount) ...[
+          const SizedBox(width: 8),
+          Text(
+            profile.formattedOriginalPrice,
             style: const TextStyle(
-              color: AppColors.success,
-              fontSize: 10,
-              fontWeight: FontWeight.w900,
+              color: _muted,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              decoration: TextDecoration.lineThrough,
             ),
           ),
-        ),
+          const SizedBox(width: 8),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: const Color(0xFFEAF8EF),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Text(
+              profile.discount,
+              style: const TextStyle(
+                color: AppColors.success,
+                fontSize: 10,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
+        ],
       ],
     );
   }
@@ -1491,23 +1529,23 @@ class _Tag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 7),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
-        color: const Color(0xFFF7F8FC),
-        borderRadius: BorderRadius.circular(7),
-        border: Border.all(color: AppColors.divider),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xFFE2E6EE)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 13, color: _navy),
-          const SizedBox(width: 5),
+          Icon(icon, size: 14, color: _muted),
+          const SizedBox(width: 6),
           Text(
             label,
             style: const TextStyle(
               color: _navy,
-              fontSize: 10,
-              fontWeight: FontWeight.w700,
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
@@ -1524,13 +1562,21 @@ class _CheckLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 9),
+      padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.check_rounded, color: Color(0xFF0F6D8B), size: 15),
-          const SizedBox(width: 8),
-          Expanded(child: Text(label, style: _bodyStyle)),
+          const Padding(
+            padding: EdgeInsets.only(top: 2),
+            child: Icon(Icons.check_rounded, color: _checkTeal, size: 16),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              label,
+              style: _bodyStyle.copyWith(fontSize: 13, height: 1.35),
+            ),
+          ),
         ],
       ),
     );
@@ -1703,19 +1749,19 @@ extension on Widget {
 
 final _cardDecoration = BoxDecoration(
   color: Colors.white,
-  borderRadius: BorderRadius.circular(12),
-  border: Border.all(color: AppColors.divider),
+  borderRadius: BorderRadius.circular(14),
+  border: Border.all(color: const Color(0xFFE2E6EE)),
   boxShadow: [
     BoxShadow(
-      color: const Color(0xFF101828).withValues(alpha: 0.04),
-      blurRadius: 12,
-      offset: const Offset(0, 4),
+      color: const Color(0xFF101828).withValues(alpha: 0.03),
+      blurRadius: 8,
+      offset: const Offset(0, 2),
     ),
   ],
 );
 
 const _sectionTitle =
-    TextStyle(color: _navy, fontSize: 13, fontWeight: FontWeight.w900);
+    TextStyle(color: _navy, fontSize: 15, fontWeight: FontWeight.w800);
 const _tileTitle = TextStyle(
   color: _navy,
   fontSize: 12.5,

@@ -79,6 +79,7 @@ class ProfileUiMeta {
   const ProfileUiMeta({
     required this.iconAsset,
     required this.color,
+    required this.homeTitle,
     required this.description,
     required this.whatIsItFor,
     required this.highlights,
@@ -88,6 +89,7 @@ class ProfileUiMeta {
 
   final String iconAsset;
   final Color color;
+  final String homeTitle;
   final String description;
   final String whatIsItFor;
   final List<String> highlights;
@@ -96,13 +98,26 @@ class ProfileUiMeta {
 }
 
 abstract final class ProfileUiMetadata {
+  /// Home-screen carousel order matching `docs/health_profile_flow.png` screen 1.
+  static const homeFeaturedSlugs = [
+    'drs-diabetic',
+    'drs-wellness',
+    'drs-check-42',
+    'drs-check-72',
+  ];
+
   static ProfileUiMeta forSlug(String slug) {
     return _bySlug[slug] ?? _default;
+  }
+
+  static String homeTitleFor(String slug, String fallback) {
+    return _bySlug[slug]?.homeTitle ?? fallback;
   }
 
   static const _default = ProfileUiMeta(
     iconAsset: AssetPaths.completeHealthCheck,
     color: Color(0xFF2487D9),
+    homeTitle: 'Health Profile',
     description: 'Curated lab tests from Dr Swift Diagnostics.',
     whatIsItFor: 'Helps screen common health markers in one booking.',
     highlights: const [
@@ -123,6 +138,7 @@ abstract final class ProfileUiMetadata {
     'drs-diabetic': ProfileUiMeta(
       iconAsset: AssetPaths.diabetesCareProfile,
       color: Color(0xFF18AA63),
+      homeTitle: 'Diabetes Care',
       description: 'Monitor blood sugar control with fasting glucose and HbA1c.',
       whatIsItFor:
           'Supports diabetes screening, diagnosis and long-term glucose monitoring.',
@@ -142,6 +158,7 @@ abstract final class ProfileUiMetadata {
     'drs-check-72': ProfileUiMeta(
       iconAsset: AssetPaths.completeHealthCheck,
       color: Color(0xFF2487D9),
+      homeTitle: 'Men 50+ Health',
       description: 'Broad preventive profile covering 13 core wellness tests.',
       whatIsItFor:
           'Screens sugar, thyroid, liver, kidney, lipids, vitamins and inflammation.',
@@ -160,6 +177,7 @@ abstract final class ProfileUiMetadata {
     'drs-fever': ProfileUiMeta(
       iconAsset: AssetPaths.feverInfection,
       color: Color(0xFFE73A59),
+      homeTitle: 'Fever Panel',
       description: 'Fever workup including dengue, malaria and infection markers.',
       whatIsItFor:
           'Helps identify common causes of fever such as dengue, malaria and typhoid.',
@@ -177,8 +195,9 @@ abstract final class ProfileUiMetadata {
       ],
     ),
     'drs-check-42': ProfileUiMeta(
-      iconAsset: AssetPaths.heartHealth,
+      iconAsset: AssetPaths.heartHealthProfile,
       color: Color(0xFFE9427A),
+      homeTitle: 'Women Health',
       description: 'Mid-size wellness profile with sugar, thyroid and organ markers.',
       whatIsItFor:
           'Tracks metabolic, thyroid, liver and kidney health in one visit.',
@@ -198,6 +217,7 @@ abstract final class ProfileUiMetadata {
     'drs-wellness': ProfileUiMeta(
       iconAsset: AssetPaths.thyroidProfile,
       color: Color(0xFF8E55F3),
+      homeTitle: 'Thyroid Profile',
       description: 'Core wellness markers for heart, liver, kidney and thyroid.',
       whatIsItFor:
           'Supports preventive screening for common chronic conditions.',
@@ -217,6 +237,7 @@ abstract final class ProfileUiMetadata {
     'drs-ortho': ProfileUiMeta(
       iconAsset: AssetPaths.categoryHeart,
       color: Color(0xFFF1A800),
+      homeTitle: 'Ortho Care',
       description: 'Joint and bone health screening with vitamin D and RA factor.',
       whatIsItFor:
           'Helps evaluate joint pain, inflammation and bone health markers.',
@@ -236,6 +257,7 @@ abstract final class ProfileUiMetadata {
     'drs-vital': ProfileUiMeta(
       iconAsset: AssetPaths.categoryFever,
       color: Color(0xFF159B8A),
+      homeTitle: 'Vital Panel',
       description: 'Vital infection panel similar to the fever profile.',
       whatIsItFor:
           'Screens dengue, malaria, typhoid and general infection markers.',

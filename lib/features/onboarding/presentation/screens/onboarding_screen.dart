@@ -1,8 +1,11 @@
 import 'package:dr_swift_diagnostics/core/constants/asset_paths.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_asset_image.dart';
+import 'package:dr_swift_diagnostics/features/onboarding/data/onboarding_repository.dart';
+import 'package:dr_swift_diagnostics/routing/route_paths.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key, this.initialPage = 0});
@@ -25,12 +28,18 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     _controller = PageController(initialPage: _currentPage);
   }
 
-  void _handleTap() {
-    if (_currentPage == 2) {
+  Future<void> _handleTap() async {
+    if (_currentPage < 2) {
+      _controller.jumpToPage(_currentPage + 1);
       return;
     }
+    await _finishOnboarding();
+  }
 
-    _controller.jumpToPage(_currentPage + 1);
+  Future<void> _finishOnboarding() async {
+    await ref.read(onboardingRepositoryProvider).markComplete();
+    if (!mounted) return;
+    context.go(RoutePaths.tests);
   }
 
   @override
@@ -82,7 +91,36 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 58),
-                    child: _PageDots(currentPage: _currentPage),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (_currentPage == 2) ...[
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(32, 0, 32, 18),
+                            child: SizedBox(
+                              width: double.infinity,
+                              height: 48,
+                              child: FilledButton(
+                                onPressed: _finishOnboarding,
+                                style: FilledButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  foregroundColor: const Color(0xFF10002F),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  textStyle: const TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                child: const Text('Get Started'),
+                              ),
+                            ),
+                          ),
+                        ],
+                        _PageDots(currentPage: _currentPage),
+                      ],
+                    ),
                   ),
                 ],
               ),

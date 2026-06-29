@@ -1,143 +1,97 @@
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_buttons.dart';
-import 'package:dr_swift_diagnostics/core/widgets/ds_scaffold.dart';
-import 'package:dr_swift_diagnostics/core/widgets/ds_status_chip.dart';
 import 'package:dr_swift_diagnostics/routing/route_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-/// Reports tab — sample report preview matching mockup screen 3.
+/// Reports tab — sample report grid matching `ui_ux.png` screen 3.
 class ReportsScreen extends StatelessWidget {
   const ReportsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return DsScaffold(
-      safeArea: false,
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(
-                AppSpacing.lg,
-                AppSpacing.lg,
-                AppSpacing.lg,
-                AppSpacing.sm,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+    return ColoredBox(
+      color: Colors.white,
+      child: SafeArea(
+        bottom: false,
+        child: Column(
+          children: [
+            const _ReportsHeader(),
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.fromLTRB(
+                  AppSpacing.lg,
+                  AppSpacing.sm,
+                  AppSpacing.lg,
+                  AppSpacing.lg,
+                ),
                 children: [
-                  Text(
-                    'Sample Report',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
+                  GridView.builder(
+                    itemCount: _sampleBiomarkers.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: 0.82,
                     ),
+                    itemBuilder: (context, index) {
+                      return _ReportResultCard(
+                        biomarker: _sampleBiomarkers[index],
+                      );
+                    },
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Preview how your results will look',
-                    style: theme.textTheme.bodySmall,
+                  const SizedBox(height: AppSpacing.lg),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: DsPrimaryButton(
+                      label: 'View Full Sample Report',
+                      onPressed: () => context.push(RoutePaths.login),
+                    ),
                   ),
                 ],
               ),
             ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.all(AppSpacing.lg),
-            sliver: SliverList.separated(
-              itemCount: _sampleBiomarkers.length,
-              separatorBuilder: (_, __) =>
-                  const SizedBox(height: AppSpacing.md),
-              itemBuilder: (context, index) {
-                final biomarker = _sampleBiomarkers[index];
-                return _BiomarkerReportCard(biomarker: biomarker);
-              },
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(
-                AppSpacing.lg,
-                0,
-                AppSpacing.lg,
-                AppSpacing.xl,
-              ),
-              child: DsPrimaryButton(
-                label: 'View Full Sample Report',
-                onPressed: () => context.push(RoutePaths.login),
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
 
-class _BiomarkerReportCard extends StatelessWidget {
-  const _BiomarkerReportCard({required this.biomarker});
-
-  final _BiomarkerMock biomarker;
+class _ReportsHeader extends StatelessWidget {
+  const _ReportsHeader();
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return DsCard(
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(8, 6, 8, 10),
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  biomarker.name,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.sm),
-                Text(
-                  biomarker.value,
-                  style: theme.textTheme.headlineLarge?.copyWith(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w700,
-                    height: 1,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  'Ref: ${biomarker.reference}',
-                  style: theme.textTheme.bodySmall,
-                ),
-              ],
+          const Text(
+            'Sample Report',
+            style: TextStyle(
+              color: _ink,
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.2,
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              DsStatusChip(
-                label: biomarker.statusLabel,
-                type: biomarker.status,
-              ),
-              const SizedBox(height: AppSpacing.lg),
-              Icon(
-                biomarker.trendUp
-                    ? Icons.arrow_upward_rounded
-                    : Icons.arrow_downward_rounded,
-                color: biomarker.trendUp
-                    ? AppColors.success
-                    : biomarker.status == DsStatusType.low
-                        ? AppColors.error
-                        : AppColors.success,
+          Align(
+            alignment: Alignment.centerRight,
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.info_outline_rounded,
                 size: 20,
+                color: _muted,
               ),
-            ],
+            ),
           ),
         ],
       ),
@@ -145,47 +99,220 @@ class _BiomarkerReportCard extends StatelessWidget {
   }
 }
 
-class _BiomarkerMock {
-  const _BiomarkerMock({
-    required this.name,
+class _ReportResultCard extends StatelessWidget {
+  const _ReportResultCard({required this.biomarker});
+
+  final _ReportBiomarker biomarker;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(14, 14, 12, 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: const Color(0xFFE2E6EE)),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF101828).withValues(alpha: 0.03),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            biomarker.name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              color: _ink,
+              fontSize: 13,
+              fontWeight: FontWeight.w800,
+              height: 1.15,
+            ),
+          ),
+          const SizedBox(height: 3),
+          Text(
+            biomarker.subtitle,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              color: _muted,
+              fontSize: 10.5,
+              fontWeight: FontWeight.w600,
+              height: 1.25,
+            ),
+          ),
+          const Spacer(),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Expanded(
+                child: _ValueText(
+                  value: biomarker.value,
+                  unit: biomarker.unit,
+                  color: biomarker.valueColor,
+                ),
+              ),
+              Icon(
+                biomarker.trendUp
+                    ? Icons.north_east_rounded
+                    : Icons.south_east_rounded,
+                color: biomarker.trendColor,
+                size: 18,
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            biomarker.statusLabel,
+            style: TextStyle(
+              color: biomarker.statusColor,
+              fontSize: 11.5,
+              fontWeight: FontWeight.w800,
+              height: 1.1,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Ref: ${biomarker.reference}',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              color: _muted,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ValueText extends StatelessWidget {
+  const _ValueText({
     required this.value,
-    required this.reference,
+    required this.unit,
+    required this.color,
+  });
+
+  final String value;
+  final String unit;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(
+            text: value,
+            style: TextStyle(
+              color: color,
+              fontSize: 26,
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.6,
+              height: 1,
+            ),
+          ),
+          if (unit.isNotEmpty)
+            TextSpan(
+              text: ' $unit',
+              style: TextStyle(
+                color: color,
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                height: 1,
+              ),
+            ),
+        ],
+      ),
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+    );
+  }
+}
+
+class _ReportBiomarker {
+  const _ReportBiomarker({
+    required this.name,
+    required this.subtitle,
+    required this.value,
+    required this.unit,
     required this.statusLabel,
-    required this.status,
+    required this.statusColor,
+    required this.valueColor,
+    required this.reference,
     required this.trendUp,
+    required this.trendColor,
   });
 
   final String name;
+  final String subtitle;
   final String value;
-  final String reference;
+  final String unit;
   final String statusLabel;
-  final DsStatusType status;
+  final Color statusColor;
+  final Color valueColor;
+  final String reference;
   final bool trendUp;
+  final Color trendColor;
 }
 
+const _ink = Color(0xFF1A1C1E);
+const _muted = Color(0xFF667085);
+
 const _sampleBiomarkers = [
-  _BiomarkerMock(
+  _ReportBiomarker(
     name: 'HbA1c',
-    value: '6.8%',
-    reference: '4.0 – 5.6%',
-    statusLabel: '6.8% Improved',
-    status: DsStatusType.improved,
+    subtitle: 'Glycated Hemoglobin',
+    value: '6.8',
+    unit: '%',
+    statusLabel: 'Improved',
+    statusColor: AppColors.success,
+    valueColor: AppColors.success,
+    reference: '< 5.7',
     trendUp: false,
+    trendColor: AppColors.success,
   ),
-  _BiomarkerMock(
+  _ReportBiomarker(
     name: 'Vitamin D',
-    value: '18 ng/mL',
-    reference: '30 – 100 ng/mL',
-    statusLabel: '18 ng/mL Low',
-    status: DsStatusType.low,
-    trendUp: true,
-  ),
-  _BiomarkerMock(
-    name: 'Total Cholesterol',
-    value: '198 mg/dL',
-    reference: '< 200 mg/dL',
-    statusLabel: 'Normal',
-    status: DsStatusType.normal,
+    subtitle: '25-Hydroxy Vitamin D',
+    value: '18',
+    unit: 'ng/mL',
+    statusLabel: 'Low',
+    statusColor: AppColors.error,
+    valueColor: AppColors.error,
+    reference: '30 – 100',
     trendUp: false,
+    trendColor: AppColors.error,
+  ),
+  _ReportBiomarker(
+    name: 'Cholesterol',
+    subtitle: 'Total Cholesterol',
+    value: '210',
+    unit: 'mg/dL',
+    statusLabel: 'Borderline High',
+    statusColor: AppColors.warning,
+    valueColor: AppColors.warning,
+    reference: '< 200',
+    trendUp: true,
+    trendColor: AppColors.warning,
+  ),
+  _ReportBiomarker(
+    name: 'TSH',
+    subtitle: 'Thyroid Stimulating Hormone',
+    value: '2.9',
+    unit: 'uIU/mL',
+    statusLabel: 'Normal',
+    statusColor: AppColors.success,
+    valueColor: _ink,
+    reference: '0.4 – 4.0',
+    trendUp: true,
+    trendColor: AppColors.success,
   ),
 ];

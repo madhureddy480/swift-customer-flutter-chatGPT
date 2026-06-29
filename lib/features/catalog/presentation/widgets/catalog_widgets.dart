@@ -35,33 +35,28 @@ class CategoryListTile extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      category.name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: Color(0xFF071B3A),
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        height: 1.15,
-                      ),
-                    ),
-                    const SizedBox(height: 3),
-                    Text(
-                      '${category.testCount} Tests',
-                      style: const TextStyle(
-                        color: Color(0xFF667085),
-                        fontSize: 10.5,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
+                child: Text(
+                  category.name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF071B3A),
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    height: 1.15,
+                  ),
                 ),
               ),
               const SizedBox(width: 8),
+              Text(
+                '${category.testCount} Tests',
+                style: const TextStyle(
+                  color: Color(0xFF667085),
+                  fontSize: 10.5,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(width: 2),
               const Icon(
                 Icons.chevron_right_rounded,
                 color: Color(0xFF8B95A7),
