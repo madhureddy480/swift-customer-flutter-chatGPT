@@ -5,9 +5,9 @@ import 'package:dr_swift_diagnostics/routing/route_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-/// Reports tab — sample report grid matching `ui_ux.png` screen 3.
-class ReportsScreen extends StatelessWidget {
-  const ReportsScreen({super.key});
+///  G1 — Guest multi-user Reports tab — sample report grid matching `ui_ux.png` screen 3.
+class ReportsTabGuestScreen extends StatelessWidget {
+  const ReportsTabGuestScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

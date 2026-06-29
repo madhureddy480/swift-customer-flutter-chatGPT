@@ -20,17 +20,17 @@ class _HealthCareCarouselState extends State<HealthCareCarousel> {
     _CareCarouselSlide(
       imagePath: AssetPaths.healthCarousel1,
       headline: 'Your health,',
-      subline: 'tracked with care',
+      subline: 'tracked with accuracy',
     ),
     _CareCarouselSlide(
       imagePath: AssetPaths.healthCarousel2,
-      headline: 'Her wellness,',
-      subline: 'nourished daily',
+      headline: 'We love, We care,',
+      subline: 'our loved ones daily',
     ),
     _CareCarouselSlide(
       imagePath: AssetPaths.healthCarousel3,
-      headline: "Parents' trends,",
-      subline: 'gentle & steady',
+      headline: "Parents' wellbeing,",
+      subline: 'nourished & nurtured',
     ),
   ];
 

@@ -1,11 +1,11 @@
+import 'package:dr_swift_diagnostics/features/account/presentation/account_tab_screen.dart';
 import 'package:dr_swift_diagnostics/features/authentication/presentation/screens/login_screen.dart';
 import 'package:dr_swift_diagnostics/features/catalog/presentation/catalog_route_loaders.dart';
-import 'package:dr_swift_diagnostics/features/dashboard/presentation/screens/health_dashboard_screen.dart';
-import 'package:dr_swift_diagnostics/features/home/presentation/screens/tests_home_screen.dart';
+import 'package:dr_swift_diagnostics/features/health/presentation/health_tab_screen.dart';
 import 'package:dr_swift_diagnostics/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:dr_swift_diagnostics/features/onboarding/presentation/screens/splash_screen.dart';
-import 'package:dr_swift_diagnostics/features/profile/presentation/screens/account_screen.dart';
-import 'package:dr_swift_diagnostics/features/reports/presentation/screens/reports_screen.dart';
+import 'package:dr_swift_diagnostics/features/reports/presentation/reports_tab_screen.dart';
+import 'package:dr_swift_diagnostics/features/tests/presentation/tests_tab_screen.dart';
 import 'package:dr_swift_diagnostics/routing/app_shell.dart';
 import 'package:dr_swift_diagnostics/routing/route_paths.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +50,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: RoutePaths.tests,
-                builder: (context, state) => const TestsHomeScreen(),
+                builder: (context, state) => const TestsTabScreen(),
               ),
               GoRoute(
                 path: RoutePaths.categories,
@@ -126,7 +126,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: RoutePaths.reports,
-                builder: (context, state) => const ReportsScreen(),
+                builder: (context, state) => const ReportsTabScreen(),
               ),
             ],
           ),
@@ -134,7 +134,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: RoutePaths.health,
-                builder: (context, state) => const HealthDashboardScreen(),
+                builder: (context, state) => const HealthTabScreen(),
               ),
             ],
           ),
@@ -142,7 +142,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: RoutePaths.account,
-                builder: (context, state) => const AccountScreen(),
+                builder: (context, state) => const AccountTabScreen(),
               ),
             ],
           ),

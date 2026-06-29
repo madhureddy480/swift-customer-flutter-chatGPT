@@ -13,8 +13,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 /// Tests tab — screen 1 in `docs/health_profile_flow.png`.
-class TestsHomeScreen extends ConsumerWidget {
-  const TestsHomeScreen({super.key});
+class TestsTabGuestScreen extends ConsumerWidget {
+  const TestsTabGuestScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

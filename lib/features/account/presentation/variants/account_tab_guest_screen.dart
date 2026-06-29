@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 /// Account tab — grouped settings menu with consistent visual language.
-class AccountScreen extends StatelessWidget {
-  const AccountScreen({super.key});
+class AccountTabGuestScreen extends StatelessWidget {
+  const AccountTabGuestScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

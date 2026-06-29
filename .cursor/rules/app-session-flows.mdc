@@ -1,0 +1,46 @@
+---
+description: Dr Swift customer app session flows and tab variant architecture
+globs: lib/**/*.dart
+alwaysApply: false
+---
+
+# App session flows (4 tabs, many scenarios)
+
+## Invariant shell
+- Tabs: **Tests · Reports · Health · Account** — same `AppShell`, same `RoutePaths`, every scenario.
+- Theme: only `lib/core/theme/` + `lib/core/widgets/ds_*.dart`. Variants compose design system; no per-flow colors.
+
+## State model
+| Axis | Scope | Values |
+|------|-------|--------|
+| Auth | account | `guest` · `authenticated` |
+| Family | account | `none` · `members` |
+| Phone | account | unverified · verified (once per account; gates checkout) |
+| Lab data | **per member** | `none` · `pending` · `available` |
+
+## Locked product decisions
+1. **Guest Health/Reports** — always multi-user family sample (My Health / Mom / Dad), never single-user.
+2. **Pending** — one flag **per family member**, not account-wide.
+3. **Phone** — verify once per account; optional phone on individual members.
+
+## Scenarios
+- **G1 Guest** — multi-member sample Health/Reports (current Health tab = guest).
+- **A1–A6** — authenticated; derive from per-member lab state + family count.
+- **Mixed** — common case: some members pending, some with results, some empty.
+
+## File layout per tab
+```
+features/{tab}/presentation/{tab}_tab_screen.dart
+features/{tab}/presentation/variants/{tab}_tab_{scenario}_screen.dart
+features/{tab}/presentation/widgets/
+features/{tab}/data/
+features/session/   # UserSessionContext, FamilyMemberSession, providers
+```
+
+## Implemented structure
+- `features/session/` — domain, `userSessionProvider`, scenario resolvers
+- `features/health/` — `health_tab_screen.dart` + guest variant + shared widgets
+- `features/reports/`, `features/tests/`, `features/account/` — tab routers + guest variants
+- Router imports only `*TabScreen` entry points, never variants directly.
+
+See `docs/app_session_flows.md` for full architecture.
