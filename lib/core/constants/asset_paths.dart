@@ -1,6 +1,14 @@
 /// Canonical asset paths — all icons from [assets/icons].
 abstract final class AssetPaths {
   static const logo = 'assets/images/logo.png';
+
+  // Health tab care carousel
+  static const healthCarousel1 =
+      'assets/images/health_carousel/carousel_1.png';
+  static const healthCarousel2 =
+      'assets/images/health_carousel/carousel_2.png';
+  static const healthCarousel3 =
+      'assets/images/health_carousel/carousel_3.png';
   static const onboardingHealthProfiles =
       'assets/onboarding/health_profiles.png';
   static const onboardingFamily = 'assets/onboarding/family_account.png';
