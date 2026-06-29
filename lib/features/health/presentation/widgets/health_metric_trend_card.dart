@@ -1,5 +1,4 @@
 import 'package:dr_swift_diagnostics/features/health/data/models/health_trend_metric.dart';
-import 'package:dr_swift_diagnostics/features/health/presentation/widgets/health_metric_sparkline.dart';
 import 'package:flutter/material.dart';
 
 const _ink = Color(0xFF1A1C1E);
@@ -12,25 +11,14 @@ class HealthMetricTrendCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFFE2E6EE)),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF101828).withValues(alpha: 0.025),
-            blurRadius: 4,
-            offset: const Offset(0, 1),
-          ),
-        ],
-      ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
       child: Row(
         children: [
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   metric.name,
@@ -38,24 +26,24 @@ class HealthMetricTrendCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     color: _ink,
-                    fontSize: 12,
+                    fontSize: 11,
                     fontWeight: FontWeight.w700,
-                    height: 1.15,
+                    height: 1.1,
                   ),
                 ),
-                const SizedBox(height: 2),
+                const SizedBox(height: 3),
                 Text.rich(
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   TextSpan(
                     style: const TextStyle(
                       color: _muted,
-                      fontSize: 9,
-                      height: 1.15,
+                      fontSize: 8,
+                      height: 1.1,
                     ),
                     children: [
                       const TextSpan(
-                        text: 'Reference range ',
+                        text: 'Healthy range ',
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                       TextSpan(
@@ -68,16 +56,10 @@ class HealthMetricTrendCard extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(width: 6),
-          HealthMetricSparkline(
-            color: metric.chartColor,
-            points: metric.points,
-            minY: metric.minY,
-            maxY: metric.maxY,
-          ),
           const SizedBox(width: 8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Row(
                 mainAxisSize: MainAxisSize.min,
@@ -87,28 +69,26 @@ class HealthMetricTrendCard extends StatelessWidget {
                     metric.currentValue,
                     style: TextStyle(
                       color: metric.status.color,
-                      fontSize: 17,
+                      fontSize: 15,
                       fontWeight: FontWeight.w800,
-                      letterSpacing: -0.4,
+                      letterSpacing: -0.35,
                       height: 1,
                     ),
                   ),
-                  const SizedBox(width: 2),
                   Icon(
                     metric.trendUp
                         ? Icons.north_east_rounded
                         : Icons.south_east_rounded,
                     color: metric.trendColor,
-                    size: 14,
+                    size: 11,
                   ),
                 ],
               ),
-              const SizedBox(height: 2),
               Text(
                 metric.status.label,
                 style: TextStyle(
                   color: metric.status.color,
-                  fontSize: 8,
+                  fontSize: 7,
                   fontWeight: FontWeight.w700,
                   height: 1,
                 ),

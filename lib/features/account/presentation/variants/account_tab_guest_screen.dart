@@ -1,5 +1,6 @@
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
+import 'package:dr_swift_diagnostics/core/widgets/ds_tab_header.dart';
 import 'package:dr_swift_diagnostics/routing/route_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -10,95 +11,71 @@ class AccountTabGuestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
-      color: _screenBg,
-      child: SafeArea(
-        bottom: false,
-        child: ListView(
-          padding: const EdgeInsets.fromLTRB(
-            AppSpacing.lg,
-            AppSpacing.sm,
-            AppSpacing.lg,
-            AppSpacing.xl,
+    return SafeArea(
+      bottom: false,
+      child: DsTabScrollView(
+        title: 'Account',
+        backgroundColor: _screenBg,
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.lg,
+          AppSpacing.sm,
+          AppSpacing.lg,
+          AppSpacing.xl,
+        ),
+        children: [
+          _SignInCard(
+            onTap: () => context.push(RoutePaths.login),
           ),
-          children: [
-            const _PageTitle(),
-            const SizedBox(height: AppSpacing.lg),
-            _SignInCard(
-              onTap: () => context.push(RoutePaths.login),
-            ),
-            const SizedBox(height: AppSpacing.xl),
-            const _SectionLabel('Your account'),
-            const SizedBox(height: AppSpacing.sm),
-            const _MenuCard(
-              items: [
-                _MenuItem(
-                  label: 'Profile',
-                  icon: Icons.person_outline_rounded,
-                ),
-                _MenuItem(
-                  label: 'Family Members',
-                  icon: Icons.groups_outlined,
-                ),
-              ],
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            const _SectionLabel('Orders & delivery'),
-            const SizedBox(height: AppSpacing.sm),
-            const _MenuCard(
-              items: [
-                _MenuItem(
-                  label: 'Orders',
-                  icon: Icons.receipt_long_outlined,
-                ),
-                _MenuItem(
-                  label: 'Addresses',
-                  icon: Icons.location_on_outlined,
-                ),
-              ],
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            const _SectionLabel('App'),
-            const SizedBox(height: AppSpacing.sm),
-            const _MenuCard(
-              items: [
-                _MenuItem(
-                  label: 'Notifications',
-                  icon: Icons.notifications_outlined,
-                ),
-                _MenuItem(
-                  label: 'Settings',
-                  icon: Icons.settings_outlined,
-                ),
-                _MenuItem(
-                  label: 'Support',
-                  icon: Icons.help_outline_rounded,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _PageTitle extends StatelessWidget {
-  const _PageTitle();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(left: 2, top: 4),
-      child: Text(
-        'Account',
-        style: TextStyle(
-          color: _ink,
-          fontSize: 24,
-          fontWeight: FontWeight.w800,
-          letterSpacing: -0.4,
-          height: 1.1,
-        ),
+          const SizedBox(height: AppSpacing.xl),
+          const _SectionLabel('Your account'),
+          const SizedBox(height: AppSpacing.sm),
+          const _MenuCard(
+            items: [
+              _MenuItem(
+                label: 'Profile',
+                icon: Icons.person_outline_rounded,
+              ),
+              _MenuItem(
+                label: 'Family Members',
+                icon: Icons.groups_outlined,
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          const _SectionLabel('Orders & delivery'),
+          const SizedBox(height: AppSpacing.sm),
+          const _MenuCard(
+            items: [
+              _MenuItem(
+                label: 'Orders',
+                icon: Icons.receipt_long_outlined,
+              ),
+              _MenuItem(
+                label: 'Addresses',
+                icon: Icons.location_on_outlined,
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          const _SectionLabel('App'),
+          const SizedBox(height: AppSpacing.sm),
+          const _MenuCard(
+            items: [
+              _MenuItem(
+                label: 'Notifications',
+                icon: Icons.notifications_outlined,
+              ),
+              _MenuItem(
+                label: 'Settings',
+                icon: Icons.settings_outlined,
+              ),
+              _MenuItem(
+                label: 'Support',
+                icon: Icons.help_outline_rounded,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

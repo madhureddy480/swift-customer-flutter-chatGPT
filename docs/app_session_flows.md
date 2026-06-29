@@ -2,6 +2,8 @@
 
 > **Status:** Approved design decisions (2026-06-29). Reorganize incrementally per migration plan.
 >
+> **Active sprint:** Guest (G1) flows only — all tab work targets `*_tab_guest_screen.dart` until further notice.
+>
 > **Current milestone:** Session layer + tab variant structure in place. Health **G1 guest** flow complete.
 
 ---

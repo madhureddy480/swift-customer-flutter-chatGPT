@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dr_swift_diagnostics/core/constants/asset_paths.dart';
+import 'package:dr_swift_diagnostics/core/widgets/ds_glass_card.dart';
 import 'package:flutter/material.dart';
 
 /// Warm care carousel for the Health tab — 350×80 with left-aligned overlay copy.
@@ -71,20 +72,11 @@ class _HealthCareCarouselState extends State<HealthCareCarousel> {
           SizedBox(
             width: HealthCareCarousel.carouselWidth,
             height: HealthCareCarousel.carouselHeight,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: const Color(0xFFE2E6EE)),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF101828).withValues(alpha: 0.06),
-                    blurRadius: 6,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
+            child: DsGlassCard(
+              borderRadius: 16,
+              blurSigma: 20,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(16),
                 child: PageView.builder(
                   controller: _pageController,
                   itemCount: _slides.length,

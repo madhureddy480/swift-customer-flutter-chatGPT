@@ -1,10 +1,19 @@
 ---
 description: Dr Swift customer app session flows and tab variant architecture
 globs: lib/**/*.dart
-alwaysApply: false
+alwaysApply: true
 ---
 
 # App session flows (4 tabs, many scenarios)
+
+## ACTIVE FOCUS — Guest (G1) sprint
+**All requirements are Guest user flow unless you say otherwise.** Authenticated variants (A1–A6) exist as placeholders only — do not build them yet.
+
+- Session stays on **`guestUserSession`** (`userSessionProvider` → `SessionAuth.guest`).
+- Implement in **`*_tab_guest_screen.dart`** + **`data/*_guest_*`** + shared **`widgets/`**.
+- Guest Health/Reports = **whole-family multi-user** sample (My Health / Mom / Dad).
+- Do not wire login gates, phone verify, or real API session switching unless explicitly requested.
+- Keep theme/layout in `core/theme/` + `core/widgets/ds_*` — guest work composes those, never forks them.
 
 ## Invariant shell
 - Tabs: **Tests · Reports · Health · Account** — same `AppShell`, same `RoutePaths`, every scenario.

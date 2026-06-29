@@ -2,6 +2,7 @@ import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_brand_widgets.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_scaffold.dart';
+import 'package:dr_swift_diagnostics/core/widgets/ds_tab_header.dart';
 import 'package:dr_swift_diagnostics/features/catalog/data/catalog_providers.dart';
 import 'package:dr_swift_diagnostics/features/catalog/data/catalog_view_models.dart';
 import 'package:dr_swift_diagnostics/features/catalog/data/category_ui_metadata.dart';
@@ -30,9 +31,14 @@ class TestsTabGuestScreen extends ConsumerWidget {
 
     return DsScaffold(
       safeArea: false,
-      body: CustomScrollView(
+      body: DsTabSliverScrollView(
+        title: 'Tests',
+        trailing: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.notifications_outlined),
+          color: AppColors.textPrimary,
+        ),
         slivers: [
-          const SliverToBoxAdapter(child: DsAppHeader()),
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(
               AppSpacing.lg,
