@@ -1,4 +1,4 @@
-import 'package:dr_swift_diagnostics/core/widgets/ds_glass_card.dart';
+import 'package:dr_swift_diagnostics/core/widgets/ds_category_style_list.dart';
 import 'package:dr_swift_diagnostics/features/health/data/models/health_trend_metric.dart';
 import 'package:dr_swift_diagnostics/features/health/presentation/widgets/health_metric_trend_card.dart';
 import 'package:dr_swift_diagnostics/features/health/presentation/widgets/health_section_header.dart';
@@ -11,23 +11,12 @@ class HealthMemberSectionBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DsGlassCard(
-      borderRadius: 16,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          DsGlassCardHeader(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(12, 10, 12, 9),
-              child: HealthSectionHeader(title: section.title),
-            ),
-          ),
-          for (var i = 0; i < section.metrics.length; i++) ...[
-            HealthMetricTrendCard(metric: section.metrics[i]),
-            if (i < section.metrics.length - 1) const DsGlassDivider(),
-          ],
-        ],
-      ),
+    return DsCategoryStyleListSection(
+      titleWidget: HealthSectionHeader(title: section.title),
+      children: [
+        for (final metric in section.metrics)
+          HealthMetricTrendCard(metric: metric),
+      ],
     );
   }
 }

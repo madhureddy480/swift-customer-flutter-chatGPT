@@ -13,3 +13,12 @@ DateTime testDateFromDaysAgo(int daysAgo, {DateTime? reference}) {
 
 String formatTestDateFromDaysAgo(int daysAgo, {DateTime? reference}) =>
     formatTestDateLabel(testDateFromDaysAgo(daysAgo, reference: reference));
+
+String formatTrendAxisLabel(DateTime date) {
+  final month = date.month.toString().padLeft(2, '0');
+  final day = date.day.toString().padLeft(2, '0');
+  return '$month-$day';
+}
+
+String formatTrendAxisLabelFromDaysAgo(int daysAgo, {DateTime? reference}) =>
+    formatTrendAxisLabel(testDateFromDaysAgo(daysAgo, reference: reference));

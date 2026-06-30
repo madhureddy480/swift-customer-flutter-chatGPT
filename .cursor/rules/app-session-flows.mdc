@@ -14,10 +14,12 @@ alwaysApply: true
 - Guest Health/Reports = **whole-family multi-user** sample (My Health / Mom / Dad).
 - Do not wire login gates, phone verify, or real API session switching unless explicitly requested.
 - Keep theme/layout in `core/theme/` + `core/widgets/ds_*` — guest work composes those, never forks them.
+- **Default tab lists** → `DsCategoryStyleList` family (see `.cursor/rules/design-system.mdc` + `docs/design_system.md`).
 
 ## Invariant shell
 - Tabs: **Tests · Reports · Health · Account** — same `AppShell`, same `RoutePaths`, every scenario.
 - Theme: only `lib/core/theme/` + `lib/core/widgets/ds_*.dart`. Variants compose design system; no per-flow colors.
+- Lists: `DsCategoryStyleList` is the default stacked-row pattern for all tabs (`docs/design_system.md`).
 
 ## State model
 | Axis | Scope | Values |

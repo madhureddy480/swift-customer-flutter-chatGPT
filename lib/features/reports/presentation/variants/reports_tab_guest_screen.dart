@@ -5,6 +5,7 @@ import 'package:dr_swift_diagnostics/features/reports/data/reports_guest_sample_
 import 'package:dr_swift_diagnostics/features/reports/presentation/widgets/reports_dated_report_body.dart';
 import 'package:dr_swift_diagnostics/features/reports/presentation/widgets/reports_family_member_picker.dart';
 import 'package:dr_swift_diagnostics/features/reports/presentation/widgets/reports_guest_sample_report_button.dart';
+import 'package:dr_swift_diagnostics/features/reports/presentation/widgets/reports_section_header.dart';
 import 'package:dr_swift_diagnostics/features/reports/presentation/widgets/reports_test_date_accordion.dart';
 import 'package:flutter/material.dart';
 
@@ -79,6 +80,8 @@ class _ReportsTabGuestScreenState extends State<ReportsTabGuestScreen> {
           AppSpacing.xl,
         ),
         children: [
+          const ReportsSectionHeader(title: 'Sample Test Results'),
+          const SizedBox(height: 10),
           for (var i = 0; i < datedReports.length; i++) ...[
             if (i > 0) const SizedBox(height: 10),
             ReportsTestDateAccordion(

@@ -1,10 +1,10 @@
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_brand_widgets.dart';
+import 'package:dr_swift_diagnostics/core/widgets/ds_category_style_list.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_scaffold.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_tab_header.dart';
 import 'package:dr_swift_diagnostics/features/catalog/data/catalog_providers.dart';
-import 'package:dr_swift_diagnostics/features/catalog/data/catalog_view_models.dart';
 import 'package:dr_swift_diagnostics/features/catalog/data/category_ui_metadata.dart';
 import 'package:dr_swift_diagnostics/features/catalog/presentation/widgets/catalog_widgets.dart';
 import 'package:dr_swift_diagnostics/features/profiles/data/health_profile_data.dart';
@@ -139,8 +139,15 @@ class TestsTabGuestScreen extends ConsumerWidget {
                     padding: EdgeInsets.symmetric(vertical: 24),
                     child: Center(child: Text('Unable to load categories')),
                   ),
-                  data: (categories) => _CategoryList(
-                    categories: categories,
+                  data: (categories) => DsCategoryStyleList(
+                    children: [
+                      for (final category in categories)
+                        CategoryListTile(
+                          category: category,
+                          onTap: () =>
+                              context.push('/categories/${category.id}'),
+                        ),
+                    ],
                   ),
                 ),
               ]),
@@ -161,39 +168,5 @@ class TestsTabGuestScreen extends ConsumerWidget {
     if (featured.isNotEmpty) return featured;
 
     return all;
-  }
-}
-
-class _CategoryList extends StatelessWidget {
-  const _CategoryList({required this.categories});
-
-  final List<HealthCategory> categories;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.divider),
-      ),
-      child: Column(
-        children: [
-          for (var index = 0; index < categories.length; index++) ...[
-            CategoryListTile(
-              category: categories[index],
-              onTap: () => context.push('/categories/${categories[index].id}'),
-            ),
-            if (index < categories.length - 1)
-              const Divider(
-                height: 1,
-                indent: 64,
-                color: AppColors.divider,
-              ),
-          ],
-        ],
-      ),
-    );
   }
 }

@@ -1,0 +1,50 @@
+---
+description: Dr Swift design system — default list rows, tokens, and ds_* widget usage
+globs: lib/**/*.dart
+alwaysApply: true
+---
+
+# Design system
+
+Compose from `lib/core/theme/` + `lib/core/widgets/ds_*.dart`. No per-tab color forks.
+
+Full reference: `docs/design_system.md`
+
+## Default tab list pattern ★
+
+**Any stacked row list on a tab** → `DsCategoryStyleList` family (`ds_category_style_list.dart`).
+
+| Piece | Widget / token |
+|-------|----------------|
+| Section block | `DsCategoryStyleListSection(title:, children:)` |
+| List shell | `DsCategoryStyleList(children:)` |
+| Row | `DsCategoryStyleListRow(leading:, title:, subtitle:, trailing:, onTap:)` |
+| Leading icon | `DsCategoryStyleListLeadingIcon(color:, icon:)` |
+| Metrics | `DsCategoryStyleListMetrics` — **58px** rows, **64px** divider indent |
+| Text | `DsCategoryStyleListTypography.title` / `.subtitle` / `.trailingMeta` |
+
+```dart
+DsCategoryStyleListSection(
+  title: 'My Health',
+  children: [
+    DsCategoryStyleListRow(
+      leading: DsCategoryStyleListLeadingIcon(color: c, icon: Icons.show_chart_rounded),
+      title: Text(name, style: DsCategoryStyleListTypography.title),
+      subtitle: Text(meta, style: DsCategoryStyleListTypography.subtitle),
+      trailing: chevronOrValue,
+      onTap: onTap,
+    ),
+  ],
+);
+```
+
+## Other shells
+
+- Tab scroll + header → `DsTabScrollView` / `DsTabHeader`
+- Expandable report panels → `DsGlassCard` (not category list)
+- CTAs → `DsPrimaryButton`
+
+## Do not use for new lists
+
+- `DsCategoryTile` — legacy card-per-item; superseded by `DsCategoryStyleList`
+- Raw `Container` + manual dividers — wrap with `DsCategoryStyleList` instead

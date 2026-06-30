@@ -19,6 +19,7 @@ class ReportsHeartHealthTrendChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final axisLabels = trend.axisLabels;
     final spots = [
       for (var i = 0; i < trend.values.length; i++)
         FlSpot(i.toDouble(), trend.values[i]),
@@ -37,7 +38,7 @@ class ReportsHeartHealthTrendChart extends StatelessWidget {
             child: DsGlassCard(
               borderRadius: 16,
               blurSigma: 20,
-              padding: const EdgeInsets.fromLTRB(4, 8, 8, 4),
+              padding: const EdgeInsets.fromLTRB(4, 8, 12, 4),
               child: LineChart(
                 LineChartData(
                   minX: 0,
@@ -80,16 +81,17 @@ class ReportsHeartHealthTrendChart extends StatelessWidget {
                     bottomTitles: AxisTitles(
                       sideTitles: SideTitles(
                         showTitles: true,
-                        reservedSize: 22,
+                        reservedSize: 24,
+                        interval: 1,
                         getTitlesWidget: (value, _) {
                           final index = value.round();
-                          if (index < 0 || index >= trend.labels.length) {
+                          if (index < 0 || index >= axisLabels.length) {
                             return const SizedBox.shrink();
                           }
                           return Padding(
                             padding: const EdgeInsets.only(top: 6),
                             child: Text(
-                              trend.labels[index],
+                              axisLabels[index],
                               style: const TextStyle(
                                 color: _muted,
                                 fontSize: 9,
@@ -112,7 +114,15 @@ class ReportsHeartHealthTrendChart extends StatelessWidget {
                       color: AppColors.primaryVibrant,
                       barWidth: 2.5,
                       isStrokeCapRound: true,
-                      dotData: const FlDotData(show: false),
+                      dotData: FlDotData(
+                        show: true,
+                        getDotPainter: (_, __, ___, ____) => FlDotCirclePainter(
+                          radius: 3.5,
+                          color: AppColors.primaryVibrant,
+                          strokeWidth: 2,
+                          strokeColor: Colors.white,
+                        ),
+                      ),
                       belowBarData: BarAreaData(
                         show: true,
                         gradient: LinearGradient(

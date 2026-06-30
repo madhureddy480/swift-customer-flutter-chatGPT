@@ -14,4 +14,17 @@ void main() {
       '10-04-2026',
     );
   });
+
+  test('formatTrendAxisLabelFromDaysAgo returns MM-DD', () {
+    final reference = DateTime(2026, 6, 27);
+
+    expect(
+      formatTrendAxisLabelFromDaysAgo(1, reference: reference),
+      '06-26',
+    );
+    expect(
+      formatTrendAxisLabelFromDaysAgo(78, reference: reference),
+      '04-10',
+    );
+  });
 }

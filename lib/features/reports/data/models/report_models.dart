@@ -19,16 +19,16 @@ class ReportResultRow {
   const ReportResultRow({
     required this.testName,
     required this.currentValue,
-    required this.pastValue,
+    required this.past1Value,
+    required this.past2Value,
     required this.flag,
-    this.unit,
   });
 
   final String testName;
   final String currentValue;
-  final String pastValue;
+  final String past1Value;
+  final String past2Value;
   final ReportResultFlag flag;
-  final String? unit;
 }
 
 class ReportHealthIndicator {
@@ -63,16 +63,20 @@ class ReportHeartHealthTrend {
   const ReportHeartHealthTrend({
     required this.title,
     required this.subtitle,
-    required this.labels,
+    required this.labelDaysAgo,
     required this.values,
     required this.unit,
   });
 
   final String title;
   final String subtitle;
-  final List<String> labels;
+  final List<int> labelDaysAgo;
   final List<double> values;
   final String unit;
+
+  List<String> get axisLabels => labelDaysAgo
+      .map((days) => formatTrendAxisLabelFromDaysAgo(days))
+      .toList();
 }
 
 /// One lab report snapshot for a specific test date.

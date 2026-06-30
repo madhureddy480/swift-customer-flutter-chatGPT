@@ -1,4 +1,5 @@
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
+import 'package:dr_swift_diagnostics/core/widgets/ds_category_style_list.dart';
 import 'package:dr_swift_diagnostics/features/catalog/data/catalog_view_models.dart';
 import 'package:flutter/material.dart';
 
@@ -14,57 +15,33 @@ class CategoryListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      button: true,
-      label: '${category.name}, ${category.testCount} tests',
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
-          child: Row(
-            children: [
-              Container(
-                width: 36,
-                height: 36,
-                decoration: BoxDecoration(
-                  color: category.color,
-                  shape: BoxShape.circle,
-                ),
-                alignment: Alignment.center,
-                child: Icon(category.icon, color: Colors.white, size: 20),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  category.name,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFF071B3A),
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    height: 1.15,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                '${category.testCount} Tests',
-                style: const TextStyle(
-                  color: Color(0xFF667085),
-                  fontSize: 10.5,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const SizedBox(width: 2),
-              const Icon(
-                Icons.chevron_right_rounded,
-                color: Color(0xFF8B95A7),
-                size: 21,
-              ),
-            ],
+    return DsCategoryStyleListRow(
+      semanticsLabel: '${category.name}, ${category.testCount} tests',
+      onTap: onTap,
+      leading: DsCategoryStyleListLeadingIcon(
+        color: category.color,
+        icon: category.icon,
+      ),
+      title: Text(
+        category.name,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+        style: DsCategoryStyleListTypography.title,
+      ),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            '${category.testCount} Tests',
+            style: DsCategoryStyleListTypography.trailingMeta,
           ),
-        ),
+          const SizedBox(width: 2),
+          const Icon(
+            Icons.chevron_right_rounded,
+            color: DsCategoryStyleListTypography.chevronColor,
+            size: 21,
+          ),
+        ],
       ),
     );
   }
