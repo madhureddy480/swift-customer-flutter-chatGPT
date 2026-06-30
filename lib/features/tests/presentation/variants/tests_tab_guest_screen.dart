@@ -1,3 +1,4 @@
+import 'package:dr_swift_diagnostics/core/constants/asset_paths.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_cart_app_bar_action.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
@@ -81,35 +82,45 @@ class TestsTabGuestScreen extends ConsumerWidget {
                 const SizedBox(height: 14),
                 profilesAsync.when(
                   loading: () => const SizedBox(
-                    height: 132,
+                    height: 64,
                     child: Center(child: CircularProgressIndicator()),
                   ),
                   error: (_, __) => const SizedBox(
-                    height: 132,
+                    height: 64,
                     child: Center(child: Text('Unable to load profiles')),
                   ),
                   data: (profiles) {
                     final ordered = _homeProfiles(profiles);
-                    return SizedBox(
-                      height: 132,
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        clipBehavior: Clip.none,
-                        itemCount: ordered.length,
-                        separatorBuilder: (_, __) => const SizedBox(width: 12),
-                        itemBuilder: (context, index) {
-                          final profile = ordered[index];
-                          final meta = ProfileUiMetadata.forSlug(profile.slug);
-                          return DsHealthProfileCard(
-                            title: meta.homeTitle,
-                            testCount: profile.testCount,
-                            iconAsset: meta.iconAsset,
-                            accentColor: meta.color,
-                            onTap: () =>
-                                context.push('/profiles/${profile.slug}'),
-                          );
-                        },
-                      ),
+                    return LayoutBuilder(
+                      builder: (context, constraints) {
+                        const gap = 8.0;
+                        final cardWidth = (constraints.maxWidth - gap * 2) / 3;
+                        final cardHeight = cardWidth / 1.3;
+                        return SizedBox(
+                          height: cardHeight,
+                          child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            clipBehavior: Clip.none,
+                            itemCount: ordered.length,
+                            separatorBuilder: (_, __) =>
+                                const SizedBox(width: gap),
+                            itemBuilder: (context, index) {
+                              final profile = ordered[index];
+                              return DsHealthProfileCard(
+                                width: cardWidth,
+                                height: cardHeight,
+                                title: profile.shortName,
+                                testCount: profile.testCount,
+                                imageAsset: AssetPaths.healthProfileCardForSlug(
+                                  profile.slug,
+                                ),
+                                onTap: () =>
+                                    context.push('/profiles/${profile.slug}'),
+                              );
+                            },
+                          ),
+                        );
+                      },
                     );
                   },
                 ),

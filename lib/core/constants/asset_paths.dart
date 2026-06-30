@@ -3,17 +3,39 @@ abstract final class AssetPaths {
   static const logo = 'assets/images/logo.png';
 
   // Health tab care carousel
-  static const healthCarousel1 =
-      'assets/images/health_carousel/carousel_1.png';
-  static const healthCarousel2 =
-      'assets/images/health_carousel/carousel_2.png';
-  static const healthCarousel3 =
-      'assets/images/health_carousel/carousel_3.png';
+  static const healthCarousel1 = 'assets/images/health_carousel/carousel_1.png';
+  static const healthCarousel2 = 'assets/images/health_carousel/carousel_2.png';
+  static const healthCarousel3 = 'assets/images/health_carousel/carousel_3.png';
   static const onboardingHealthProfiles =
       'assets/onboarding/health_profiles.png';
   static const onboardingFamily = 'assets/onboarding/family_account.png';
   static const onboardingResultsInsights =
       'assets/onboarding/results_insights.png';
+
+  // Health profile grid cards
+  static const diabeticProfileCard = 'assets/images/diabetes_profile_card.png';
+  static const check72ProfileCard =
+      'assets/images/complete_health_profile_card.png';
+  static const feverProfileCard = 'assets/images/infection_profile_card.png';
+  static const check42ProfileCard = 'assets/images/cardiac_profile_card.png';
+  static const wellnessProfileCard = 'assets/images/wellness_profile_card.png';
+  static const orthoProfileCard = 'assets/images/bone_joint_profile_card.png';
+  static const vitalProfileCard = 'assets/images/heart_health_profile_card.png';
+  static const healthProfilesHero = 'assets/images/health_profiles_hero.png';
+
+  static String healthProfileCardForSlug(String slug) {
+    return switch (slug) {
+      'drs-diabetic' => diabeticProfileCard,
+      'drs-check-72' => check72ProfileCard,
+      'drs-fever' => feverProfileCard,
+      'drs-check-42' => check42ProfileCard,
+      'drs-wellness' => wellnessProfileCard,
+      'drs-ortho' => orthoProfileCard,
+      'drs-vital' => vitalProfileCard,
+      _ => check72ProfileCard,
+    };
+  }
+
   static const iconsBase = 'assets/icons';
 
   // Onboarding & splash feature icons

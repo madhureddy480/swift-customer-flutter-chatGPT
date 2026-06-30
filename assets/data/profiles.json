@@ -30,8 +30,8 @@
     {
       "code": "DRSP002",
       "slug": "drs-check-72",
-      "name": "DRS Check 72",
-      "shortName": "Check 72",
+      "name": "DRS Vital Check",
+      "shortName": "Vital Check",
       "testCount": 13,
       "priceCents": 249900,
       "currency": "INR",
@@ -188,8 +188,8 @@
     {
       "code": "DRSP004",
       "slug": "drs-check-42",
-      "name": "DRS Check 42",
-      "shortName": "Check 42",
+      "name": "DRS General Health",
+      "shortName": "General Health",
       "testCount": 8,
       "priceCents": 149900,
       "currency": "INR",

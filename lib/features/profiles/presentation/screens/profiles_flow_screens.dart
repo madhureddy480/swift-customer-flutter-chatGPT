@@ -1,3 +1,4 @@
+import 'package:dr_swift_diagnostics/core/constants/asset_paths.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_asset_image.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_buttons.dart';
@@ -27,6 +28,16 @@ class ProfilesGridScreen extends StatefulWidget {
 }
 
 class _ProfilesGridScreenState extends State<ProfilesGridScreen> {
+  static const _profileOrder = [
+    'drs-diabetic',
+    'drs-check-72',
+    'drs-fever',
+    'drs-check-42',
+    'drs-wellness',
+    'drs-ortho',
+    'drs-vital',
+  ];
+
   final _searchController = TextEditingController();
   var _query = '';
 
@@ -39,7 +50,12 @@ class _ProfilesGridScreenState extends State<ProfilesGridScreen> {
   @override
   Widget build(BuildContext context) {
     final query = _query.trim().toLowerCase();
-    final filtered = widget.profiles.where((profile) {
+    final orderedProfiles = [...widget.profiles]..sort((a, b) {
+        final aIndex = _profileOrder.indexOf(a.slug);
+        final bIndex = _profileOrder.indexOf(b.slug);
+        return aIndex.compareTo(bIndex);
+      });
+    final filtered = orderedProfiles.where((profile) {
       if (query.isEmpty) return true;
       return profile.name.toLowerCase().contains(query) ||
           profile.shortName.toLowerCase().contains(query) ||
@@ -64,10 +80,14 @@ class _ProfilesGridScreenState extends State<ProfilesGridScreen> {
                   controller: _searchController,
                   onChanged: (value) => setState(() => _query = value),
                 ),
-                const SizedBox(height: 18),
+                if (query.isEmpty) ...[
+                  const SizedBox(height: 14),
+                  const _ProfilesHeroBanner(),
+                ],
+                const SizedBox(height: 14),
                 if (filtered.isEmpty)
                   const _NoProfilesFound()
-                else
+                else ...[
                   GridView.builder(
                     itemCount: filtered.length,
                     shrinkWrap: true,
@@ -84,6 +104,9 @@ class _ProfilesGridScreenState extends State<ProfilesGridScreen> {
                       return _ProfileGridCard(profile: profile);
                     },
                   ),
+                  const SizedBox(height: 16),
+                  const _DoctorCuratedBanner(),
+                ],
               ]),
             ),
           ),
@@ -583,30 +606,58 @@ class _ProfileGridCard extends StatelessWidget {
     return InkWell(
       onTap: () => context.push('/profiles/${profile.slug}'),
       borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: _cardDecoration,
-        child: Row(
-          children: [
-            _IconBubble(profile: profile, size: 46, iconSize: 31),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    profile.shortName,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: _tileTitle,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.asset(
+                  AssetPaths.healthProfileCardForSlug(profile.slug),
+                  fit: BoxFit.cover,
+                  alignment: Alignment.center,
+                  filterQuality: FilterQuality.high,
+                  isAntiAlias: true,
+                ),
+                Positioned(
+                  left: constraints.maxWidth * 0.43,
+                  right: 8,
+                  top: 0,
+                  bottom: 0,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        profile.shortName,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Color(0xFF17213D),
+                          fontSize: 11.5,
+                          fontWeight: FontWeight.w700,
+                          height: 1.05,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        '${profile.testCount} Tests',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Color(0xFF65708A),
+                          fontSize: 9.5,
+                          fontWeight: FontWeight.w600,
+                          height: 1,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 4),
-                  Text('${profile.testCount} Tests', style: _caption),
-                ],
-              ),
-            ),
-          ],
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
@@ -744,7 +795,7 @@ class _ProfileAppBar extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8, 10, 8, 8),
         child: SizedBox(
-          height: 54,
+          height: 58,
           child: Row(
             children: [
               SizedBox(
@@ -771,7 +822,7 @@ class _ProfileAppBar extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         color: _navy,
-                        fontSize: 16,
+                        fontSize: 18,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
@@ -819,10 +870,19 @@ class _SearchBox extends StatelessWidget {
       onChanged: onChanged,
       textInputAction: TextInputAction.search,
       decoration: InputDecoration(
-        hintText: 'Search profiles',
+        hintText: 'Search profiles, e.g. Diabetes, Heart, Fever...',
+        hintStyle: const TextStyle(
+          color: Color(0xFF707890),
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+        ),
         prefixIcon: const Icon(Icons.search_rounded, color: _muted, size: 20),
         suffixIcon: controller.text.isEmpty
-            ? null
+            ? const Icon(
+                Icons.filter_alt_outlined,
+                color: AppColors.primaryVibrant,
+                size: 22,
+              )
             : IconButton(
                 tooltip: 'Clear search',
                 onPressed: () {
@@ -845,6 +905,116 @@ class _SearchBox extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: Color(0xFFE2E6EE)),
         ),
+      ),
+    );
+  }
+}
+
+class _ProfilesHeroBanner extends StatelessWidget {
+  const _ProfilesHeroBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: const Color(0xFFE5E2F4)),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF4936A8).withValues(alpha: 0.08),
+            blurRadius: 14,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(13),
+        child: AspectRatio(
+          aspectRatio: 1942 / 811,
+          child: Image.asset(
+            AssetPaths.healthProfilesHero,
+            fit: BoxFit.cover,
+            filterQuality: FilterQuality.high,
+            isAntiAlias: true,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _DoctorCuratedBanner extends StatelessWidget {
+  const _DoctorCuratedBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(12, 10, 10, 10),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF7F3FF),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: const Color(0xFFE3D9FF)),
+      ),
+      child: const Row(
+        children: [
+          CircleAvatar(
+            radius: 17,
+            backgroundColor: Color(0xFFE9E0FF),
+            child: Icon(
+              Icons.assignment_turned_in_outlined,
+              color: AppColors.primaryVibrant,
+              size: 19,
+            ),
+          ),
+          SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'All profiles are doctor curated',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: Color(0xFF4C35A8),
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                SizedBox(height: 2),
+                Text(
+                  'Accurate. Reliable. Actionable.',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: Color(0xFF667085),
+                    fontSize: 9.5,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(width: 6),
+          TextButton(
+            onPressed: null,
+            style: ButtonStyle(
+              padding: WidgetStatePropertyAll(
+                EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              ),
+              minimumSize: WidgetStatePropertyAll(Size.zero),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
+            child: Text(
+              'Learn more',
+              style: TextStyle(
+                color: AppColors.primaryVibrant,
+                fontSize: 10,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
