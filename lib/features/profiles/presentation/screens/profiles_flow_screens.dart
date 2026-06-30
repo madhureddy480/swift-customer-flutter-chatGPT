@@ -1,7 +1,10 @@
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_asset_image.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_buttons.dart';
+import 'package:dr_swift_diagnostics/core/widgets/ds_cart_app_bar_action.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_scaffold.dart';
+import 'package:dr_swift_diagnostics/features/cart/domain/cart_models.dart';
+import 'package:dr_swift_diagnostics/features/cart/presentation/providers/cart_providers.dart';
 import 'package:dr_swift_diagnostics/features/catalog/data/catalog_providers.dart';
 import 'package:dr_swift_diagnostics/features/profiles/data/health_profile_data.dart';
 import 'package:dr_swift_diagnostics/routing/route_paths.dart';
@@ -14,13 +17,35 @@ const _muted = Color(0xFF667085);
 const _profileScreenBg = Color(0xFFF4F7FA);
 const _checkTeal = Color(0xFF1A8FBF);
 
-class ProfilesGridScreen extends StatelessWidget {
+class ProfilesGridScreen extends StatefulWidget {
   const ProfilesGridScreen({required this.profiles, super.key});
 
   final List<HealthProfileData> profiles;
 
   @override
+  State<ProfilesGridScreen> createState() => _ProfilesGridScreenState();
+}
+
+class _ProfilesGridScreenState extends State<ProfilesGridScreen> {
+  final _searchController = TextEditingController();
+  var _query = '';
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final query = _query.trim().toLowerCase();
+    final filtered = widget.profiles.where((profile) {
+      if (query.isEmpty) return true;
+      return profile.name.toLowerCase().contains(query) ||
+          profile.shortName.toLowerCase().contains(query) ||
+          profile.tests.any((test) => test.name.toLowerCase().contains(query));
+    }).toList();
+
     return DsScaffold(
       safeArea: false,
       body: CustomScrollView(
@@ -29,28 +54,36 @@ class ProfilesGridScreen extends StatelessWidget {
             title: 'Health Profiles',
             subtitle: 'Curated health profiles for you',
             showBack: true,
+            trailing: DsCartAppBarAction(),
           ).asSliver(),
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                const _SearchBox(),
-                const SizedBox(height: 18),
-                GridView.builder(
-                  itemCount: profiles.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: 1.78,
-                  ),
-                  itemBuilder: (context, index) {
-                    final profile = profiles[index];
-                    return _ProfileGridCard(profile: profile);
-                  },
+                _SearchBox(
+                  controller: _searchController,
+                  onChanged: (value) => setState(() => _query = value),
                 ),
+                const SizedBox(height: 18),
+                if (filtered.isEmpty)
+                  const _NoProfilesFound()
+                else
+                  GridView.builder(
+                    itemCount: filtered.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: 1.78,
+                    ),
+                    itemBuilder: (context, index) {
+                      final profile = filtered[index];
+                      return _ProfileGridCard(profile: profile);
+                    },
+                  ),
               ]),
             ),
           ),
@@ -60,135 +93,50 @@ class ProfilesGridScreen extends StatelessWidget {
   }
 }
 
-class ProfileDetailsScreen extends StatelessWidget {
+class ProfileDetailsScreen extends ConsumerWidget {
   const ProfileDetailsScreen({required this.profile, super.key});
 
   final HealthProfileData profile;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ColoredBox(
       color: _profileScreenBg,
-      child: SafeArea(
-        bottom: false,
-        child: Column(
-          children: [
-            _ProfileBackBar(),
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.fromLTRB(16, 4, 16, 12),
-                children: [
-                  _HeroProfileCard(profile: profile),
-                  const SizedBox(height: 12),
-                  _InfoCard(
-                    title: 'What is it for?',
-                    child: Text(profile.whatIsItFor, style: _bodyStyle),
-                  ),
-                  const SizedBox(height: 12),
-                  _InfoCard(
-                    title: 'Highlights',
-                    child: Column(
-                      children: [
-                        for (final item in profile.highlights)
-                          _CheckLine(label: item),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              color: _profileScreenBg,
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-              child: SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: DsOutlineButton(
-                  label: 'View Tests Included',
-                  onPressed: () =>
-                      context.push('/profiles/${profile.slug}/tests'),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ProfileTestsScreen extends StatelessWidget {
-  const ProfileTestsScreen({required this.profile, super.key});
-
-  final HealthProfileData profile;
-
-  @override
-  Widget build(BuildContext context) {
-    return DsScaffold(
-      safeArea: false,
-      body: Column(
+      child: Column(
         children: [
-          _ProfileAppBar(title: profile.name, showBack: true),
+          _ProfileAppBar(
+            title: profile.name,
+            showBack: true,
+            trailing: const DsCartAppBarAction(),
+          ),
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
+              padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
               children: [
-                Text(
-                  'Tests Included (${profile.testCount})',
-                  style: _sectionTitle,
+                _HeroProfileCard(profile: profile, showPurchaseCta: false),
+                const SizedBox(height: 12),
+                _InfoCard(
+                  title: 'What is it for?',
+                  child: Text(profile.whatIsItFor, style: _bodyStyle),
                 ),
-                const SizedBox(height: 10),
-                Container(
-                  decoration: _cardDecoration,
+                const SizedBox(height: 12),
+                _InfoCard(
+                  title: 'Highlights',
                   child: Column(
                     children: [
-                      for (var i = 0; i < profile.tests.length; i++) ...[
-                        _TestRow(test: profile.tests[i]),
-                        if (i < profile.tests.length - 1)
-                          const Divider(height: 1, indent: 16),
-                      ],
+                      for (final item in profile.highlights)
+                        _CheckLine(label: item),
                     ],
                   ),
                 ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-            child: DsOutlineButton(
-              label: 'View All ${profile.testCount} Tests',
-              onPressed: () =>
-                  context.push('/profiles/${profile.slug}/more-info'),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ProfileMoreInfoScreen extends StatelessWidget {
-  const ProfileMoreInfoScreen({required this.profile, super.key});
-
-  final HealthProfileData profile;
-
-  @override
-  Widget build(BuildContext context) {
-    return DsScaffold(
-      safeArea: false,
-      body: Column(
-        children: [
-          _ProfileAppBar(title: profile.name, showBack: true),
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-              children: [
+                const SizedBox(height: 16),
+                _TestsIncludedSection(profile: profile),
+                const SizedBox(height: 12),
                 _InfoCard(
                   title: 'Who should take this?',
                   child: Text(profile.whoShouldTakeThis, style: _bodyStyle),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 12),
                 _InfoCard(
                   title: 'Preparation',
                   child: Column(
@@ -198,7 +146,7 @@ class ProfileMoreInfoScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 12),
                 const _InfoCard(
                   title: 'Why Choose Dr Swift?',
                   child: Column(
@@ -226,6 +174,7 @@ class ProfileMoreInfoScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+                const SizedBox(height: 88),
               ],
             ),
           ),
@@ -234,6 +183,24 @@ class ProfileMoreInfoScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class ProfileTestsScreen extends StatelessWidget {
+  const ProfileTestsScreen({required this.profile, super.key});
+
+  final HealthProfileData profile;
+
+  @override
+  Widget build(BuildContext context) => ProfileDetailsScreen(profile: profile);
+}
+
+class ProfileMoreInfoScreen extends StatelessWidget {
+  const ProfileMoreInfoScreen({required this.profile, super.key});
+
+  final HealthProfileData profile;
+
+  @override
+  Widget build(BuildContext context) => ProfileDetailsScreen(profile: profile);
 }
 
 class AddedToCartScreen extends StatelessWidget {
@@ -287,7 +254,7 @@ class AddedToCartScreen extends StatelessWidget {
           const SizedBox(height: 12),
           DsPrimaryButton(
             label: 'View Cart',
-            onPressed: () => context.push('/cart/${profile.slug}'),
+            onPressed: () => context.push(RoutePaths.shoppingCart),
           ),
         ],
       ),
@@ -431,7 +398,7 @@ class _SlotSelectionScreenState extends State<SlotSelectionScreen> {
           ),
           _ContinueBar(
             profile: widget.profile,
-            onContinue: () => context.push('/checkout/${widget.profile.slug}'),
+            onContinue: () => context.push(RoutePaths.checkoutFlow),
           ),
         ],
       ),
@@ -646,34 +613,19 @@ class _ProfileGridCard extends StatelessWidget {
   }
 }
 
-class _ProfileBackBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(4, 4, 8, 0),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: IconButton(
-          onPressed: () => context.canPop()
-              ? context.pop()
-              : context.go(RoutePaths.tests),
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
-          color: _navy,
-        ),
-      ),
-    );
-  }
-}
-
-class _HeroProfileCard extends StatelessWidget {
-  const _HeroProfileCard({required this.profile});
+class _HeroProfileCard extends ConsumerWidget {
+  const _HeroProfileCard({
+    required this.profile,
+    this.showPurchaseCta = true,
+  });
 
   final HealthProfileData profile;
+  final bool showPurchaseCta;
 
   static const _mostPopularSlugs = {'drs-diabetic'};
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final showBadge = _mostPopularSlugs.contains(profile.slug);
 
     return Container(
@@ -751,17 +703,21 @@ class _HeroProfileCard extends StatelessWidget {
               _Tag(label: 'All Ages', icon: Icons.groups_outlined),
             ],
           ),
-          const SizedBox(height: 16),
-          _PriceLine(profile: profile),
-          const SizedBox(height: 14),
-          SizedBox(
-            width: double.infinity,
-            height: 48,
-            child: DsPrimaryButton(
-              label: 'Add to Cart',
-              onPressed: () => context.push('/profiles/${profile.slug}/added'),
+          if (showPurchaseCta) ...[
+            const SizedBox(height: 16),
+            _PriceLine(profile: profile),
+            const SizedBox(height: 14),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: DsPrimaryButton(
+                label: 'Add to Cart',
+                onPressed: () => ref
+                    .read(cartControllerProvider.notifier)
+                    .addProfile(profile),
+              ),
             ),
-          ),
+          ],
         ],
       ),
     );
@@ -779,7 +735,7 @@ class _ProfileAppBar extends StatelessWidget {
   final String title;
   final String? subtitle;
   final bool showBack;
-  final IconData? trailing;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -837,12 +793,7 @@ class _ProfileAppBar extends StatelessWidget {
               ),
               SizedBox(
                 width: 44,
-                child: trailing == null
-                    ? null
-                    : IconButton(
-                        onPressed: () {},
-                        icon: Icon(trailing, size: 20),
-                      ),
+                child: trailing,
               ),
             ],
           ),
@@ -853,29 +804,112 @@ class _ProfileAppBar extends StatelessWidget {
 }
 
 class _SearchBox extends StatelessWidget {
-  const _SearchBox();
+  const _SearchBox({
+    required this.controller,
+    required this.onChanged,
+  });
+
+  final TextEditingController controller;
+  final ValueChanged<String> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      onChanged: onChanged,
+      textInputAction: TextInputAction.search,
+      decoration: InputDecoration(
+        hintText: 'Search profiles',
+        prefixIcon: const Icon(Icons.search_rounded, color: _muted, size: 20),
+        suffixIcon: controller.text.isEmpty
+            ? null
+            : IconButton(
+                tooltip: 'Clear search',
+                onPressed: () {
+                  controller.clear();
+                  onChanged('');
+                },
+                icon: const Icon(Icons.close_rounded),
+              ),
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 14,
+          vertical: 13,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Color(0xFFE2E6EE)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Color(0xFFE2E6EE)),
+        ),
+      ),
+    );
+  }
+}
+
+class _NoProfilesFound extends StatelessWidget {
+  const _NoProfilesFound();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 48,
-      padding: const EdgeInsets.symmetric(horizontal: 14),
-      decoration:
-          _cardDecoration.copyWith(borderRadius: BorderRadius.circular(10)),
-      child: const Row(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 28),
+      decoration: _cardDecoration,
+      child: const Column(
         children: [
-          Icon(Icons.search_rounded, color: _muted, size: 20),
-          SizedBox(width: 10),
+          Icon(Icons.search_off_rounded, color: _muted, size: 34),
+          SizedBox(height: 10),
           Text(
-            'Search profiles',
+            'No profiles found',
             style: TextStyle(
-              color: _muted,
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
+              color: _navy,
+              fontSize: 15,
+              fontWeight: FontWeight.w800,
             ),
+          ),
+          SizedBox(height: 4),
+          Text(
+            'Try a profile or test name.',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: _muted, fontSize: 12),
           ),
         ],
       ),
+    );
+  }
+}
+
+class _TestsIncludedSection extends StatelessWidget {
+  const _TestsIncludedSection({required this.profile});
+
+  final HealthProfileData profile;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Tests Included (${profile.testCount})',
+          style: _sectionTitle,
+        ),
+        const SizedBox(height: 10),
+        Container(
+          decoration: _cardDecoration,
+          child: Column(
+            children: [
+              for (var i = 0; i < profile.tests.length; i++) ...[
+                _TestRow(test: profile.tests[i]),
+                if (i < profile.tests.length - 1)
+                  const Divider(height: 1, indent: 16),
+              ],
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -904,13 +938,16 @@ class _InfoCard extends StatelessWidget {
   }
 }
 
-class _BottomPriceBar extends StatelessWidget {
+class _BottomPriceBar extends ConsumerWidget {
   const _BottomPriceBar({required this.profile});
 
   final HealthProfileData profile;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final itemId = CartLineItem.profileId(profile.slug);
+    final inCart = ref.watch(cartIsInCartProvider(itemId));
+
     return SafeArea(
       top: false,
       child: Container(
@@ -926,9 +963,24 @@ class _BottomPriceBar extends StatelessWidget {
             SizedBox(
               width: 156,
               child: DsPrimaryButton(
-                label: 'Add to Cart',
-                onPressed: () =>
-                    context.push('/profiles/${profile.slug}/added'),
+                label: inCart ? 'View Cart' : 'Add to Cart',
+                onPressed: () async {
+                  if (inCart) {
+                    await context.push(RoutePaths.shoppingCart);
+                    return;
+                  }
+                  await ref
+                      .read(cartControllerProvider.notifier)
+                      .addProfile(profile);
+                  if (!context.mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('${profile.name} added to cart'),
+                      behavior: SnackBarBehavior.floating,
+                      duration: const Duration(seconds: 2),
+                    ),
+                  );
+                },
               ),
             ),
           ],
@@ -986,7 +1038,7 @@ class _CartTotalBar extends StatelessWidget {
             const SizedBox(height: 12),
             DsPrimaryButton(
               label: 'Proceed to Book',
-              onPressed: () => context.push('/book/${profile.slug}'),
+              onPressed: () => context.push(RoutePaths.shoppingCart),
             ),
           ],
         ),

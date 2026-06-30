@@ -36,10 +36,16 @@ class AccountTabGuestScreen extends StatelessWidget {
               _AccountMenuRow(
                 label: 'Profile',
                 icon: Icons.person_outline_rounded,
+                onTap: () =>
+                    _promptSignIn(context, 'Sign in to manage your profile.'),
               ),
               _AccountMenuRow(
                 label: 'Family Members',
                 icon: Icons.groups_outlined,
+                onTap: () => _promptSignIn(
+                  context,
+                  'Sign in to manage family members.',
+                ),
               ),
             ],
           ),
@@ -50,10 +56,15 @@ class AccountTabGuestScreen extends StatelessWidget {
               _AccountMenuRow(
                 label: 'Orders',
                 icon: Icons.receipt_long_outlined,
+                onTap: () => _promptSignIn(context, 'Sign in to view orders.'),
               ),
               _AccountMenuRow(
                 label: 'Addresses',
                 icon: Icons.location_on_outlined,
+                onTap: () => _promptSignIn(
+                  context,
+                  'Sign in to save and manage addresses.',
+                ),
               ),
             ],
           ),
@@ -64,18 +75,52 @@ class AccountTabGuestScreen extends StatelessWidget {
               _AccountMenuRow(
                 label: 'Notifications',
                 icon: Icons.notifications_outlined,
+                onTap: () => _showComingSoon(context, 'Notifications'),
               ),
               _AccountMenuRow(
                 label: 'Settings',
                 icon: Icons.settings_outlined,
+                onTap: () => _showComingSoon(context, 'Settings'),
               ),
               _AccountMenuRow(
                 label: 'Support',
                 icon: Icons.help_outline_rounded,
+                onTap: () => _showSupport(context),
               ),
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  static void _promptSignIn(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        behavior: SnackBarBehavior.floating,
+        action: SnackBarAction(
+          label: 'Sign in',
+          onPressed: () => context.push(RoutePaths.login),
+        ),
+      ),
+    );
+  }
+
+  static void _showComingSoon(BuildContext context, String label) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('$label will be available soon.'),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
+  static void _showSupport(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Support: call +91 98765 43210 or email care@drswift.in'),
+        behavior: SnackBarBehavior.floating,
       ),
     );
   }
@@ -85,16 +130,18 @@ class _AccountMenuRow extends StatelessWidget {
   const _AccountMenuRow({
     required this.label,
     required this.icon,
+    required this.onTap,
   });
 
   final String label;
   final IconData icon;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return DsCategoryStyleListRow(
       semanticsLabel: label,
-      onTap: () {},
+      onTap: onTap,
       leading: DsCategoryStyleListLeadingIcon(
         color: AccountTabGuestScreen._menuIconBackground,
         iconColor: AppColors.primaryVibrant,

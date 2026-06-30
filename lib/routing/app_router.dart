@@ -1,6 +1,14 @@
 import 'package:dr_swift_diagnostics/features/account/presentation/account_tab_screen.dart';
+import 'package:dr_swift_diagnostics/features/authentication/presentation/screens/auth_account_created_screen.dart';
+import 'package:dr_swift_diagnostics/features/authentication/presentation/screens/auth_otp_screen.dart';
+import 'package:dr_swift_diagnostics/features/authentication/presentation/screens/auth_phone_screen.dart';
 import 'package:dr_swift_diagnostics/features/authentication/presentation/screens/login_screen.dart';
+import 'package:dr_swift_diagnostics/features/authentication/presentation/providers/auth_state_provider.dart';
+import 'package:dr_swift_diagnostics/features/cart/presentation/providers/cart_providers.dart';
+import 'package:dr_swift_diagnostics/features/cart/presentation/screens/cart_screen.dart';
 import 'package:dr_swift_diagnostics/features/catalog/presentation/catalog_route_loaders.dart';
+import 'package:dr_swift_diagnostics/features/checkout/presentation/screens/checkout_screen.dart';
+import 'package:dr_swift_diagnostics/features/checkout/presentation/screens/order_confirmation_screen.dart';
 import 'package:dr_swift_diagnostics/features/health/presentation/health_tab_screen.dart';
 import 'package:dr_swift_diagnostics/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:dr_swift_diagnostics/features/onboarding/presentation/screens/splash_screen.dart';
@@ -18,6 +26,23 @@ final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
     initialLocation: RoutePaths.splash,
+    redirect: (context, state) {
+      final location = state.uri.path;
+      final cart = ref.read(cartControllerProvider);
+      final canCheckout = ref.read(canCheckoutProvider);
+
+      if (location == RoutePaths.checkoutFlow) {
+        if (!cart.isLoading && cart.isEmpty) {
+          return RoutePaths.shoppingCart;
+        }
+        if (!canCheckout) {
+          final next = Uri.encodeComponent(RoutePaths.checkoutFlow);
+          return '${RoutePaths.authPhone}?next=$next';
+        }
+      }
+
+      return null;
+    },
     routes: [
       GoRoute(
         path: RoutePaths.splash,
@@ -40,6 +65,45 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: RoutePaths.login,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: RoutePaths.shoppingCart,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const CartScreen(),
+      ),
+      GoRoute(
+        path: RoutePaths.authPhone,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => AuthPhoneScreen(
+          nextRoute:
+              state.uri.queryParameters['next'] ?? RoutePaths.checkoutFlow,
+        ),
+      ),
+      GoRoute(
+        path: RoutePaths.authOtp,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => AuthOtpScreen(
+          nextRoute:
+              state.uri.queryParameters['next'] ?? RoutePaths.checkoutFlow,
+        ),
+      ),
+      GoRoute(
+        path: RoutePaths.authAccountCreated,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => AuthAccountCreatedScreen(
+          nextRoute:
+              state.uri.queryParameters['next'] ?? RoutePaths.checkoutFlow,
+        ),
+      ),
+      GoRoute(
+        path: RoutePaths.checkoutFlow,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const CheckoutScreen(),
+      ),
+      GoRoute(
+        path: RoutePaths.orderConfirmation,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const OrderConfirmationScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {

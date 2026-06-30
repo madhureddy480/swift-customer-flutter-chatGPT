@@ -1,12 +1,16 @@
 import 'package:dr_swift_diagnostics/core/widgets/ds_states.dart';
+import 'package:dr_swift_diagnostics/features/authentication/presentation/providers/auth_state_provider.dart';
 import 'package:dr_swift_diagnostics/features/catalog/data/catalog_providers.dart';
 import 'package:dr_swift_diagnostics/features/catalog/presentation/screens/all_categories_screen.dart';
 import 'package:dr_swift_diagnostics/features/catalog/presentation/screens/category_test_list_screen.dart';
 import 'package:dr_swift_diagnostics/features/catalog/presentation/screens/test_detail_screen.dart';
 import 'package:dr_swift_diagnostics/features/profiles/data/health_profile_data.dart';
 import 'package:dr_swift_diagnostics/features/profiles/presentation/screens/profiles_flow_screens.dart';
+import 'package:dr_swift_diagnostics/routing/route_paths.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class CategoryTestListRoute extends ConsumerWidget {
   const CategoryTestListRoute({required this.slug, super.key});
@@ -25,7 +29,9 @@ class CategoryTestListRoute extends ConsumerWidget {
       ),
       data: (category) {
         if (category == null) {
-          return const Scaffold(body: DsErrorState(message: 'Category not found'));
+          return const Scaffold(
+            body: DsErrorState(message: 'Category not found'),
+          );
         }
         return CategoryTestListScreen(category: category);
       },
@@ -107,10 +113,7 @@ class ProfileAddedRoute extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return _ProfileRoute(
-      slug: slug,
-      builder: (profile) => AddedToCartScreen(profile: profile),
-    );
+    return const _RouteRedirect(target: RoutePaths.shoppingCart);
   }
 }
 
@@ -121,10 +124,7 @@ class ProfileCartRoute extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return _ProfileRoute(
-      slug: slug,
-      builder: (profile) => CartScreen(profile: profile),
-    );
+    return const _RouteRedirect(target: RoutePaths.shoppingCart);
   }
 }
 
@@ -135,10 +135,11 @@ class ProfileBookRoute extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return _ProfileRoute(
-      slug: slug,
-      builder: (profile) => SlotSelectionScreen(profile: profile),
-    );
+    final canCheckout = ref.watch(canCheckoutProvider);
+    final target = canCheckout
+        ? RoutePaths.checkoutFlow
+        : '${RoutePaths.authPhone}?next=${Uri.encodeComponent(RoutePaths.checkoutFlow)}';
+    return _RouteRedirect(target: target);
   }
 }
 
@@ -149,10 +150,7 @@ class ProfileCheckoutRoute extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return _ProfileRoute(
-      slug: slug,
-      builder: (profile) => ConfirmDetailsScreen(profile: profile),
-    );
+    return const _RouteRedirect(target: RoutePaths.checkoutFlow);
   }
 }
 
@@ -163,10 +161,7 @@ class ProfileOrdersRoute extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return _ProfileRoute(
-      slug: slug,
-      builder: (profile) => BookingConfirmedScreen(profile: profile),
-    );
+    return const _RouteRedirect(target: RoutePaths.orderConfirmation);
   }
 }
 
@@ -227,10 +222,38 @@ class _ProfileRoute extends ConsumerWidget {
       ),
       data: (profile) {
         if (profile == null) {
-          return const Scaffold(body: DsErrorState(message: 'Profile not found'));
+          return const Scaffold(
+            body: DsErrorState(message: 'Profile not found'),
+          );
         }
         return builder(profile);
       },
+    );
+  }
+}
+
+class _RouteRedirect extends StatefulWidget {
+  const _RouteRedirect({required this.target});
+
+  final String target;
+
+  @override
+  State<_RouteRedirect> createState() => _RouteRedirectState();
+}
+
+class _RouteRedirectState extends State<_RouteRedirect> {
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (mounted) context.go(widget.target);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(child: CircularProgressIndicator()),
     );
   }
 }

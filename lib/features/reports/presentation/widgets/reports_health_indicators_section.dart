@@ -19,10 +19,10 @@ class ReportsHealthIndicatorsSection extends StatelessWidget {
       borderRadius: 16,
       child: Column(
         children: [
-          DsGlassCardHeader(
+          const DsGlassCardHeader(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-              child: const Row(
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+              child: Row(
                 children: [
                   Expanded(
                     flex: 4,

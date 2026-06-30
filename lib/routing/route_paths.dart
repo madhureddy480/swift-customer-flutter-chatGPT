@@ -17,6 +17,13 @@ abstract final class RoutePaths {
   static const health = '/health';
   static const account = '/account';
 
+  static const shoppingCart = '/shopping-cart';
+  static const authPhone = '/auth/phone';
+  static const authOtp = '/auth/otp';
+  static const authAccountCreated = '/auth/created';
+  static const checkoutFlow = '/checkout/flow';
+  static const orderConfirmation = '/order/confirmation';
+
   static const cart = '/cart/:slug';
   static const book = '/book/:slug';
   static const checkout = '/checkout/:slug';

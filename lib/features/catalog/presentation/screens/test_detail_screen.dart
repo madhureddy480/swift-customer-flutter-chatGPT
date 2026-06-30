@@ -1,8 +1,13 @@
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
+import 'package:dr_swift_diagnostics/core/widgets/ds_buttons.dart';
+import 'package:dr_swift_diagnostics/core/widgets/ds_cart_app_bar_action.dart';
+import 'package:dr_swift_diagnostics/features/cart/domain/cart_models.dart';
+import 'package:dr_swift_diagnostics/features/cart/presentation/providers/cart_providers.dart';
 import 'package:dr_swift_diagnostics/features/catalog/data/catalog_view_models.dart';
 import 'package:dr_swift_diagnostics/features/catalog/presentation/widgets/catalog_widgets.dart';
 import 'package:dr_swift_diagnostics/routing/route_paths.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 class TestDetailScreen extends StatelessWidget {
@@ -16,21 +21,21 @@ class TestDetailScreen extends StatelessWidget {
   }
 }
 
-class TestDetailModal extends StatefulWidget {
+class TestDetailModal extends ConsumerStatefulWidget {
   const TestDetailModal({required this.test, super.key});
 
   final HealthTest test;
 
   @override
-  State<TestDetailModal> createState() => _TestDetailModalState();
+  ConsumerState<TestDetailModal> createState() => _TestDetailModalState();
 }
 
-class _TestDetailModalState extends State<TestDetailModal> {
-  bool _isAdded = false;
-
+class _TestDetailModalState extends ConsumerState<TestDetailModal> {
   @override
   Widget build(BuildContext context) {
     final test = widget.test;
+    final itemId = CartLineItem.testId(test.id);
+    final isAdded = ref.watch(cartIsInCartProvider(itemId));
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -43,13 +48,18 @@ class _TestDetailModalState extends State<TestDetailModal> {
               decoration: const BoxDecoration(
                 border: Border(bottom: BorderSide(color: AppColors.divider)),
               ),
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                tooltip: 'Close',
-                onPressed: () => context.canPop()
-                    ? context.pop()
-                    : context.go(RoutePaths.tests),
-                icon: const Icon(Icons.close_rounded, size: 22),
+              child: Row(
+                children: [
+                  IconButton(
+                    tooltip: 'Close',
+                    onPressed: () => context.canPop()
+                        ? context.pop()
+                        : context.go(RoutePaths.tests),
+                    icon: const Icon(Icons.close_rounded, size: 22),
+                  ),
+                  const Spacer(),
+                  const DsCartAppBarAction(),
+                ],
               ),
             ),
             Expanded(
@@ -177,25 +187,31 @@ class _TestDetailModalState extends State<TestDetailModal> {
                 child: SizedBox(
                   width: double.infinity,
                   height: 48,
-                  child: ElevatedButton(
-                    onPressed: () => setState(() => _isAdded = !_isAdded),
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size.zero,
-                      backgroundColor: AppColors.primaryVibrant,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      textStyle: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    child: Text(
-                      _isAdded
-                          ? 'Added to cart'
-                          : 'Add Test  •  ${test.formattedPrice}',
-                    ),
+                  child: DsPrimaryButton(
+                    label: isAdded
+                        ? 'View Cart'
+                        : 'Add Test  •  ${test.formattedPrice}',
+                    onPressed: () async {
+                      if (isAdded) {
+                        await context.push(RoutePaths.shoppingCart);
+                        return;
+                      }
+                      await ref
+                          .read(cartControllerProvider.notifier)
+                          .addTest(test);
+                      if (!context.mounted) return;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('${test.name} added to cart'),
+                          behavior: SnackBarBehavior.floating,
+                          action: SnackBarAction(
+                            label: 'View Cart',
+                            onPressed: () =>
+                                context.push(RoutePaths.shoppingCart),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),

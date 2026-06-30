@@ -1,7 +1,6 @@
 import 'package:dr_swift_diagnostics/features/session/domain/scenarios/tests_scenario.dart';
 import 'package:dr_swift_diagnostics/features/session/presentation/session_providers.dart';
 import 'package:dr_swift_diagnostics/features/tests/presentation/variants/tests_tab_guest_screen.dart';
-import 'package:dr_swift_diagnostics/features/tests/presentation/variants/tests_tab_placeholder_variants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,8 +13,8 @@ class TestsTabScreen extends ConsumerWidget {
     final session = ref.watch(userSessionProvider);
     return switch (resolveTestsScenario(session)) {
       TestsScenario.guestBrowse => const TestsTabGuestScreen(),
-      TestsScenario.authenticatedBrowse =>
-        const TestsTabAuthenticatedBrowseScreen(),
+      // Reuse full catalog until authenticated browse variant ships.
+      TestsScenario.authenticatedBrowse => const TestsTabGuestScreen(),
     };
   }
 }

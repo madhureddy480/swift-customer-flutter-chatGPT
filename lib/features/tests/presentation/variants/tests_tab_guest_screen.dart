@@ -1,3 +1,4 @@
+import 'package:dr_swift_diagnostics/core/widgets/ds_cart_app_bar_action.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_brand_widgets.dart';
@@ -33,11 +34,7 @@ class TestsTabGuestScreen extends ConsumerWidget {
       safeArea: false,
       body: DsTabSliverScrollView(
         title: 'Tests',
-        trailing: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.notifications_outlined),
-          color: AppColors.textPrimary,
-        ),
+        trailing: const DsCartAppBarAction(),
         slivers: [
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(

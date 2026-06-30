@@ -24,7 +24,7 @@ class SessionVariantPlaceholder extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
+                const Icon(
                   Icons.construction_outlined,
                   size: 48,
                   color: AppColors.textTertiary,

@@ -120,14 +120,14 @@ abstract final class ProfileUiMetadata {
     homeTitle: 'Health Profile',
     description: 'Curated lab tests from Dr Swift Diagnostics.',
     whatIsItFor: 'Helps screen common health markers in one booking.',
-    highlights: const [
+    highlights: [
       'Curated from real catalog tests',
       'At-home sample collection',
       'Reports in 24 hours',
     ],
     whoShouldTakeThis:
         'Anyone looking for preventive screening or symptom-based testing.',
-    preparation: const [
+    preparation: [
       'Follow fasting guidance on included tests',
       'Drink water before sample collection',
       'Share current medications with the phlebotomist',
@@ -139,17 +139,18 @@ abstract final class ProfileUiMetadata {
       iconAsset: AssetPaths.diabetesCareProfile,
       color: Color(0xFF18AA63),
       homeTitle: 'Diabetes Care',
-      description: 'Monitor blood sugar control with fasting glucose and HbA1c.',
+      description:
+          'Monitor blood sugar control with fasting glucose and HbA1c.',
       whatIsItFor:
           'Supports diabetes screening, diagnosis and long-term glucose monitoring.',
-      highlights: const [
+      highlights: [
         'Fasting glucose + HbA1c',
         'Useful for routine diabetes care',
         'Doctor-ready report',
       ],
       whoShouldTakeThis:
           'People with high sugar, family history of diabetes or lifestyle risk factors.',
-      preparation: const [
+      preparation: [
         'Fasting of 8-10 hours required for glucose',
         'Avoid alcohol 24 hours before test',
         'Continue routine medication unless advised',
@@ -162,13 +163,14 @@ abstract final class ProfileUiMetadata {
       description: 'Broad preventive profile covering 13 core wellness tests.',
       whatIsItFor:
           'Screens sugar, thyroid, liver, kidney, lipids, vitamins and inflammation.',
-      highlights: const [
+      highlights: [
         '13 tests in one profile',
         'Ideal annual check-up',
         'Covers major organ systems',
       ],
-      whoShouldTakeThis: 'Adults seeking a comprehensive preventive health review.',
-      preparation: const [
+      whoShouldTakeThis:
+          'Adults seeking a comprehensive preventive health review.',
+      preparation: [
         'Fasting of 8-10 hours recommended',
         'Avoid heavy exercise before sample',
         'Drink water before collection',
@@ -178,17 +180,18 @@ abstract final class ProfileUiMetadata {
       iconAsset: AssetPaths.feverInfection,
       color: Color(0xFFE73A59),
       homeTitle: 'Fever Panel',
-      description: 'Fever workup including dengue, malaria and infection markers.',
+      description:
+          'Fever workup including dengue, malaria and infection markers.',
       whatIsItFor:
           'Helps identify common causes of fever such as dengue, malaria and typhoid.',
-      highlights: const [
+      highlights: [
         'Infection-focused panel',
         'Useful during acute fever',
         'Rapid and lab-based tests combined',
       ],
       whoShouldTakeThis:
           'Anyone with persistent fever, chills, body pain or recent travel.',
-      preparation: const [
+      preparation: [
         'No fasting required unless advised',
         'Note fever duration and symptoms',
         'Stay hydrated before sample collection',
@@ -198,17 +201,18 @@ abstract final class ProfileUiMetadata {
       iconAsset: AssetPaths.heartHealthProfile,
       color: Color(0xFFE9427A),
       homeTitle: 'Women Health',
-      description: 'Mid-size wellness profile with sugar, thyroid and organ markers.',
+      description:
+          'Mid-size wellness profile with sugar, thyroid and organ markers.',
       whatIsItFor:
           'Tracks metabolic, thyroid, liver and kidney health in one visit.',
-      highlights: const [
+      highlights: [
         '8 essential tests',
         'Good for routine monitoring',
         'Includes urine screening',
       ],
       whoShouldTakeThis:
           'Adults with fatigue, lifestyle risks or annual preventive goals.',
-      preparation: const [
+      preparation: [
         'Fasting of 8-10 hours recommended',
         'Morning sample preferred',
         'Bring medication list if applicable',
@@ -218,17 +222,18 @@ abstract final class ProfileUiMetadata {
       iconAsset: AssetPaths.thyroidProfile,
       color: Color(0xFF8E55F3),
       homeTitle: 'Thyroid Profile',
-      description: 'Core wellness markers for heart, liver, kidney and thyroid.',
+      description:
+          'Core wellness markers for heart, liver, kidney and thyroid.',
       whatIsItFor:
           'Supports preventive screening for common chronic conditions.',
-      highlights: const [
+      highlights: [
         'Includes HbA1c and lipid profile',
         'TSH for thyroid screening',
         'Balanced preventive panel',
       ],
       whoShouldTakeThis:
           'Anyone building a baseline for long-term health tracking.',
-      preparation: const [
+      preparation: [
         'Fasting may be required for some included tests',
         'Avoid alcohol 24 hours before test',
         'Continue routine medication unless advised',
@@ -238,17 +243,18 @@ abstract final class ProfileUiMetadata {
       iconAsset: AssetPaths.categoryHeart,
       color: Color(0xFFF1A800),
       homeTitle: 'Ortho Care',
-      description: 'Joint and bone health screening with vitamin D and RA factor.',
+      description:
+          'Joint and bone health screening with vitamin D and RA factor.',
       whatIsItFor:
           'Helps evaluate joint pain, inflammation and bone health markers.',
-      highlights: const [
+      highlights: [
         'Vitamin D + RA factor',
         'Useful for joint pain workup',
         'Includes CBC and ESR',
       ],
       whoShouldTakeThis:
           'People with joint pain, stiffness, bone pain or arthritis suspicion.',
-      preparation: const [
+      preparation: [
         'No fasting required',
         'Note joint symptoms and duration',
         'Avoid strenuous activity before sample if in acute pain',
@@ -261,14 +267,14 @@ abstract final class ProfileUiMetadata {
       description: 'Vital infection panel similar to the fever profile.',
       whatIsItFor:
           'Screens dengue, malaria, typhoid and general infection markers.',
-      highlights: const [
+      highlights: [
         'Acute illness focused',
         'Combines rapid and lab tests',
         'Useful during seasonal outbreaks',
       ],
       whoShouldTakeThis:
           'Patients with fever, chills, headache or suspected tropical infections.',
-      preparation: const [
+      preparation: [
         'No fasting required',
         'Share travel and symptom history',
         'Stay hydrated before collection',

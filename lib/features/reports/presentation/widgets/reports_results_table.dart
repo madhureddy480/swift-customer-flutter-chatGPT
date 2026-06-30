@@ -47,13 +47,13 @@ class _ResultsTableHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
+    return const Padding(
+      padding: EdgeInsets.symmetric(
         horizontal: DsCategoryStyleListMetrics.horizontalPadding,
         vertical: DsCategoryStyleListMetrics.verticalPadding,
       ),
       child: Row(
-        children: const [
+        children: [
           Expanded(
             child: Text(
               'Test Name',

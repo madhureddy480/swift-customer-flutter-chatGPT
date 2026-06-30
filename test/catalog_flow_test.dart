@@ -1,3 +1,4 @@
+import 'package:dr_swift_diagnostics/features/cart/presentation/providers/cart_providers.dart';
 import 'package:dr_swift_diagnostics/features/catalog/data/catalog_providers.dart';
 import 'package:dr_swift_diagnostics/features/catalog/data/catalog_view_models.dart';
 import 'package:dr_swift_diagnostics/features/catalog/presentation/screens/category_test_list_screen.dart';
@@ -27,7 +28,7 @@ void main() {
     expect(glucose.price, greaterThan(0));
   });
 
-  testWidgets('category test Add button updates local state', (tester) async {
+  testWidgets('category test Add button updates cart state', (tester) async {
     const category = HealthCategory(
       id: 'sugar',
       name: 'Sugar',
@@ -46,20 +47,29 @@ void main() {
           whyTakeThisTest: 'Screens for diabetes risk.',
           referenceRanges: [],
           preparation: 'Fasting of 8-10 hours required.',
-          oftenBookedWith: const ['Glycosylated Hemoglobin (GHb/HbA1c)-WB-EDTA'],
+          oftenBookedWith: ['Glycosylated Hemoglobin (GHb/HbA1c)-WB-EDTA'],
         ),
       ],
     );
 
+    final container = ProviderContainer();
+    addTearDown(container.dispose);
+
     await tester.pumpWidget(
-      const MaterialApp(home: CategoryTestListScreen(category: category)),
+      UncontrolledProviderScope(
+        container: container,
+        child:
+            const MaterialApp(home: CategoryTestListScreen(category: category)),
+      ),
     );
+    await tester.pumpAndSettle();
 
     expect(find.widgetWithText(OutlinedButton, 'Add'), findsOneWidget);
 
     await tester.tap(find.widgetWithText(OutlinedButton, 'Add'));
-    await tester.pump();
+    await tester.pumpAndSettle();
 
     expect(find.widgetWithText(OutlinedButton, 'Added'), findsOneWidget);
+    expect(container.read(cartItemCountProvider), 1);
   });
 }
