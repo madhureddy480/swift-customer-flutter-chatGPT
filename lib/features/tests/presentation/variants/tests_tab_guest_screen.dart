@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:dr_swift_diagnostics/core/constants/asset_paths.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_cart_app_bar_action.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_brand_widgets.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_category_style_list.dart';
+import 'package:dr_swift_diagnostics/core/widgets/ds_glass_card.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_scaffold.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_tab_header.dart';
 import 'package:dr_swift_diagnostics/features/catalog/data/catalog_providers.dart';
@@ -46,7 +49,7 @@ class TestsTabGuestScreen extends ConsumerWidget {
             ),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                const DsPromoBanner(),
+                const _HealthProfilePromoCarousel(),
                 const SizedBox(height: AppSpacing.xl),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,5 +179,113 @@ class TestsTabGuestScreen extends ConsumerWidget {
     if (featured.isNotEmpty) return featured;
 
     return all;
+  }
+}
+
+class _HealthProfilePromoCarousel extends StatefulWidget {
+  const _HealthProfilePromoCarousel();
+
+  @override
+  State<_HealthProfilePromoCarousel> createState() =>
+      _HealthProfilePromoCarouselState();
+}
+
+class _HealthProfilePromoCarouselState
+    extends State<_HealthProfilePromoCarousel> {
+  static const _interval = Duration(seconds: 6);
+  static const _transitionDuration = Duration(milliseconds: 450);
+
+  final _pageController = PageController();
+  Timer? _timer;
+  var _currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(_interval, (_) => _showNextPage());
+  }
+
+  void _showNextPage() {
+    if (!mounted || !_pageController.hasClients) return;
+    final nextPage = (_currentPage + 1) % AssetPaths.healthProfilePromos.length;
+    _pageController.animateToPage(
+      nextPage,
+      duration: _transitionDuration,
+      curve: Curves.easeInOutCubic,
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 350),
+            child: AspectRatio(
+              aspectRatio: 350 / 160,
+              child: DsGlassCard(
+                borderRadius: 16,
+                blurSigma: 20,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: PageView.builder(
+                    controller: _pageController,
+                    clipBehavior: Clip.hardEdge,
+                    itemCount: AssetPaths.healthProfilePromos.length,
+                    onPageChanged: (page) =>
+                        setState(() => _currentPage = page),
+                    itemBuilder: (context, index) {
+                      return Semantics(
+                        label:
+                            'Test promotion ${index + 1} of ${AssetPaths.healthProfilePromos.length}',
+                        image: true,
+                        child: Image.asset(
+                          AssetPaths.healthProfilePromos[index],
+                          fit: BoxFit.cover,
+                          alignment: Alignment.center,
+                          filterQuality: FilterQuality.high,
+                          isAntiAlias: true,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 6),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for (var index = 0;
+                  index < AssetPaths.healthProfilePromos.length;
+                  index++)
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 220),
+                  width: index == _currentPage ? 14 : 6,
+                  height: 6,
+                  margin: const EdgeInsets.symmetric(horizontal: 3),
+                  decoration: BoxDecoration(
+                    color: index == _currentPage
+                        ? const Color(0xFF583A8E)
+                        : const Color(0xFFD0D5DD),
+                    borderRadius: BorderRadius.circular(99),
+                  ),
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

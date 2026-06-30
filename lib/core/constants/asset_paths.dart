@@ -22,6 +22,14 @@ abstract final class AssetPaths {
   static const orthoProfileCard = 'assets/images/bone_joint_profile_card.png';
   static const vitalProfileCard = 'assets/images/heart_health_profile_card.png';
   static const healthProfilesHero = 'assets/images/health_profiles_hero.png';
+  static const healthProfilePromos = [
+    'assets/images/tests_carousel_book_appointments_350x160.png',
+    'assets/images/tests_carousel_family_health_insights_350x160.png',
+    'assets/images/tests_carousel_fast_accurate_reliable_lab_350x160.png',
+    'assets/images/tests_carousel_preventive_wellness_350x160.png',
+    'assets/images/tests_carousel_secure_health_data_350x160.png',
+    'assets/images/tests_carousel_trusted_care_350x160.png',
+  ];
 
   static String healthProfileCardForSlug(String slug) {
     return switch (slug) {

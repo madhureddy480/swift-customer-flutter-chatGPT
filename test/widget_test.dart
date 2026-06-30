@@ -94,6 +94,6 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));
 
-    expect(find.text('Categories'), findsOneWidget);
+    expect(find.text('Categories', skipOffstage: false), findsOneWidget);
   });
 }
