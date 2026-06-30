@@ -70,12 +70,15 @@ DsCategoryStyleListRow(
 
 - **Tests** — `CategoryListTile` in `catalog_widgets.dart`
 - **Health** — `HealthMetricTrendCard` in `health_metric_trend_card.dart`
+- **Reports** — `ReportsResultsTable` (tabular; `dividerIndent: 0`, same shell + metrics)
+- **Account** — `AccountTabGuestScreen` menu sections via `DsCategoryStyleListSection`
 
 ### When NOT to use
 
 - **Glass accordions** (Reports test-date panels) → `DsGlassCard`
 - **Full-width promo / CTA cards** → `DsCard`, `DsPrimaryButton`
-- **Data tables** (Reports results grid) → dedicated table widget
+
+Tabular multi-column grids (e.g. Reports results) still use `DsCategoryStyleList` as the shell with `dividerIndent: 0` and custom column rows sharing `DsCategoryStyleListMetrics` padding.
 
 ### Legacy
 
