@@ -1,9 +1,8 @@
 import 'package:dr_swift_diagnostics/core/widgets/ds_glass_card.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_typography.dart';
 import 'package:dr_swift_diagnostics/features/reports/data/models/report_models.dart';
 import 'package:flutter/material.dart';
-
-const _ink = Color(0xFF1A1C1E);
-const _muted = Color(0xFF667085);
 
 class ReportsHealthIndicatorsSection extends StatelessWidget {
   const ReportsHealthIndicatorsSection({
@@ -28,11 +27,7 @@ class ReportsHealthIndicatorsSection extends StatelessWidget {
                     flex: 4,
                     child: Text(
                       'Condition',
-                      style: TextStyle(
-                        color: _muted,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: AppTypography.smallLabel,
                     ),
                   ),
                   Expanded(
@@ -40,11 +35,7 @@ class ReportsHealthIndicatorsSection extends StatelessWidget {
                     child: Text(
                       'Your lab result',
                       textAlign: TextAlign.right,
-                      style: TextStyle(
-                        color: _muted,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: AppTypography.smallLabel,
                     ),
                   ),
                 ],
@@ -87,12 +78,7 @@ class _HealthIndicatorRow extends StatelessWidget {
                   Expanded(
                     child: Text(
                       indicator.condition,
-                      style: const TextStyle(
-                        color: _ink,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                        height: 1.25,
-                      ),
+                      style: AppTypography.compactCardTitle,
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -100,11 +86,9 @@ class _HealthIndicatorRow extends StatelessWidget {
                     child: Text(
                       indicator.labResult,
                       textAlign: TextAlign.right,
-                      style: const TextStyle(
-                        color: Color(0xFFD64545),
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        height: 1.25,
+                      style: AppTypography.smallLabel.copyWith(
+                        color: AppColors.error,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -113,12 +97,7 @@ class _HealthIndicatorRow extends StatelessWidget {
               const SizedBox(height: 5),
               Text(
                 indicator.symptoms,
-                style: const TextStyle(
-                  color: _muted,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w500,
-                  height: 1.35,
-                ),
+                style: AppTypography.smallLabel,
               ),
             ],
           ),

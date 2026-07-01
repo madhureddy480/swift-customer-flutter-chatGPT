@@ -1,5 +1,6 @@
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_typography.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_category_style_list.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_tab_header.dart';
 import 'package:dr_swift_diagnostics/routing/route_paths.dart';
@@ -18,18 +19,18 @@ class AccountTabGuestScreen extends StatelessWidget {
       bottom: false,
       child: DsTabScrollView(
         title: 'Account',
-        backgroundColor: _screenBg,
+        backgroundColor: AppColors.background,
         padding: const EdgeInsets.fromLTRB(
-          AppSpacing.lg,
-          AppSpacing.sm,
-          AppSpacing.lg,
+          AppSpacing.pageHorizontal,
+          AppSpacing.pageTop,
+          AppSpacing.pageHorizontal,
           AppSpacing.xl,
         ),
         children: [
           _SignInCard(
             onTap: () => context.push(RoutePaths.login),
           ),
-          const SizedBox(height: AppSpacing.xl),
+          const SizedBox(height: AppSpacing.sectionGap),
           DsCategoryStyleListSection(
             title: 'Your account',
             children: [
@@ -49,7 +50,7 @@ class AccountTabGuestScreen extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.sectionGap),
           DsCategoryStyleListSection(
             title: 'Orders & delivery',
             children: [
@@ -68,7 +69,7 @@ class AccountTabGuestScreen extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.sectionGap),
           DsCategoryStyleListSection(
             title: 'App',
             children: [
@@ -204,12 +205,7 @@ class _SignInCard extends StatelessWidget {
                     children: [
                       Text(
                         'Sign in',
-                        style: TextStyle(
-                          color: _ink,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                          height: 1.2,
-                        ),
+                        style: AppTypography.cardTitle,
                       ),
                       SizedBox(height: 3),
                       Text(
@@ -232,6 +228,3 @@ class _SignInCard extends StatelessWidget {
     );
   }
 }
-
-const _screenBg = Color(0xFFF4F7FA);
-const _ink = Color(0xFF1A1C1E);

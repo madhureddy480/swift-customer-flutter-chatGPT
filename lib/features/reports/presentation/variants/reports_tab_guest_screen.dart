@@ -74,16 +74,16 @@ class _ReportsTabGuestScreenState extends State<ReportsTabGuestScreen> {
           onSelected: _onMemberSelected,
         ),
         padding: const EdgeInsets.fromLTRB(
-          AppSpacing.lg,
-          AppSpacing.sm,
-          AppSpacing.lg,
+          AppSpacing.pageHorizontal,
+          AppSpacing.pageTop,
+          AppSpacing.pageHorizontal,
           AppSpacing.xl,
         ),
         children: [
           const ReportsSectionHeader(title: 'Sample Test Results'),
-          const SizedBox(height: 10),
+          const SizedBox(height: AppSpacing.cardGap),
           for (var i = 0; i < datedReports.length; i++) ...[
-            if (i > 0) const SizedBox(height: 10),
+            if (i > 0) const SizedBox(height: AppSpacing.cardGap),
             ReportsTestDateAccordion(
               testDateLabel: datedReports[i].testDateLabel,
               isExpanded: _expandedDateIndices.contains(i),
@@ -91,7 +91,7 @@ class _ReportsTabGuestScreenState extends State<ReportsTabGuestScreen> {
               child: ReportsDatedReportBody(report: datedReports[i]),
             ),
           ],
-          const SizedBox(height: 20),
+          const SizedBox(height: AppSpacing.sectionGap),
           const ReportsGuestSampleReportButton(),
         ],
       ),

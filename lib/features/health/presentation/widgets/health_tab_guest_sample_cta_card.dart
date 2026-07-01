@@ -1,12 +1,10 @@
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_typography.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_buttons.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_glass_card.dart';
 import 'package:dr_swift_diagnostics/routing/route_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-const _ink = Color(0xFF1A1C1E);
-const _muted = Color(0xFF667085);
 
 /// G1 bottom CTA — sample context + encourage free account signup.
 class HealthTabGuestSampleCtaCard extends StatelessWidget {
@@ -46,24 +44,14 @@ class HealthTabGuestSampleCtaCard extends StatelessWidget {
                   children: [
                     Text(
                       'Previewing a sample family',
-                      style: TextStyle(
-                        color: _ink,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w800,
-                        height: 1.2,
-                      ),
+                      style: AppTypography.cardTitle,
                     ),
                     SizedBox(height: 4),
                     Text(
                       'These trends are demo data for My Health, Mom & Dad. '
                       'Create your free account to track your family\'s real '
                       'results over time.',
-                      style: TextStyle(
-                        color: _muted,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        height: 1.35,
-                      ),
+                      style: AppTypography.bodyText,
                     ),
                   ],
                 ),

@@ -14,19 +14,26 @@ class HealthTabEmptyScreen extends StatelessWidget {
       bottom: false,
       child: DsTabScrollView(
         title: 'Health & Insights',
-        padding: EdgeInsets.all(AppSpacing.lg),
+        padding: EdgeInsets.fromLTRB(
+          AppSpacing.pageHorizontal,
+          AppSpacing.pageTop,
+          AppSpacing.pageHorizontal,
+          AppSpacing.xl,
+        ),
         children: [
-            DsGlassCard(
-              borderRadius: 16,
-              padding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-              child: DsEmptyState(
-                icon: Icons.show_chart_outlined,
-                title: 'No health trends yet',
-                message:
-                    'Book a test to start tracking your family health over time.',
-              ),
+          DsGlassCard(
+            padding: EdgeInsets.symmetric(
+              vertical: AppSpacing.xl,
+              horizontal: AppSpacing.lg,
             ),
-          ],
+            child: DsEmptyState(
+              icon: Icons.show_chart_outlined,
+              title: 'No health trends yet',
+              message:
+                  'Book a test to start tracking your family health over time.',
+            ),
+          ),
+        ],
       ),
     );
   }

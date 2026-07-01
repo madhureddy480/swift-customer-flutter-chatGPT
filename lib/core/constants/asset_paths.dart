@@ -3,9 +3,12 @@ abstract final class AssetPaths {
   static const logo = 'assets/images/logo.png';
 
   // Health tab care carousel
-  static const healthCarousel1 = 'assets/images/health_carousel/carousel_1.png';
-  static const healthCarousel2 = 'assets/images/health_carousel/carousel_2.png';
-  static const healthCarousel3 = 'assets/images/health_carousel/carousel_3.png';
+  static const healthCarouselSlides = [
+    'assets/images/health_carousel/small_steps_wellness_350x110.png',
+    'assets/images/health_carousel/care_for_family_350x110.png',
+    'assets/images/health_carousel/expert_care_350x110.png',
+    'assets/images/health_carousel/good_food_choices_350x110.png',
+  ];
   static const onboardingHealthProfiles =
       'assets/onboarding/health_profiles.png';
   static const onboardingFamily = 'assets/onboarding/family_account.png';

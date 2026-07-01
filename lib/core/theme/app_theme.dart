@@ -96,11 +96,13 @@ abstract final class AppTheme {
         elevation: 0,
         selectedLabelStyle: const TextStyle(
           fontSize: 11,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w500,
+          height: 1.2,
         ),
         unselectedLabelStyle: const TextStyle(
           fontSize: 11,
           fontWeight: FontWeight.w500,
+          height: 1.2,
         ),
       ),
       dividerTheme: const DividerThemeData(

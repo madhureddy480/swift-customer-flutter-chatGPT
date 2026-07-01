@@ -4,10 +4,12 @@ import 'package:dr_swift_diagnostics/core/constants/asset_paths.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_cart_app_bar_action.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_typography.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_brand_widgets.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_category_style_list.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_glass_card.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_scaffold.dart';
+import 'package:dr_swift_diagnostics/core/widgets/ds_section_header.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_tab_header.dart';
 import 'package:dr_swift_diagnostics/features/catalog/data/catalog_providers.dart';
 import 'package:dr_swift_diagnostics/features/catalog/data/category_ui_metadata.dart';
@@ -36,135 +38,116 @@ class TestsTabGuestScreen extends ConsumerWidget {
 
     return DsScaffold(
       safeArea: false,
-      body: DsTabSliverScrollView(
-        title: 'Tests',
-        trailing: const DsCartAppBarAction(),
-        slivers: [
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(
-              AppSpacing.lg,
-              0,
-              AppSpacing.lg,
-              AppSpacing.lg,
-            ),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate([
-                const _HealthProfilePromoCarousel(),
-                const SizedBox(height: AppSpacing.xl),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Expanded(
-                      child: Text(
-                        'Health Profiles (Curated for you)',
-                        style: TextStyle(
-                          color: Color(0xFF071B3A),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700,
-                          height: 1.2,
-                          letterSpacing: -0.2,
-                        ),
-                      ),
-                    ),
-                    TextButton(
+      body: SafeArea(
+        bottom: false,
+        child: DsTabSliverScrollView(
+          title: 'Tests',
+          trailing: const DsCartAppBarAction(),
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.pageHorizontal,
+                0,
+                AppSpacing.pageHorizontal,
+                AppSpacing.xl,
+              ),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate([
+                  const _HealthProfilePromoCarousel(),
+                  const SizedBox(height: AppSpacing.sectionGap),
+                  DsSectionHeader(
+                    title: 'Health Profiles (Curated for you)',
+                    trailing: TextButton(
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
                         minimumSize: Size.zero,
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         foregroundColor: AppColors.primaryVibrant,
-                        textStyle: const TextStyle(
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        textStyle: AppTypography.actionLabel,
                       ),
                       onPressed: () => context.push(RoutePaths.profiles),
                       child: const Text('View all'),
                     ),
-                  ],
-                ),
-                const SizedBox(height: 14),
-                profilesAsync.when(
-                  loading: () => const SizedBox(
-                    height: 64,
-                    child: Center(child: CircularProgressIndicator()),
                   ),
-                  error: (_, __) => const SizedBox(
-                    height: 64,
-                    child: Center(child: Text('Unable to load profiles')),
+                  const SizedBox(height: AppSpacing.cardGap),
+                  profilesAsync.when(
+                    loading: () => const SizedBox(
+                      height: 64,
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+                    error: (_, __) => const SizedBox(
+                      height: 64,
+                      child: Center(child: Text('Unable to load profiles')),
+                    ),
+                    data: (profiles) {
+                      final ordered = _homeProfiles(profiles);
+                      return LayoutBuilder(
+                        builder: (context, constraints) {
+                          const gap = 8.0;
+                          final cardWidth =
+                              (constraints.maxWidth - gap * 2) / 3;
+                          final cardHeight = cardWidth / 1.3;
+                          return SizedBox(
+                            height: cardHeight,
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              clipBehavior: Clip.none,
+                              itemCount: ordered.length,
+                              separatorBuilder: (_, __) =>
+                                  const SizedBox(width: gap),
+                              itemBuilder: (context, index) {
+                                final profile = ordered[index];
+                                return DsHealthProfileCard(
+                                  width: cardWidth,
+                                  height: cardHeight,
+                                  title: profile.shortName,
+                                  testCount: profile.testCount,
+                                  imageAsset:
+                                      AssetPaths.healthProfileCardForSlug(
+                                    profile.slug,
+                                  ),
+                                  onTap: () =>
+                                      context.push('/profiles/${profile.slug}'),
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
-                  data: (profiles) {
-                    final ordered = _homeProfiles(profiles);
-                    return LayoutBuilder(
-                      builder: (context, constraints) {
-                        const gap = 8.0;
-                        final cardWidth = (constraints.maxWidth - gap * 2) / 3;
-                        final cardHeight = cardWidth / 1.3;
-                        return SizedBox(
-                          height: cardHeight,
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            clipBehavior: Clip.none,
-                            itemCount: ordered.length,
-                            separatorBuilder: (_, __) =>
-                                const SizedBox(width: gap),
-                            itemBuilder: (context, index) {
-                              final profile = ordered[index];
-                              return DsHealthProfileCard(
-                                width: cardWidth,
-                                height: cardHeight,
-                                title: profile.shortName,
-                                testCount: profile.testCount,
-                                imageAsset: AssetPaths.healthProfileCardForSlug(
-                                  profile.slug,
-                                ),
-                                onTap: () =>
-                                    context.push('/profiles/${profile.slug}'),
-                              );
-                            },
+                  const SizedBox(height: AppSpacing.sectionGap),
+                  DsSectionHeader(
+                    title: individualTestCount > 0
+                        ? 'Categories ($individualTestCount+ Tests)'
+                        : 'Categories',
+                  ),
+                  const SizedBox(height: AppSpacing.cardGap),
+                  categoriesAsync.when(
+                    loading: () => const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 24),
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+                    error: (_, __) => const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 24),
+                      child: Center(child: Text('Unable to load categories')),
+                    ),
+                    data: (categories) => DsCategoryStyleList(
+                      children: [
+                        for (final category in categories)
+                          CategoryListTile(
+                            category: category,
+                            onTap: () =>
+                                context.push('/categories/${category.id}'),
                           ),
-                        );
-                      },
-                    );
-                  },
-                ),
-                const SizedBox(height: AppSpacing.xl),
-                Text(
-                  individualTestCount > 0
-                      ? 'Categories ($individualTestCount+ Tests)'
-                      : 'Categories',
-                  style: const TextStyle(
-                    color: Color(0xFF071B3A),
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-                    height: 1.2,
-                    letterSpacing: -0.2,
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: AppSpacing.md),
-                categoriesAsync.when(
-                  loading: () => const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 24),
-                    child: Center(child: CircularProgressIndicator()),
-                  ),
-                  error: (_, __) => const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 24),
-                    child: Center(child: Text('Unable to load categories')),
-                  ),
-                  data: (categories) => DsCategoryStyleList(
-                    children: [
-                      for (final category in categories)
-                        CategoryListTile(
-                          category: category,
-                          onTap: () =>
-                              context.push('/categories/${category.id}'),
-                        ),
-                    ],
-                  ),
-                ),
-              ]),
+                ]),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -234,10 +217,12 @@ class _HealthProfilePromoCarouselState
             child: AspectRatio(
               aspectRatio: 350 / 160,
               child: DsGlassCard(
-                borderRadius: 16,
+                borderRadius: AppSpacing.tabCardRadius,
                 blurSigma: 20,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(
+                    AppSpacing.tabCardRadius,
+                  ),
                   child: PageView.builder(
                     controller: _pageController,
                     clipBehavior: Clip.hardEdge,

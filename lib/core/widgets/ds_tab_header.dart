@@ -1,5 +1,6 @@
 import 'package:dr_swift_diagnostics/core/constants/asset_paths.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_typography.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_asset_image.dart';
 import 'package:flutter/material.dart';
 
@@ -35,18 +36,14 @@ class DsTabHeader extends StatelessWidget {
   static const double _verticalPadding = 6;
   static const double _bottomPadding = 10;
 
-  static double get extent =>
-      _verticalPadding + barHeight + _bottomPadding;
+  static double get extent => _verticalPadding + barHeight + _bottomPadding;
 
   TextStyle _titleStyle({
     required Color color,
     required double fontSize,
   }) {
-    return TextStyle(
+    return AppTypography.pageTitle.copyWith(
       fontSize: fontSize,
-      fontWeight: FontWeight.w800,
-      letterSpacing: -0.2,
-      height: 1.1,
       color: color,
     );
   }
@@ -277,9 +274,9 @@ class DsTabScrollView extends StatefulWidget {
     this.trailing,
     this.showLogo = true,
     this.padding = const EdgeInsets.fromLTRB(
-      AppSpacing.lg,
-      AppSpacing.sm,
-      AppSpacing.lg,
+      AppSpacing.pageHorizontal,
+      AppSpacing.pageTop,
+      AppSpacing.pageHorizontal,
       AppSpacing.xl,
     ),
     this.backgroundColor = Colors.white,

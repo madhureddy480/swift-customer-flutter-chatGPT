@@ -45,9 +45,10 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/images/health_carousel/carousel_1.png
-    - assets/images/health_carousel/carousel_2.png
-    - assets/images/health_carousel/carousel_3.png
+    - assets/images/health_carousel/small_steps_wellness_350x110.png
+    - assets/images/health_carousel/care_for_family_350x110.png
+    - assets/images/health_carousel/expert_care_350x110.png
+    - assets/images/health_carousel/good_food_choices_350x110.png
     - assets/onboarding/
     - assets/icons/
     - assets/data/

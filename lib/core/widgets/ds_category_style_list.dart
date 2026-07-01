@@ -1,14 +1,17 @@
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_typography.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
+import 'package:dr_swift_diagnostics/core/widgets/ds_section_header.dart';
 import 'package:flutter/material.dart';
 
 /// Default stacked list pattern for tab content — Tests categories, Health metrics, etc.
 ///
 /// Spec: white card · 14px radius · 1px dividers indented to text · 58px rows.
 abstract final class DsCategoryStyleListMetrics {
-  static const borderRadius = 14.0;
-  static const horizontalPadding = 16.0;
+  static const borderRadius = AppSpacing.tabCardRadius;
+  static const horizontalPadding = AppSpacing.pageHorizontal;
   static const verticalPadding = 11.0;
-  static const iconSize = 36.0;
+  static const iconSize = AppSpacing.cardIconContainer;
   static const iconGap = 12.0;
   static const trailingGap = 8.0;
   static const dividerIndent = iconSize + horizontalPadding + iconGap; // 64
@@ -18,41 +21,22 @@ abstract final class DsCategoryStyleListMetrics {
 }
 
 abstract final class DsCategoryStyleListTypography {
-  static const titleColor = Color(0xFF071B3A);
-  static const metaColor = Color(0xFF667085);
-  static const chevronColor = Color(0xFF8B95A7);
+  static const titleColor = AppColors.textPrimary;
+  static const metaColor = AppColors.textSecondary;
+  static const chevronColor = AppColors.textTertiary;
 
-  static const title = TextStyle(
-    color: titleColor,
-    fontSize: 13,
-    fontWeight: FontWeight.w700,
-    height: 1.15,
-  );
+  static const title = AppTypography.cardTitle;
 
-  static const subtitle = TextStyle(
-    color: metaColor,
-    fontSize: 10.5,
-    fontWeight: FontWeight.w500,
-    height: 1.15,
-  );
+  static const subtitle = AppTypography.cardSubtitle;
 
-  static const trailingMeta = TextStyle(
-    color: metaColor,
-    fontSize: 10.5,
-    fontWeight: FontWeight.w500,
-    height: 1.15,
-  );
+  static const trailingMeta = AppTypography.cardSubtitle;
 
-  static const trailingValue = TextStyle(
-    fontSize: 13,
-    fontWeight: FontWeight.w800,
-    height: 1.15,
-  );
+  static const trailingValue = AppTypography.cardValue;
 
   static const trailingStatus = TextStyle(
     fontSize: 10.5,
-    fontWeight: FontWeight.w600,
-    height: 1.15,
+    fontWeight: FontWeight.w500,
+    height: 1.2,
   );
 }
 
@@ -117,17 +101,7 @@ class DsCategoryStyleListSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        titleWidget ??
-            Text(
-              title!,
-              style: const TextStyle(
-                color: DsCategoryStyleListTypography.titleColor,
-                fontSize: 15,
-                fontWeight: FontWeight.w700,
-                height: 1.2,
-                letterSpacing: -0.2,
-              ),
-            ),
+        titleWidget ?? DsSectionHeader(title: title!),
         SizedBox(height: spacing),
         DsCategoryStyleList(children: children),
       ],

@@ -1,9 +1,9 @@
+import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_glass_card.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_typography.dart';
 import 'package:dr_swift_diagnostics/features/reports/data/models/report_models.dart';
 import 'package:flutter/material.dart';
-
-const _ink = Color(0xFF1A1C1E);
-const _muted = Color(0xFF667085);
 
 class ReportsInterpretationsSection extends StatelessWidget {
   const ReportsInterpretationsSection({
@@ -19,7 +19,8 @@ class ReportsInterpretationsSection extends StatelessWidget {
       children: [
         for (var i = 0; i < interpretations.length; i++) ...[
           _InterpretationCard(interpretation: interpretations[i]),
-          if (i < interpretations.length - 1) const SizedBox(height: 10),
+          if (i < interpretations.length - 1)
+            const SizedBox(height: AppSpacing.cardGap),
         ],
       ],
     );
@@ -34,8 +35,8 @@ class _InterpretationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DsGlassCard(
-      borderRadius: 16,
-      padding: const EdgeInsets.all(12),
+      borderRadius: AppSpacing.tabCardRadius,
+      padding: const EdgeInsets.all(AppSpacing.cardPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -45,13 +46,7 @@ class _InterpretationCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   interpretation.title,
-                  style: const TextStyle(
-                    color: _ink,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w800,
-                    height: 1.25,
-                    letterSpacing: -0.1,
-                  ),
+                  style: AppTypography.compactCardTitle,
                 ),
               ),
               const SizedBox(width: 8),
@@ -68,9 +63,8 @@ class _InterpretationCard extends StatelessWidget {
                   interpretation.flagLabel,
                   style: TextStyle(
                     color: interpretation.flag.valueColor,
-                    fontSize: 9,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 0.2,
+                    fontSize: AppTypography.compactLabel.fontSize,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
@@ -79,40 +73,26 @@ class _InterpretationCard extends StatelessWidget {
           const SizedBox(height: 10),
           const Text(
             'What this tests',
-            style: TextStyle(
-              color: _muted,
-              fontSize: 9,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.2,
-            ),
+            style: AppTypography.compactLabel,
           ),
           const SizedBox(height: 3),
           Text(
             interpretation.whatThisTests,
-            style: const TextStyle(
-              color: _ink,
-              fontSize: 10.5,
-              fontWeight: FontWeight.w500,
+            style: AppTypography.cardSubtitle.copyWith(
+              color: AppColors.textPrimary,
               height: 1.4,
             ),
           ),
           const SizedBox(height: 8),
           const Text(
             'Doctor interpretation',
-            style: TextStyle(
-              color: _muted,
-              fontSize: 9,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.2,
-            ),
+            style: AppTypography.compactLabel,
           ),
           const SizedBox(height: 3),
           Text(
             interpretation.doctorInterpretation,
-            style: const TextStyle(
-              color: _ink,
-              fontSize: 10.5,
-              fontWeight: FontWeight.w500,
+            style: AppTypography.cardSubtitle.copyWith(
+              color: AppColors.textPrimary,
               height: 1.4,
             ),
           ),

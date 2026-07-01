@@ -1,8 +1,8 @@
 import 'package:dr_swift_diagnostics/core/widgets/ds_glass_card.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_typography.dart';
 import 'package:flutter/material.dart';
-
-const _ink = Color(0xFF1A1C1E);
-const _muted = Color(0xFF667085);
 
 /// Glass accordion panel keyed by lab test date.
 class ReportsTestDateAccordion extends StatelessWidget {
@@ -22,7 +22,7 @@ class ReportsTestDateAccordion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DsGlassCard(
-      borderRadius: 16,
+      borderRadius: AppSpacing.tabCardRadius,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -30,21 +30,15 @@ class ReportsTestDateAccordion extends StatelessWidget {
             color: Colors.transparent,
             child: InkWell(
               onTap: onToggle,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(AppSpacing.tabCardRadius),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(14, 12, 12, 12),
+                padding: const EdgeInsets.all(AppSpacing.cardPadding),
                 child: Row(
                   children: [
                     Expanded(
                       child: Text(
                         'Test Date: $testDateLabel',
-                        style: const TextStyle(
-                          color: _ink,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: -0.15,
-                          height: 1.2,
-                        ),
+                        style: AppTypography.cardTitle,
                       ),
                     ),
                     AnimatedRotation(
@@ -53,7 +47,7 @@ class ReportsTestDateAccordion extends StatelessWidget {
                       curve: Curves.easeOutCubic,
                       child: const Icon(
                         Icons.keyboard_arrow_down_rounded,
-                        color: _muted,
+                        color: AppColors.textSecondary,
                         size: 22,
                       ),
                     ),
@@ -68,7 +62,7 @@ class ReportsTestDateAccordion extends StatelessWidget {
               children: [
                 const DsGlassDivider(),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(12, 12, 12, 14),
+                  padding: const EdgeInsets.all(AppSpacing.cardPadding),
                   child: child,
                 ),
               ],

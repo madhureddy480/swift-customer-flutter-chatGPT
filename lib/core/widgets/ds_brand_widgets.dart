@@ -1,6 +1,7 @@
 import 'package:dr_swift_diagnostics/core/constants/asset_paths.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_typography.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_asset_image.dart';
 import 'package:flutter/material.dart';
 
@@ -246,19 +247,19 @@ class DsHealthProfileCard extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(AppSpacing.tabCardRadius),
           child: Container(
             width: width,
             height: height,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: const Color(0xFFE8E8EF)),
+              borderRadius: BorderRadius.circular(AppSpacing.tabCardRadius),
+              border: Border.all(color: AppColors.border),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withValues(alpha: 0.05),
-                  blurRadius: 10,
-                  offset: const Offset(0, 3),
+                  blurRadius: 14,
+                  offset: const Offset(0, 4),
                 ),
               ],
             ),
@@ -285,25 +286,14 @@ class DsHealthProfileCard extends StatelessWidget {
                         title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: Color(0xFF17213D),
-                          fontSize: 10.5,
-                          fontWeight: FontWeight.w700,
-                          height: 1.05,
-                          letterSpacing: -0.1,
-                        ),
+                        style: AppTypography.compactCardTitle,
                       ),
                       const SizedBox(height: 4),
                       Text(
                         '$testCount Tests',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: Color(0xFF65708A),
-                          fontSize: 9,
-                          fontWeight: FontWeight.w600,
-                          height: 1,
-                        ),
+                        style: AppTypography.compactLabel,
                       ),
                     ],
                   ),

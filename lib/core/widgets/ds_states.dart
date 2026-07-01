@@ -1,5 +1,6 @@
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 
 class DsSkeleton extends StatelessWidget {
@@ -43,32 +44,28 @@ class DsEmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.xl),
+        padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               icon ?? Icons.inbox_outlined,
-              size: 56,
+              size: 40,
               color: AppColors.textTertiary,
             ),
             const SizedBox(height: AppSpacing.lg),
             Text(
               title,
-              style: theme.textTheme.titleLarge,
+              style: AppTypography.sectionTitle,
               textAlign: TextAlign.center,
             ),
             if (message != null) ...[
               const SizedBox(height: AppSpacing.sm),
               Text(
                 message!,
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: AppColors.textSecondary,
-                ),
+                style: AppTypography.bodyText,
                 textAlign: TextAlign.center,
               ),
             ],

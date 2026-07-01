@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:dr_swift_diagnostics/core/widgets/ds_category_style_list.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_typography.dart';
 import 'package:dr_swift_diagnostics/features/reports/data/models/report_models.dart';
 import 'package:flutter/material.dart';
 
@@ -57,13 +58,7 @@ class _ResultsTableHeader extends StatelessWidget {
           Expanded(
             child: Text(
               'Test Name',
-              style: TextStyle(
-                color: DsCategoryStyleListTypography.metaColor,
-                fontSize: 10.5,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 0.2,
-                height: 1.15,
-              ),
+              style: AppTypography.smallLabel,
             ),
           ),
           _ValueHeaderCell(label: 'Current'),
@@ -89,13 +84,7 @@ class _ValueHeaderCell extends StatelessWidget {
         textAlign: TextAlign.right,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: const TextStyle(
-          color: DsCategoryStyleListTypography.metaColor,
-          fontSize: 10.5,
-          fontWeight: FontWeight.w700,
-          letterSpacing: 0.2,
-          height: 1.15,
-        ),
+        style: AppTypography.smallLabel,
       ),
     );
   }
@@ -163,7 +152,7 @@ class _ValueCell extends StatelessWidget {
                 : DsCategoryStyleListTypography.trailingMeta)
             .copyWith(
           color: color,
-          fontWeight: bold ? FontWeight.w800 : FontWeight.w600,
+          fontWeight: bold ? FontWeight.w700 : FontWeight.w500,
         ),
       ),
     );

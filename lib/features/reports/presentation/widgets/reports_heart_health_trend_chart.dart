@@ -1,10 +1,10 @@
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_typography.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_glass_card.dart';
 import 'package:dr_swift_diagnostics/features/reports/data/models/report_models.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-
-const _muted = Color(0xFF667085);
 
 class ReportsHeartHealthTrendChart extends StatelessWidget {
   const ReportsHeartHealthTrendChart({
@@ -36,7 +36,7 @@ class ReportsHeartHealthTrendChart extends StatelessWidget {
             width: width,
             height: chartHeight,
             child: DsGlassCard(
-              borderRadius: 16,
+              borderRadius: AppSpacing.tabCardRadius,
               blurSigma: 20,
               padding: const EdgeInsets.fromLTRB(4, 8, 12, 4),
               child: LineChart(
@@ -69,11 +69,7 @@ class ReportsHeartHealthTrendChart extends StatelessWidget {
                           }
                           return Text(
                             value.round().toString(),
-                            style: const TextStyle(
-                              color: _muted,
-                              fontSize: 9,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: AppTypography.compactLabel,
                           );
                         },
                       ),
@@ -92,11 +88,7 @@ class ReportsHeartHealthTrendChart extends StatelessWidget {
                             padding: const EdgeInsets.only(top: 6),
                             child: Text(
                               axisLabels[index],
-                              style: const TextStyle(
-                                color: _muted,
-                                fontSize: 9,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: AppTypography.compactLabel,
                             ),
                           );
                         },

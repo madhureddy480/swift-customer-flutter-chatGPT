@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
 import 'package:flutter/material.dart';
 
 /// iOS-style frosted glass surface for cards and panels.
@@ -7,11 +9,11 @@ class DsGlassCard extends StatelessWidget {
   const DsGlassCard({
     required this.child,
     super.key,
-    this.borderRadius = 16,
+    this.borderRadius = AppSpacing.tabCardRadius,
     this.padding,
     this.margin,
     this.blurSigma = 24,
-    this.tintOpacity = 0.78,
+    this.tintOpacity = 0.96,
   });
 
   final Widget child;
@@ -29,9 +31,9 @@ class DsGlassCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderRadius),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.07),
-            blurRadius: 22,
-            offset: const Offset(0, 8),
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 14,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -44,13 +46,14 @@ class DsGlassCard extends StatelessWidget {
           ),
           child: DecoratedBox(
             decoration: BoxDecoration(
-              color: const Color(0xFFF5F6F8).withValues(alpha: tintOpacity),
+              color: AppColors.surface.withValues(alpha: tintOpacity),
               border: Border.all(
-                color: Colors.white.withValues(alpha: 0.92),
-                width: 1.1,
+                color: AppColors.border,
               ),
             ),
-            child: padding != null ? Padding(padding: padding!, child: child) : child,
+            child: padding != null
+                ? Padding(padding: padding!, child: child)
+                : child,
           ),
         ),
       ),
@@ -67,13 +70,10 @@ class DsGlassCardHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.38),
+      decoration: const BoxDecoration(
+        color: AppColors.surfaceVariant,
         border: Border(
-          bottom: BorderSide(
-            color: Colors.white.withValues(alpha: 0.55),
-            width: 0.6,
-          ),
+          bottom: BorderSide(color: AppColors.divider),
         ),
       ),
       child: child,
@@ -92,10 +92,10 @@ class DsGlassDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Divider(
       height: 1,
-      thickness: 0.6,
+      thickness: 1,
       indent: indent,
       endIndent: endIndent,
-      color: Colors.white.withValues(alpha: 0.55),
+      color: AppColors.divider,
     );
   }
 }

@@ -1,10 +1,8 @@
 import 'dart:ui';
 
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_typography.dart';
 import 'package:flutter/material.dart';
-
-const _ink = Color(0xFF1A1C1E);
-const _muted = Color(0xFF667085);
 
 /// Top-right frosted-glass avatar that opens an iOS-style member menu.
 class ReportsFamilyMemberPicker extends StatefulWidget {
@@ -29,7 +27,8 @@ class _ReportsFamilyMemberPickerState extends State<ReportsFamilyMemberPicker> {
 
   Future<void> _openMenu() async {
     final box = _anchorKey.currentContext?.findRenderObject() as RenderBox?;
-    final overlay = Overlay.of(context).context.findRenderObject() as RenderBox?;
+    final overlay =
+        Overlay.of(context).context.findRenderObject() as RenderBox?;
     if (box == null || overlay == null) return;
 
     final bottomRight =
@@ -43,7 +42,8 @@ class _ReportsFamilyMemberPickerState extends State<ReportsFamilyMemberPicker> {
       transitionDuration: const Duration(milliseconds: 220),
       pageBuilder: (context, animation, secondaryAnimation) {
         const menuWidth = 196.0;
-        final left = (bottomRight.dx - menuWidth).clamp(8.0, overlay.size.width - menuWidth - 8);
+        final left = (bottomRight.dx - menuWidth)
+            .clamp(8.0, overlay.size.width - menuWidth - 8);
         final top = bottomRight.dy + 8;
 
         final curved = CurvedAnimation(
@@ -254,11 +254,10 @@ class _GlassMemberMenuItem extends StatelessWidget {
                     name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: isSelected ? _ink : _muted,
-                      fontSize: 13,
-                      fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
-                      letterSpacing: -0.1,
+                    style: AppTypography.cardTitle.copyWith(
+                      color: isSelected
+                          ? AppColors.textPrimary
+                          : AppColors.textSecondary,
                     ),
                   ),
                 ),
@@ -329,10 +328,10 @@ Widget _memberAvatarContent(String name, {required double size}) {
   }
   return Text(
     _memberInitial(name),
-    style: TextStyle(
+    style: AppTypography.compactLabel.copyWith(
       color: accent.foreground,
       fontSize: size,
-      fontWeight: FontWeight.w800,
+      fontWeight: FontWeight.w600,
       height: 1,
     ),
   );

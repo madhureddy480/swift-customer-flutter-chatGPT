@@ -1,5 +1,6 @@
 import 'package:dr_swift_diagnostics/core/constants/asset_paths.dart';
 import 'package:dr_swift_diagnostics/core/theme/app_colors.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_typography.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_asset_image.dart';
 import 'package:flutter/material.dart';
 
@@ -14,12 +15,12 @@ class ReportsDownloadReportLink extends StatelessWidget {
       child: InkWell(
         onTap: () {},
         borderRadius: BorderRadius.circular(6),
-        child: const Padding(
-          padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              DsSvg(
+              const DsSvg(
                 AssetPaths.downloadReport,
                 size: 16,
                 colorFilter: ColorFilter.mode(
@@ -27,16 +28,12 @@ class ReportsDownloadReportLink extends StatelessWidget {
                   BlendMode.srcIn,
                 ),
               ),
-              SizedBox(width: 6),
+              const SizedBox(width: 6),
               Text(
                 'Download Report',
-                style: TextStyle(
-                  color: AppColors.primary,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
+                style: AppTypography.actionLabel.copyWith(
                   decoration: TextDecoration.underline,
                   decorationColor: AppColors.primary,
-                  height: 1.2,
                 ),
               ),
             ],

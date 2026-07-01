@@ -1,39 +1,23 @@
 import 'dart:async';
 
 import 'package:dr_swift_diagnostics/core/constants/asset_paths.dart';
+import 'package:dr_swift_diagnostics/core/theme/app_spacing.dart';
 import 'package:dr_swift_diagnostics/core/widgets/ds_glass_card.dart';
 import 'package:flutter/material.dart';
 
-/// Warm care carousel for the Health tab — 350×80 with left-aligned overlay copy.
+/// Health tab care carousel using native 350x110 promotional artwork.
 class HealthCareCarousel extends StatefulWidget {
   const HealthCareCarousel({super.key});
 
   static const double carouselWidth = 350;
   static const double carouselHeight = 110;
-  static const double textAreaFraction = 0.6;
 
   @override
   State<HealthCareCarousel> createState() => _HealthCareCarouselState();
 }
 
 class _HealthCareCarouselState extends State<HealthCareCarousel> {
-  static const _slides = [
-    _CareCarouselSlide(
-      imagePath: AssetPaths.healthCarousel1,
-      headline: 'Your health,',
-      subline: 'tracked with accuracy',
-    ),
-    _CareCarouselSlide(
-      imagePath: AssetPaths.healthCarousel2,
-      headline: 'We love, We care,',
-      subline: 'our loved ones daily',
-    ),
-    _CareCarouselSlide(
-      imagePath: AssetPaths.healthCarousel3,
-      headline: "Parents' wellbeing,",
-      subline: 'nourished & nurtured',
-    ),
-  ];
+  static const _slides = AssetPaths.healthCarouselSlides;
 
   late final PageController _pageController;
   Timer? _autoPlayTimer;
@@ -73,18 +57,33 @@ class _HealthCareCarouselState extends State<HealthCareCarousel> {
             width: HealthCareCarousel.carouselWidth,
             height: HealthCareCarousel.carouselHeight,
             child: DsGlassCard(
-              borderRadius: 16,
+              borderRadius: AppSpacing.tabCardRadius,
               blurSigma: 20,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(AppSpacing.tabCardRadius),
                 child: PageView.builder(
                   controller: _pageController,
                   itemCount: _slides.length,
-                  onPageChanged: (index) => setState(() => _currentPage = index),
+                  onPageChanged: (index) =>
+                      setState(() => _currentPage = index),
                   itemBuilder: (context, index) {
-                    return _CareCarouselCard(
-                      slide: _slides[index],
-                      width: HealthCareCarousel.carouselWidth,
+                    return Image.asset(
+                      _slides[index],
+                      fit: BoxFit.cover,
+                      alignment: Alignment.center,
+                      filterQuality: FilterQuality.high,
+                      errorBuilder: (_, __, ___) => ColoredBox(
+                        color: const Color(0xFFF4F0FA),
+                        child: Center(
+                          child: Icon(
+                            Icons.image_outlined,
+                            color: const Color(
+                              0xFF583A8E,
+                            ).withValues(alpha: 0.35),
+                            size: 28,
+                          ),
+                        ),
+                      ),
                     );
                   },
                 ),
@@ -114,106 +113,4 @@ class _HealthCareCarouselState extends State<HealthCareCarousel> {
       ),
     );
   }
-}
-
-class _CareCarouselCard extends StatelessWidget {
-  const _CareCarouselCard({
-    required this.slide,
-    required this.width,
-  });
-
-  final _CareCarouselSlide slide;
-  final double width;
-
-  @override
-  Widget build(BuildContext context) {
-    final textWidth = width * HealthCareCarousel.textAreaFraction;
-
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        Image.asset(
-          slide.imagePath,
-          fit: BoxFit.cover,
-          alignment: Alignment.centerRight,
-          errorBuilder: (_, __, ___) => ColoredBox(
-            color: const Color(0xFFF4F0FA),
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: Icon(
-                Icons.image_outlined,
-                color: const Color(0xFF583A8E).withValues(alpha: 0.35),
-                size: 28,
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          left: 0,
-          top: 0,
-          bottom: 0,
-          width: textWidth,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  Colors.white.withValues(alpha: 0.72),
-                  Colors.white.withValues(alpha: 0.45),
-                  Colors.white.withValues(alpha: 0),
-                ],
-                stops: const [0, 0.65, 1],
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(12, 10, 4, 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    slide.headline,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w800,
-                      height: 1.15,
-                      letterSpacing: -0.2,
-                    ),
-                  ),
-                  Text(
-                    slide.subline,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w800,
-                      height: 1.15,
-                      letterSpacing: -0.2,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _CareCarouselSlide {
-  const _CareCarouselSlide({
-    required this.imagePath,
-    required this.headline,
-    required this.subline,
-  });
-
-  final String imagePath;
-  final String headline;
-  final String subline;
 }
